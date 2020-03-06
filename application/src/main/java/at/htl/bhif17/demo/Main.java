@@ -13,7 +13,6 @@ public class Main extends Application {
         var loader = new FXMLLoader(getClass().getResource("app.fxml"));
         loader.setControllerFactory(new ControllerFactory());
         Parent root = loader.load();
-        Controller controller = loader.getController();
         primaryStage.setTitle("JPA Demo");
         primaryStage.setScene(new Scene(root));
         primaryStage.sizeToScene();
