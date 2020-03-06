@@ -23,7 +23,7 @@ public class Controller {
         persons.stream().forEach(System.out::println);
     }
     public void click(ActionEvent __) {
-        var matNr = String.format("%5d", random.nextInt(9999) + 10000);
+        var matNr = String.format("%05d", random.nextInt(99999));
         var person = Person.builder().firstName("Engelbert").lastName("Breitfuß").matNr(matNr).build();
         dao.save(person);
         System.out.println("------");
