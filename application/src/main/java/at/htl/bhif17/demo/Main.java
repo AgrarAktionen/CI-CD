@@ -18,6 +18,9 @@ public class Main extends Application {
         primaryStage.sizeToScene();
         primaryStage.show();
     }
+    public static void main(String[] args) {
+        throw new RuntimeException("don't start that, use ApplicationLauncher!");
+    }
     public static void start(String[] args) {
         launch(args);
     }
