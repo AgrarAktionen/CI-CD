@@ -9,7 +9,10 @@ import javax.enterprise.event.Observes;
 
 @ApplicationScoped
 public class ApplicationLauncher {
-    public void main(@Observes ContainerInitialized event, @Parameters String[] args) {
+    public static void main(String[] args) {
+        org.jboss.weld.environment.se.StartMain.main(args);
+    }
+    public void start(@Observes ContainerInitialized event, @Parameters String[] args) {
         Main.start(args);
     }
 }
