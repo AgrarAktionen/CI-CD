@@ -3,7 +3,6 @@ package at.htl.bhif17.demo;
 import javafx.event.ActionEvent;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.Random;

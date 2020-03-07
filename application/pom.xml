@@ -4,12 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>db-demo</artifactId>
+    <groupId>at.aberger.tutorial</groupId>
+    <artifactId>javafx-cdi-jpa</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <properties>
-    </properties>
-
+    <properties/>
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -36,21 +34,17 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.12.Final</version>
         </dependency>
-
-
     </dependencies>
     <build>
-
-    <plugins>
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-            <release>11</release>
-        </configuration>
-    </plugin>
-    </plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
-
 </project>
