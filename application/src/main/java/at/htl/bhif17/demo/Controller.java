@@ -1,15 +1,18 @@
 package at.htl.bhif17.demo;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.Random;
 
-@ApplicationScoped
+@Dependent
 @Transactional
 public class Controller {
+    public Button button;
     Random random;
     @Inject PersonDao dao;
 
