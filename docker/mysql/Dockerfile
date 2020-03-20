@@ -7,4 +7,5 @@ RUN \
     ls -l /tmp/sql && \
     cp /tmp/sql/ddl.sql /docker-entrypoint-initdb.d/setup.sql && \
     cat /tmp/sql/data.sql >> /docker-entrypoint-initdb.d/setup.sql && rm -rf /tmp/sql/ && \
-    cat /docker-entrypoint-initdb.d/setup.sql
+    cat /docker-entrypoint-initdb.d/setup.sql && \
+    rm -rf /tmp/sql

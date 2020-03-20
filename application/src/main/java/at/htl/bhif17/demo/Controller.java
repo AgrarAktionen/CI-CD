@@ -3,6 +3,7 @@ package at.htl.bhif17.demo;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -17,8 +18,13 @@ public class Controller {
     @Inject PersonDao dao;
 
     public void initialize() {
+        System.out.println("initialize()");
         random = new Random();
         load();
+    }
+    @PostConstruct
+    void init() {
+        System.out.println("init()");
     }
     void load() {
         var persons = dao.getAll();
