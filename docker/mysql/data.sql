@@ -1,3 +1,6 @@
-INSERT INTO db.Person(LastName, FirstName, MatNr) VALUES('Doe', 'John', '1234');
-INSERT INTO db.Person(LastName, FirstName, MatNr) VALUES('Roe', 'Jane', '5678');
-INSERT INTO db.Person(LastName, FirstName, MatNr) VALUES('Sixpack', 'Joe', '9012');
+INSERT INTO School(name, street) values('HTL-Perg', 'Machlandstr. 48');
+
+INSERT INTO db.Person(LastName, FirstName, MatNr, school_id) VALUES('Doe', 'John', '1234', 1);
+INSERT INTO db.Person(LastName, FirstName, MatNr, school_id) VALUES('Roe', 'Jane', '5678', 1);
+INSERT INTO db.Person(LastName, FirstName, MatNr, school_id) VALUES('Sixpack', 'Joe', '9012', 1);
+

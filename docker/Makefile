@@ -14,4 +14,8 @@ clean:
 	echo "rmi..."
 	docker rmi -f $$(docker images -q)
 
-.PHONY: cleanall all stop
+dropdb:
+	$(MAKE) stop
+	docker volume rm docker_database
+
+.PHONY: cleanall all stop dropdb

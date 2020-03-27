@@ -1,10 +1,12 @@
 package at.htl.bhif17.demo;
 
+import at.htl.bhif17.demo.dao.PersonDao;
+import at.htl.bhif17.demo.dao.SchoolDao;
+import at.htl.bhif17.demo.model.Person;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -15,7 +17,8 @@ import java.util.Random;
 public class Controller {
     public Button button;
     Random random;
-    @Inject PersonDao dao;
+    @Inject PersonDao personDao;
+    @Inject SchoolDao schoolDao;
 
     public void initialize() {
         System.out.println("initialize()");
@@ -27,13 +30,14 @@ public class Controller {
         System.out.println("init()");
     }
     void load() {
-        var persons = dao.getAll();
-        persons.stream().forEach(System.out::println);
+        var school = schoolDao.findById(1);
+        System.out.println("school = " + school + " persons:" + school.getPersons().size());
+        school.getPersons().forEach(System.out::println);
     }
     public void click(ActionEvent __) {
         var matNr = String.format("%05d", random.nextInt(99999));
         var person = Person.builder().firstName("Engelbert").lastName("Breitfuß").matNr(matNr).build();
-        dao.save(person);
+        personDao.save(person);
         System.out.println("------");
         load();
     }

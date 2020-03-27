@@ -1,5 +1,4 @@
-package at.htl.bhif17.demo;
-import javafx.beans.property.SimpleStringProperty;
+package at.htl.bhif17.demo.model;
 
 import javax.persistence.*;
 
