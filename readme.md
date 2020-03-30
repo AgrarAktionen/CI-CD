@@ -15,7 +15,14 @@ To reset the project and clean the database run
 make clean
 ```
 
-Running
-===
+JavaFX
+---
+See the appliation subfolder
 
-You must start the application with the Main class at.ac.htl.util.ApplicationLauncher to get dependency Injection working
+Quarkus
+---
+See the appsrv subfolder
+
+www
+---
+see the www Subfolder for the javascript client
