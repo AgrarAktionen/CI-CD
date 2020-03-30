@@ -4,6 +4,7 @@ import at.htl.bhif17.demo.dao.SchoolDao;
 import at.htl.bhif17.demo.model.School;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Path("schools")
 @Produces(MediaType.APPLICATION_JSON)
+@Transactional
 public class SchoolEndpoint {
     @Inject SchoolDao schoolDao;
 

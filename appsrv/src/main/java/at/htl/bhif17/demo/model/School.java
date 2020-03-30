@@ -1,5 +1,8 @@
 package at.htl.bhif17.demo.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,7 +14,7 @@ public class School {
     private String name;
     private String street;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="school_id")
     private List<Person> persons;
 
