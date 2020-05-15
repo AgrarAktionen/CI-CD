@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "live-server": "^1.2.1"
+  },
+  "dependencies": {
+    "lit-html": "^1.2.1"
   }
 }
