@@ -19,9 +19,9 @@ JavaFX
 ---
 See the appliation subfolder
 
-Quarkus
+appsrv
 ---
-See the appsrv subfolder
+See the appsrv subfolder for how to use CDI in Quarkus
 
 www
 ---
