@@ -1,4 +1,4 @@
-FROM mysql:8
+FROM mysql:5
 
 RUN chown -R mysql:mysql /docker-entrypoint-initdb.d/
 RUN mkdir -p /tmp/sql
