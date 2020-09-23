@@ -10,11 +10,11 @@ public class School {
     private int id;
     private String name;
     private String street;
-
+/*
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="school_id")
     private List<Person> persons;
-
+*/
     public int getId() {
         return id;
     }
@@ -34,7 +34,7 @@ public class School {
     public void setName(String name) {
         this.name = name;
     }
-
+/*
     public List<Person> getPersons() {
         return persons;
     }
@@ -42,7 +42,7 @@ public class School {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-
+*/
     @Override
     public String toString() {
         return "School{" +
