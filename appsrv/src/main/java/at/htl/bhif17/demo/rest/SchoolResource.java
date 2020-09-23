@@ -15,7 +15,7 @@ import java.util.List;
 @Path("schools")
 @Produces(MediaType.APPLICATION_JSON)
 @Transactional
-public class SchoolEndpoint {
+public class SchoolResource {
     @Inject SchoolDao schoolDao;
 
     @GET
