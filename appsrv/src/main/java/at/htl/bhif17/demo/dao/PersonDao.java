@@ -23,4 +23,8 @@ public class PersonDao {
     public Person get(int id) {
         return em.find(Person.class, id);
     }
+
+    public void remove(Person person) {
+        em.remove(person);
+    }
 }
