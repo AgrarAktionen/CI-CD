@@ -27,7 +27,7 @@ console.log("processEnv=", shopEnv)
 console.log("options=", options, "isDevServer", IS_DEV_SERVER, "output_path=", OUTPUT_PATH, "appication server=", APPLICATION_SERVER)
 
 const entryPoints = [
-    { chunk: "main", entry: "index.html", src: "app/app.js" }
+    { chunk: "main", entry: "index.html", src: "view/app.js" }
 ]
 const entry = {}
 entryPoints.forEach(ep => {
@@ -97,7 +97,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                exclude: /(node_modules)/,
+                //exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -151,6 +151,11 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            Rest: resolve(__dirname, 'src/rest/'),
+            Lib: resolve(__dirname, 'src/lib/'),
+            Model: resolve(__dirname, 'src/model/')
+        }
     },
     devtool: 'cheap-source-map',
     devServer: {

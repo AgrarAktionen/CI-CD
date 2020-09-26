@@ -1,5 +1,5 @@
 import {render, html} from "lit-html"
-import "./school"
+import "./school/school"
 
 class Application extends HTMLElement {
     constructor() {

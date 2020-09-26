@@ -1,4 +1,6 @@
 import {html, render} from "lit-html"
+import {loadSchools} from "Rest/school/school-service"
+import {schoolObservable} from "Model/observables"
 
 let row = school => html`
     <tr>
@@ -22,25 +24,20 @@ let template = schools => html`
 class School extends HTMLElement {
     constructor() {
         super()
-        this.shadow = this.attachShadow({mode: 'open'})
+        this.attachShadow({mode: 'open'})
     }
     async connectedCallback() {
-        let schools = null
-        try {
-            schools = await this.loadSchools()
-            render(template(schools), this.shadow)
-        } catch(e) {
-            console.log("Exception", e)
-            alert(`Fehler: ${e.message}`)
-        }
+        schoolObservable
+            .map(school => school.schools)
+            .distinctUntilChanged()
+            .subscribe(schools => this.render(schools))
 
-        console.log("schools=", schools)
+        loadSchools()
     }
-    async loadSchools() {
-        const url = "http://localhost:8080/schools"
-        const response = await fetch(url)
-        const schools = await response.json()
-        return schools
+    render(schools) {
+        if (schools) {
+            render(template(schools), this.shadowRoot)
+        }
     }
 }
 function clicked(e) {
