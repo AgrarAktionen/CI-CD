@@ -1,4 +1,4 @@
-import {html, render} from 'https://unpkg.com/lit-html?module'
+import {html, render} from "lit-html"
 
 let row = school => html`
     <tr>
@@ -30,7 +30,7 @@ class School extends HTMLElement {
             schools = await this.loadSchools()
             render(template(schools), this.shadow)
         } catch(e) {
-            console.log("Exception gefangen", e)
+            console.log("Exception", e)
             alert(`Fehler: ${e.message}`)
         }
 
