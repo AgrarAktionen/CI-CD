@@ -154,7 +154,8 @@ module.exports = {
         alias: {
             Rest: resolve(__dirname, 'src/rest/'),
             Lib: resolve(__dirname, 'src/lib/'),
-            Model: resolve(__dirname, 'src/model/')
+            Model: resolve(__dirname, 'src/model/'),
+            Styles: resolve(__dirname, 'src/styles/')
         }
     },
     devtool: 'cheap-source-map',

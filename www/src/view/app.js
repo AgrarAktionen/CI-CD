@@ -1,5 +1,6 @@
 import {render, html} from "lit-html"
 import "./school/school"
+import styles from "Styles/styles"
 
 class Application extends HTMLElement {
     constructor() {
@@ -11,8 +12,11 @@ class Application extends HTMLElement {
     }
     template() {
         return html`
-            <h1>My First Application</h1>
-            <my-school></my-school>
+            ${styles}
+            <div class="w3-container">
+                <h1>Schools</h1>
+                <my-school></my-school>
+            </div>
         `
     }
     render() {
