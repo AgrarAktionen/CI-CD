@@ -3,9 +3,6 @@ import {schoolObservable} from "Model/observables"
 import {setCurrentSchool} from "../../model/school/school-action-creator"
 
 class SchoolTable extends HTMLTableElement {
-    constructor() {
-        super()
-    }
     async connectedCallback() {
         schoolObservable
             .map(school => school.schools)
