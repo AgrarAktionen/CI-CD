@@ -2,15 +2,9 @@ import {html, render} from "lit-html"
 import {loadSchools} from "Rest/school/school-service"
 import {schoolObservable} from "Model/observables"
 import styles from "Styles/styles"
+import {setCurrentSchool} from "../../model/school/school-action-creator";
 
-let row = school => html`
-    <tr>
-        <td>${school.id}</td><td>${school.name}</td>
-    </tr>
-`
-let rows = schools => schools.map(school =>row(school))
-
-class School extends HTMLElement {
+class SchoolTable extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({mode: 'open'})
@@ -31,6 +25,11 @@ class School extends HTMLElement {
     template(schools) {
         return html`
             ${styles}
+            <style>
+                .link {
+                    cursor: pointer
+                }
+            </style>
             <table class="w3-table-all w3-hoverable">
                 <thead>
                     <tr class="w3-light-grey">
@@ -45,16 +44,17 @@ class School extends HTMLElement {
     }
     row(school) {
         return html`
-            <tr @click=${e => this.schoolClicked(school, e)}>
+            <tr class="link" @click=${e => this.schoolClicked(school, e)}>
                 <td>${school.id}</td><td>${school.name}</td>
             </tr>
         `
     }
     schoolClicked(school, e) {
-        console.log("school selected", school)
+        console.log("school selected", school.id)
+        setCurrentSchool(school.id)
     }
 }
 function clicked(e) {
     console.log("clicked...")
 }
-customElements.define("my-school", School)
+customElements.define("school-table", SchoolTable)

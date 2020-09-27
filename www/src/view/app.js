@@ -1,5 +1,5 @@
 import {render, html} from "lit-html"
-import "./school/school"
+import "./school/school-table"
 import styles from "Styles/styles"
 
 class Application extends HTMLElement {
@@ -15,7 +15,7 @@ class Application extends HTMLElement {
             ${styles}
             <div class="w3-container">
                 <h1>Schools</h1>
-                <my-school></my-school>
+                <school-table></school-table>
             </div>
         `
     }

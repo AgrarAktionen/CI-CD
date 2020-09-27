@@ -1,2 +1,3 @@
 
 export const SET_SCHOOLS = "SET_SCHOOLS"
+export const SET_CURRENT_SCHOOL_ID = "SET_CURRENT_SCHOOL"

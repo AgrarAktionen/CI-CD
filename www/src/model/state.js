@@ -2,7 +2,7 @@
 const state = {
     school: {
         schools: [],
-        currentSchool: null, // id of current school
+        currentSchoolId: null, // id of current school
         persons: {} // map of schoolId to [person]
     },
     application: {
