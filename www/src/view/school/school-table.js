@@ -1,13 +1,10 @@
-import {html, render} from "lit-html"
 import {loadSchools} from "Rest/school/school-service"
 import {schoolObservable} from "Model/observables"
-import styles from "Styles/styles"
-import {setCurrentSchool} from "../../model/school/school-action-creator";
+import {setCurrentSchool} from "../../model/school/school-action-creator"
 
-class SchoolTable extends HTMLElement {
+class SchoolTable extends HTMLTableElement {
     constructor() {
         super()
-        this.attachShadow({mode: 'open'})
     }
     async connectedCallback() {
         schoolObservable
@@ -17,37 +14,39 @@ class SchoolTable extends HTMLElement {
 
         loadSchools()
     }
-    render(schools) {
-        if (schools) {
-            render(this.template(schools), this.shadowRoot)
+    clear() {
+        this.deleteTHead()
+        while (this.tBodies.length) {
+            this.tBodies[0].remove()
         }
     }
-    template(schools) {
-        return html`
-            ${styles}
-            <style>
-                .link {
-                    cursor: pointer
-                }
-            </style>
-            <table class="w3-table-all w3-hoverable">
-                <thead>
-                    <tr class="w3-light-grey">
-                        <th>Id</th><th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${schools.map(school => this.row(school))}
-                </tbody>
-            </table>
-        `
+    render(schools) {
+        this.clear()
+        this.classList.add("w3-table-all")
+        const caption = this.createCaption()
+        caption.innerText = "Schools"
+        caption.classList.add("w3-xlarge")
+        caption.classList.add("w3-light-blue")
+        const head = this.createTHead()
+        let row = head.insertRow()
+        row.insertCell().innerText = "Id"
+        row.insertCell().innerText = "Name"
+
+        if (!this.tBodies.length) {
+            this.createTBody()
+        }
+        const body = this.tBodies[0]
+        schools.map(school => this.insertRow(body, school))
     }
-    row(school) {
-        return html`
-            <tr class="link" @click=${e => this.schoolClicked(school, e)}>
-                <td>${school.id}</td><td>${school.name}</td>
-            </tr>
-        `
+    insertRow(body, school) {
+        const row = body.insertRow()
+        row.insertCell().innerText = school.id
+        row.insertCell().innerText = school.name
+        row.style = "cursor:pointer"
+        row.onclick = () => this.click(school)
+    }
+    click(school) {
+        console.log("clicked row", school)
     }
     schoolClicked(school, e) {
         console.log("school selected", school.id)
@@ -57,4 +56,4 @@ class SchoolTable extends HTMLElement {
 function clicked(e) {
     console.log("clicked...")
 }
-customElements.define("school-table", SchoolTable)
+customElements.define("school-table", SchoolTable, {extends: "table"})

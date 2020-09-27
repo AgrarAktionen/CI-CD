@@ -15,7 +15,7 @@ class Application extends HTMLElement {
             ${styles}
             <div class="w3-container">
                 <h1>Schools</h1>
-                <school-table></school-table>
+                <table is="school-table"></table>
             </div>
         `
     }
