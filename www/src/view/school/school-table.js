@@ -2,6 +2,7 @@ import {loadSchools} from "Rest/school/school-service"
 import {schoolObservable} from "Model/observables"
 import {setCurrentSchool} from "../../model/school/school-action-creator"
 
+
 class SchoolTable extends HTMLTableElement {
     async connectedCallback() {
         schoolObservable
@@ -12,7 +13,6 @@ class SchoolTable extends HTMLTableElement {
         loadSchools()
     }
     clear() {
-        this.deleteTHead()
         while (this.tBodies.length) {
             this.tBodies[0].remove()
         }
@@ -20,15 +20,8 @@ class SchoolTable extends HTMLTableElement {
     render(schools) {
         this.clear()
         this.classList.add("w3-table-all")
-        const caption = this.createCaption()
-        caption.innerText = "Schools"
-        caption.classList.add("w3-xlarge")
-        caption.classList.add("w3-light-blue")
-        const head = this.createTHead()
-        let row = head.insertRow()
-        row.insertCell().innerText = "Id"
-        row.insertCell().innerText = "Name"
-
+        this.caption.classList.add("w3-large")
+        this.caption.classList.add("w3-light-blue")
         if (!this.tBodies.length) {
             this.createTBody()
         }

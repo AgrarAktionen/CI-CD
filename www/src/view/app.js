@@ -15,7 +15,15 @@ class Application extends HTMLElement {
             ${styles}
             <div class="w3-container">
                 <h1>Schools</h1>
-                <table is="school-table"></table>
+                <table is="school-table" style="w3-table-all">
+                    <caption styles="w3-xlarge w3-light-blue">Schools</caption>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Schulnames</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         `
     }

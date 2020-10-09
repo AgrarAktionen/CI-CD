@@ -13,7 +13,7 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>1.8.0.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-        <compiler-plugin.version>3.8.0</compiler-plugin.version>
+        <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <docker-plugin.version>0.34.0</docker-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
