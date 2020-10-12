@@ -1,7 +1,5 @@
 package at.htl.bhif17.demo.model;
 
-import org.hibernate.annotations.Fetch;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,8 +13,8 @@ public class Person {
     private String matNr;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="school_id")
-    private School school;
+    @JoinColumn(name="course_id")
+    private Course course;
 
     public static Builder builder() {
         return new Builder();
@@ -66,11 +64,13 @@ public class Person {
     public void setMatNr(String matNr) {
         this.matNr = matNr;
     }
-    public School getSchool() {
-        return school;
+
+    public Course getCourse() {
+        return course;
     }
-    public void setSchool(School school) {
-        this.school = school;
+
+    public void setCourse(Course school) {
+        this.course = school;
     }
 
     @Override
