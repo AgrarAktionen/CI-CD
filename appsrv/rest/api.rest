@@ -8,3 +8,4 @@ Accept: application/json
 ###
 GET http://localhost:8080/api/school/2
 Accept: application/json
+

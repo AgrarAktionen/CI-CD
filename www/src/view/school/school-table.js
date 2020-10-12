@@ -27,7 +27,7 @@ class SchoolTable extends HTMLTableElement {
     }
     insertRow(body, school) {
         const row = body.insertRow()
-        row.insertCell().innerText = school.id
+        row.insertCell().innerText = `${school.id}`
         row.insertCell().innerText = school.name
         row.style = "cursor:pointer"
         row.onclick = () => this.click(school)

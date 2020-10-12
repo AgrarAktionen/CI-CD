@@ -24,10 +24,10 @@ const shopEnv = {
 }
 const OUTPUT_PATH = IS_DEV_SERVER ? resolve(__dirname, ".") : resolve('./dist/')
 console.log("processEnv=", shopEnv)
-console.log("options=", options, "isDevServer", IS_DEV_SERVER, "output_path=", OUTPUT_PATH, "appication server=", APPLICATION_SERVER)
+console.log("options=", options, "isDevServer", IS_DEV_SERVER, "output_path=", OUTPUT_PATH, "application server=", APPLICATION_SERVER)
 
 const entryPoints = [
-    { chunk: "main", entry: "index.html", src: "view/app.js" }
+    { chunk: "main", entry: "index.html", src: "view/index.js" }
 ]
 const entry = {}
 entryPoints.forEach(ep => {

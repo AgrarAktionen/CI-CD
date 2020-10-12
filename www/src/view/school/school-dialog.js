@@ -1,4 +1,4 @@
-import {render, html} from "lit-html"
+/*
 import {schoolObservable} from "Model/observables"
 import store from "Model/store"
 
@@ -14,3 +14,4 @@ class SchoolDialog extends HTMLElement {
         const school = store.getState().school.schools[schoolId]
     }
 }
+ */
