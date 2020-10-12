@@ -12,13 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("schools")
+@Path("school")
 @Produces(MediaType.APPLICATION_JSON)
 @Transactional
 public class SchoolResource {
     @Inject SchoolDao schoolDao;
 
     @GET
+    @Path("/")
     public List<School> all() {
         return schoolDao.all();
     }

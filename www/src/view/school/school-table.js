@@ -1,7 +1,6 @@
 import {loadSchools} from "Rest/school/school-service"
 import {schoolObservable} from "Model/observables"
-import {setCurrentSchool} from "../../model/school/school-action-creator"
-
+import {setCurrentSchool} from "Model/school/school-action-creator"
 
 class SchoolTable extends HTMLTableElement {
     async connectedCallback() {
@@ -12,6 +11,7 @@ class SchoolTable extends HTMLTableElement {
 
         loadSchools()
     }
+    /** remove all existing bodies for re-render */
     clear() {
         while (this.tBodies.length) {
             this.tBodies[0].remove()
@@ -19,9 +19,6 @@ class SchoolTable extends HTMLTableElement {
     }
     render(schools) {
         this.clear()
-        this.classList.add("w3-table-all")
-        this.caption.classList.add("w3-large")
-        this.caption.classList.add("w3-light-blue")
         if (!this.tBodies.length) {
             this.createTBody()
         }

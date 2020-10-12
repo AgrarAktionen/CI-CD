@@ -18,6 +18,7 @@ public class PersonResource {
     PersonDao personDao;
 
     @GET
+    @Path("/")
     public List<Person> all() {
         return personDao.getAll();
     }
