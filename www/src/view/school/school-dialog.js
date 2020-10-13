@@ -1,6 +1,6 @@
 import {schoolObservable} from "Model/observables"
 import store from "Model/store"
-import {findSchoolById} from "../../model/school/school-action-creator";
+import {findSchoolById} from "Model/school/school-action-creator"
 import styles from "Styles/styles"
 
 class SchoolDialog extends HTMLDivElement {
@@ -54,7 +54,7 @@ class SchoolDialog extends HTMLDivElement {
                 </div>
                 
                 <footer class="w3-container w3-teal">
-                    <p>TODO: Add edit fields and implement save</p>
+                    <p>TODO: Add edit field for name and implement save</p>
                 </footer>
             </div>
         `
