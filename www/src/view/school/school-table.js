@@ -1,6 +1,5 @@
 import {loadSchools} from "Rest/school/school-service"
 import {schoolObservable} from "Model/observables"
-import {setCurrentSchool} from "Model/school/school-action-creator"
 
 class SchoolTable extends HTMLTableElement {
     async connectedCallback() {
@@ -27,20 +26,16 @@ class SchoolTable extends HTMLTableElement {
     }
     insertRow(body, school) {
         const row = body.insertRow()
-        row.insertCell().innerText = `${school.id}`
+        row.insertCell().innerText = school.id
         row.insertCell().innerText = school.name
         row.style = "cursor:pointer"
-        row.onclick = () => this.click(school)
+        row.onclick = () => this.schoolClicked(school)
     }
-    click(school) {
-        console.log("clicked row", school)
-    }
-    schoolClicked(school, e) {
-        console.log("school selected", school.id)
-        setCurrentSchool(school.id)
+    schoolClicked(school) {
+        const event = new CustomEvent("school-selected", {bubbles: true, composed: true, detail: {school}})
+        console.log("raise event", event)
+        this.dispatchEvent(event)
     }
 }
-function clicked(e) {
-    console.log("clicked...")
-}
+
 customElements.define("school-table", SchoolTable, {extends: "table"})

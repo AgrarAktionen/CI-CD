@@ -7,9 +7,12 @@ export function setSchools(schools) {
         dispatch({type: SET_SCHOOLS, schools})
     })
 }
-export function setCurrentSchool(currentSchoolId) {
+export function setCurrentSchoolId(currentSchoolId) {
     return store.dispatch(async dispatch => {
         dispatch({type: SET_CURRENT_SCHOOL_ID, currentSchoolId})
     })
 }
-
+export function findSchoolById(schoolId) {
+    const school = store.getState().school.schools.find(school => school.id == schoolId)
+    return school
+}
