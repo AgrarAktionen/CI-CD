@@ -7,5 +7,6 @@ Running
 
 Start with
 ```bash
-mvn clean quarkus:dev
+mvn clean quarkus:dev -Dquarkus.profile=dev
+
 ```
