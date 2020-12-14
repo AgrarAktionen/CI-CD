@@ -1,40 +1,40 @@
 package at.htl.bhif17.demo.model;
 
-import javax.persistence.*;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Course {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="school_id")
-    private School school;
+    @OneToMany
+    private List<Person> persons;
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public School getSchool() {
-        return school;
+    @JsonbTransient
+    public List<Person> getPersons() {
+        return persons;
     }
-
-    public void setSchool(School school) {
-        this.school = school;
+    @JsonbTransient
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 }

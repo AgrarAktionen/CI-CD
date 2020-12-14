@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Schools - API</title>
+    <title>School - API</title>
     <style>
         table, td, th {
             border: 1px solid black;
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="/api/person/{id}">/api/person/{id}</a>
+                    <a href="/api/person/1">/api/person/{id}</a>
                 </td>
                 <td>
                     GET
@@ -64,7 +64,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="/api/person/{id}">/api/person/{id}</a>
+                    <a href="/api/person/1">/api/person/{id}</a>
                 </td>
                 <td>
                     DELETE
@@ -78,7 +78,21 @@
             </tr>
             <tr>
                 <td>
-                    <a href="/api/schools">/api/schools</a>
+                    <a href="/api/person/download">/api/person/download</a>
+                </td>
+                <td>
+                    GET
+                </td>
+                <td>
+                    download aller Personen als text im toString() format
+                </td>
+                <td>
+                    -
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="/api/school">/api/school</a>
                 </td>
                 <td>
                     GET
@@ -92,7 +106,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="/api/schools/{id}">/api/schools/{id}</a>
+                    <a href="/api/school/1">/api/school/{id}</a>
                 </td>
                 <td>
                     GET
