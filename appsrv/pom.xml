@@ -8,10 +8,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <quarkus-plugin.version>1.8.0.Final</quarkus-plugin.version>
+        <quarkus-plugin.version>1.10.3.Final</quarkus-plugin.version>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>1.8.0.Final</quarkus.platform.version>
+        <quarkus.platform.version>1.10.3.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <docker-plugin.version>0.34.0</docker-plugin.version>
@@ -97,6 +97,13 @@
                     </systemProperties>
                 </configuration>
             </plugin>
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/versions-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.8.1</version>
+            </plugin>
+
             <plugin>
                 <!-- This is what injects the magic Quarkus bytecode -->
                 <groupId>io.quarkus</groupId>
