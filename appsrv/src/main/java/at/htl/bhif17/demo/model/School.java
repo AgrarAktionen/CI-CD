@@ -1,11 +1,9 @@
 package at.htl.bhif17.demo.model;
 
-import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-import javax.persistence.*;
-import java.util.List;
-
-@Data
 @Entity
 public class School {
     @Id
@@ -14,6 +12,27 @@ public class School {
     private String name;
     private String street;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    private List<Course> courses;
+    public int getId() {    
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
 }

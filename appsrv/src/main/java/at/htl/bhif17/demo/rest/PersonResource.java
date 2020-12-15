@@ -2,7 +2,6 @@ package at.htl.bhif17.demo.rest;
 
 import at.htl.bhif17.demo.dao.PersonDao;
 import at.htl.bhif17.demo.model.Person;
-import lombok.SneakyThrows;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
