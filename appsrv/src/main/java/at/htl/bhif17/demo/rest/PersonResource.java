@@ -2,8 +2,6 @@ package at.htl.bhif17.demo.rest;
 
 import at.htl.bhif17.demo.dao.PersonDao;
 import at.htl.bhif17.demo.model.Person;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -22,7 +20,6 @@ public class PersonResource {
     PersonDao personDao;
 
     @GET
-    @Path("/")
     public List<Person> all() {
         return personDao.getAll();
     }
@@ -33,8 +30,6 @@ public class PersonResource {
     }
     @PUT
     public Response addPerson(Person person) {
-        //var school = schoolDao.findById(person.getSchool().getId());
-        //person.setSchool(school);
         personDao.save(person);
         return Response.ok(person).status(Response.Status.CREATED).build();
     }
@@ -47,16 +42,17 @@ public class PersonResource {
     }
     @GET
     @Path("/download")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response downloadAllPersons() {
-        System.out.println("send persons...");
-
-        var home = System.getProperty("user.home");
-        var homeDirectory = new File(home);
-        var deskTop = new File(homeDirectory, "Desktop");
-        var testFile = new File(deskTop, "test.txt");
         var persons = personDao.getAll();
-        //TODO: write persons to a testFile as a .csv file and send it as a response.
-        return Response.ok(testFile).build();
+        var output = new StreamingOutput() {
+            @Override
+            public void write(OutputStream outputStream) {
+                try (var writer = new PrintWriter(outputStream)) {
+                    persons.stream().forEach(writer::println);
+                }
+            }
+        };
+        return Response.ok(output).header("Content-Disposition", "attachment; filename=\"persons.txt\"").build();
     }
 }

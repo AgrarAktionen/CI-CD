@@ -1,4 +1,7 @@
 all:
 	mvn clean compile quarkus:dev -Dquarkus.profile=dev
 
-.PHONY: all
+clean:
+	rm -rf target/ .idea application-server.iml
+
+.PHONY: all clean

@@ -5,27 +5,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const webpack = require('webpack')
 const commandLineArgs = require("command-line-args")
 
-const pkg = require('./package.json')
-
-// parse the command line of the npm build command:
-const options = commandLineArgs([
-    { name: "application-server", alias: 'a', type: String },
-    { name: "debug", alias: 'd', type: String, defaultValue: false }
-])
-const IS_DEV_SERVER = !!process.argv.find(arg => arg.includes('webpack-dev-server'))
-const isDebug = IS_DEV_SERVER || options["debug"]
-const ENV = isDebug ? "development" : "production"
-
-const APPLICATION_SERVER = options["application-server"]
-const shopEnv = {
-    NODE_ENV: JSON.stringify(ENV),
-    appVersion: JSON.stringify(pkg.version),
-    APPLICATION_SERVER: JSON.stringify(APPLICATION_SERVER),
-}
-const OUTPUT_PATH = IS_DEV_SERVER ? resolve(__dirname, ".") : resolve('./dist/')
-console.log("processEnv=", shopEnv)
-console.log("options=", options, "isDevServer", IS_DEV_SERVER, "output_path=", OUTPUT_PATH, "application server=", APPLICATION_SERVER)
-
 const entryPoints = [
     { chunk: "main", entry: "index.html", src: "view/index.js" }
 ]
@@ -33,6 +12,8 @@ const entry = {}
 entryPoints.forEach(ep => {
     entry[ep.chunk] = "./src/" + ep.src
 })
+const IS_DEV_SERVER = true
+const OUTPUT_PATH = IS_DEV_SERVER ? resolve(__dirname, ".") : resolve('./dist/')
 
 const htmlWebpackPlugins = entryPoints.map(ep =>
     new HtmlWebpackPlugin({
@@ -49,17 +30,16 @@ const plugins = [
         filename: '[name]-[contenthash].css',
         chunkFilename: '/[id].css',
     }),
-    new CleanWebpackPlugin({ verbose: true }),
-    new webpack.DefinePlugin({ 'process.env': shopEnv })
+    new CleanWebpackPlugin({ verbose: true })
 ]
 module.exports = {
-    mode: ENV,
+    mode: "development",
     entry,
     plugins,
     output: {
         path: resolve(__dirname, 'dist'),
-        filename: "[name]-[hash].js",
-        chunkFilename: '[name]-[hash].bundle.js',
+        filename: "[name]-[contenthash].js",
+        chunkFilename: '[name]-[contenthash].bundle.js',
         publicPath: "/"
     },
     module: {
@@ -74,8 +54,6 @@ module.exports = {
                 test: /\.scss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    //isDebug ? "style-loader" : MiniCssExtractPlugin.loader,
-                    //"style-loader",
                     "css-loader",
                     "sass-loader"
                 ]
