@@ -1,6 +1,6 @@
-package at.htl.bhif17.demo.dao;
+package at.htl.quarkus.demo.dao;
 
-import at.htl.bhif17.demo.model.School;
+import at.htl.quarkus.demo.model.School;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;

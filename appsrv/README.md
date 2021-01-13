@@ -5,8 +5,5 @@ The Application Server with the same JPA Entities and Data Access Objects.
 Running
 ===
 
-Start with
-```bash
-mvn clean quarkus:dev -Dquarkus.profile=dev
+There is a class Main in the at.htl.quarkus.demo package. Create a Java Application Project and use this file as the main class.
 
-```

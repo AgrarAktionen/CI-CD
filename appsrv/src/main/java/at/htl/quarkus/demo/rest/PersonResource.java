@@ -1,7 +1,7 @@
-package at.htl.bhif17.demo.rest;
+package at.htl.quarkus.demo.rest;
 
-import at.htl.bhif17.demo.dao.PersonDao;
-import at.htl.bhif17.demo.model.Person;
+import at.htl.quarkus.demo.dao.PersonDao;
+import at.htl.quarkus.demo.model.Person;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -21,7 +21,11 @@ public class PersonResource {
 
     @GET
     public List<Person> all() {
-        return personDao.getAll();
+        assert personDao != null;
+
+        var persons = personDao.getAll();
+
+        return persons;
     }
     @GET
     @Path("/{id}")

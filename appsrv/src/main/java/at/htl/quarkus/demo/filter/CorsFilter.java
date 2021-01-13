@@ -1,4 +1,4 @@
-package at.htl.bhif17.demo.filter;
+package at.htl.quarkus.demo.filter;
 
 import java.io.IOException;
 

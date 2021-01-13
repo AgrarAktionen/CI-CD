@@ -1,4 +1,4 @@
-package at.htl.bhif17.demo.model;
+package at.htl.quarkus.demo.model;
 
 import javax.persistence.*;
 

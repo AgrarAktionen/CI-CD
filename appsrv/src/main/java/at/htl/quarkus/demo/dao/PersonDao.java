@@ -1,11 +1,12 @@
-package at.htl.bhif17.demo.dao;
+package at.htl.quarkus.demo.dao;
 
-import at.htl.bhif17.demo.model.Person;
+import at.htl.quarkus.demo.model.Person;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Named
@@ -17,7 +18,7 @@ public class PersonDao {
     public List<Person> getAll() {
         return em.createQuery("select p from Person p order by p.lastName, p.firstName, p.matNr", Person.class).getResultList();
     }
-    public Person save(Person person) {
+    public Person save(@NotNull Person person) {
         return em.merge(person);
     }
     public Person get(int id) {

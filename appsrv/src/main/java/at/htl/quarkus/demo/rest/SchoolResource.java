@@ -1,7 +1,7 @@
-package at.htl.bhif17.demo.rest;
+package at.htl.quarkus.demo.rest;
 
-import at.htl.bhif17.demo.dao.SchoolDao;
-import at.htl.bhif17.demo.model.School;
+import at.htl.quarkus.demo.dao.SchoolDao;
+import at.htl.quarkus.demo.model.School;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -16,7 +16,8 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Transactional
 public class SchoolResource {
-    @Inject SchoolDao schoolDao;
+    @Inject
+    SchoolDao schoolDao;
 
     @GET
     @Path("/")

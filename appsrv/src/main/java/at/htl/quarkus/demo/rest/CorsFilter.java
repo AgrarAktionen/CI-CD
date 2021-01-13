@@ -1,4 +1,4 @@
-package at.htl.bhif17.demo.rest;
+package at.htl.quarkus.demo.rest;
 import java.io.IOException;
 
 import javax.ws.rs.container.ContainerRequestContext;
