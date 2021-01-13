@@ -15,14 +15,15 @@ To reset the project and clean the database run
 make clean
 ```
 
-JavaFX
----
-See the appliation subfolder
-
 appsrv
----
-See the appsrv subfolder for how to use CDI in Quarkus
+===
+This is the application server
+See the [appsrv](./appsrv/README.md) subfolder for how to use CDI in Quarkus
 
 www
----
+===
 see the www Subfolder for the javascript client
+
+JavaFX
+===
+See the appliation subfolder. This application is out of date, contributions welcome!

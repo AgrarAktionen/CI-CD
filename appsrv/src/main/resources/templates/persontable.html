@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Table of {persons.size()} persons</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .center {
+            margin: 16px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-container w3-card-4 center" style="max-width: 600px">
+        <table class="w3-table w3-striped w3-border w3-bordered center">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#for person in persons}
+                    <tr>
+                        <td>{person.firstName}</td>
+                        <td>{person.lastName}</td>
+                    </tr>
+                {/for}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
