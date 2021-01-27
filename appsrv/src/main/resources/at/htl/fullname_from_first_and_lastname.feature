@@ -1,5 +1,5 @@
 Feature: Build the full name of a Person from first name and last name
-  Jeder muss immer den Namen überall formatieren, wenn er ihn anzeigen will.
+  Jeder muss immer sonst überall selbst den Namen formatieren, wenn er ihn anzeigen will.
 
   Scenario: Firstname and Lastname gives fullname
     Given a person
