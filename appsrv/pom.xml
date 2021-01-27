@@ -25,6 +25,18 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <version>6.9.1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>6.9.1</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -71,6 +83,17 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-qute</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>

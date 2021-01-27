@@ -46,6 +46,15 @@ public class Person {
         this.matNr = matNr;
     }
 
+    public String fullName() {
+        var sb = new StringBuilder();
+        if (firstName != null) {
+            sb.append(firstName);
+            sb.append(" ");
+        }
+        sb.append(lastName);
+        return sb.toString();
+    }
     @Override
     public String toString() {
         return "Person{" +
