@@ -3,9 +3,12 @@ package at.htl.quarkus.demo.model;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.junit.Cucumber;
+import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@RunWith(Cucumber.class)
 public class PersonTest {
     Person person;
     String fullName;
