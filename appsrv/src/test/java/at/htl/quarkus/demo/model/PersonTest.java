@@ -3,12 +3,9 @@ package at.htl.quarkus.demo.model;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.junit.Cucumber;
-import org.junit.runner.RunWith;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
-@RunWith(Cucumber.class)
 public class PersonTest {
     Person person;
     String fullName;
@@ -29,13 +26,6 @@ public class PersonTest {
     public void i_ask_for_the_full_name() {
         fullName = person.fullName();
     }
-    /*
-    @Then("I should be told {fullName}")
-    public void i_should_be_told(String fullName) {
-        assertEquals(fullName, this.fullName);
-    }
-
-     */
     @Then("I should be told {string}")
     public void i_should_be_told(String string) {
         assertEquals(string, this.fullName);
