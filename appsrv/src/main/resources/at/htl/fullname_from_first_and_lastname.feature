@@ -1,4 +1,4 @@
-Feature: The full name made of first and last name correct?
+Feature: Build the full name of a Person from first name and last name
   Jeder muss immer den Namen überall formatieren, wenn er ihn anzeigen will.
 
   Scenario: Firstname and Lastname gives fullname
