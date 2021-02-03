@@ -1,7 +1,14 @@
 package at.htl.quarkus.demo.model;
 
-import javax.persistence.*;
+import lombok.Data;
+import lombok.Generated;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Data
 @Entity
 public class Person {
     @Id
@@ -14,63 +21,17 @@ public class Person {
     @ManyToOne
     private Course course;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMatNr() {
-        return matNr;
-    }
-
-    public void setMatNr(String matNr) {
-        this.matNr = matNr;
-    }
-
     public String fullName() {
         var sb = new StringBuilder();
         if (firstName != null) {
             sb.append(firstName);
-            sb.append(" ");
         }
-        sb.append(lastName);
+        if (lastName != null) {
+            if (sb.length() > 0) {
+                sb.append(" ");
+            }
+            sb.append(lastName);
+        }
         return sb.toString();
-    }
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", matNr='" + matNr + '\'' +
-                ", course=" + course +
-                '}';
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
     }
 }
