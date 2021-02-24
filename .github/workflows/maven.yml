@@ -33,7 +33,7 @@ jobs:
         ssh-private-key: ${{ secrets.BUILDACTION }}
     - name: add to known_hosts
       run: |
-        ssh-keyscan -H -t rsa staging.key.fit  >> ~/.ssh/known_hosts
+        ssh-keyscan -H -t rsa o.aberger.at  >> ~/.ssh/known_hosts
         ssh ubuntu@o.aberger.at ls -l
     - name: Build with Maven
       run: mvn -B package
