@@ -40,5 +40,5 @@ jobs:
 
     - name: Deploy to server
       run: |
-        scp target/application-server-0.5.0-distribution.zip ubuntu@o.aberger.at:
+        scp appsrv/target/application-server-0.5.0-distribution.zip ubuntu@o.aberger.at:
 
