@@ -37,3 +37,8 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package
+
+    -name: Deploy to server
+      run: |
+        scp target/application-server-0.5.0-distribution.zip ubuntu@o.aberger.at:
+
