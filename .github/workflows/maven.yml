@@ -49,11 +49,12 @@ jobs:
       run: |
         docker-compose build
 
-    - name: Upload docker images to LeoCloud        
+    - name: Upload docker images to LeoCloud  
+      run: |      
         docker tag docker_db registry.l.aberger.at/caberger/mysqldb:8
         docker push registry.l.aberger.at/caberger/mysqldb:8
 
-    - name: Deploy to server
+    - name: Demo only - uplaod to a "classic" to server
       run: |
         scp appsrv/target/application-server-0.5.0-distribution.zip ubuntu@o.aberger.at:
 
