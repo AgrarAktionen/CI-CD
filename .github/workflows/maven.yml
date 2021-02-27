@@ -38,6 +38,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
 
+    - name: Build docker images
+      run: docker-compose build
+      working-directory: docker
+
     - name: Deploy to server
       run: |
         scp appsrv/target/application-server-0.5.0-distribution.zip ubuntu@o.aberger.at:
