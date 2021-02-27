@@ -39,7 +39,10 @@ jobs:
       run: mvn -B package
 
     - name: Build docker images
-      run: docker-compose build
+      run: |
+        docker-compose build
+        docker tag docker_db registry.l.aberger.at/c.aberger/mysqldb:8
+        docker image ls
       working-directory: docker
 
     - name: Deploy to server
