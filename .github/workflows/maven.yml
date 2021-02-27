@@ -55,7 +55,9 @@ jobs:
         docker tag docker_db registry.l.aberger.at/caberger/mysqldb:8
         docker push registry.l.aberger.at/caberger/mysqldb:8
 
-    - name: Demo only - upload to a "classic" to server
+    - name: Demo only - upload to a "classic" root server
       run: |
-        scp appsrv/target/application-server-0.5.0-distribution.zip ubuntu@o.aberger.at:
+        scp application-server-*runner.jar ubuntu@o.aberger.at:
+        scp -r lib/ ubuntu@o.aberger.at:
+      working-directory: appsrv/target
 
