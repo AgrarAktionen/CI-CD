@@ -48,9 +48,10 @@ jobs:
     - name: Build docker images
       run: |
         docker-compose build
+
+    - name: Upload docker images to LeoCloud        
         docker tag docker_db registry.l.aberger.at/caberger/mysqldb:8
         docker push registry.l.aberger.at/caberger/mysqldb:8
-      working-directory: docker
 
     - name: Deploy to server
       run: |
