@@ -6,14 +6,19 @@
   <artifactId>jakarta-app</artifactId>
   <version>0.5.0</version>
   <packaging>pom</packaging>
+
   <properties>
+    <global.version>0.5.0</global.version>
   </properties>
+
   <dependencyManagement>
   </dependencyManagement>
   <dependencies>
   </dependencies>
   <modules>
     <module>appsrv</module>
+    <module>docker</module>
+    <module>distribution</module>
   </modules>
   <build>
     <pluginManagement>

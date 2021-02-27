@@ -48,7 +48,7 @@ jobs:
     - name: Build docker images
       run: |
         docker-compose build
-      working-directory: docker
+      working-directory: distribution/target/distribution-0.5.0-dist/docker
 
     - name: Upload docker images to LeoCloud  
       run: |      

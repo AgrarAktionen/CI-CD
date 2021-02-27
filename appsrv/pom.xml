@@ -7,12 +7,10 @@
     <artifactId>jakarta-app</artifactId>
     <version>0.5.0</version>
   </parent>
-  <groupId>at.ac.htl.demo</groupId>
   <artifactId>application-server</artifactId>
-  <version>0.5.0</version>
   <properties>
     <cucumber.version>6.8.1</cucumber.version>
-    <junit.version>4.13</junit.version>
+    <junit.version>4.13.2</junit.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <docker-plugin.version>0.34.0</docker-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -151,24 +149,6 @@
             <phase>prepare-package</phase>
             <goals>
               <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>${project.basedir}/assembly/assembly.xml</descriptor>
-          </descriptors>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
             </goals>
           </execution>
         </executions>
