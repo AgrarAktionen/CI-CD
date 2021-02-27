@@ -33,8 +33,9 @@ jobs:
     # Pull the latest image to build, and avoid caching pull-only images.
     # (docker pull is faster than caching in most cases.)
     - name: get pull-only images
-      run: docker-compose pull
-      working-directory: distribution/target/distribution-0.5.0-dist/docker
+      run: |
+        docker pull mysql:0
+        docker pull openjdk:14
 
     # In this step, this action saves a list of existing images,
     # the cache is created without them in the post run.
@@ -46,7 +47,8 @@ jobs:
 
     - name: Build docker images
       run: |
-        docker-compose build
+        docker build mysql --tag registry.l.aberger.at/caberger/mysql:8
+        docker build appsrv --tag registry.l.aberger.at/caberger/appsrv:latest
       working-directory: distribution/target/distribution-0.5.0-dist/docker
 
     - name: Login to LeoCloud
@@ -58,8 +60,8 @@ jobs:
 
     - name: Upload docker images to LeoCloud  
       run: |      
-        docker tag docker_db registry.l.aberger.at/caberger/mysqldb:8
         docker push registry.l.aberger.at/caberger/mysqldb:8
+        docker push registry.l.aberger.at/caberger/appsrv:latest
 
     - name: install ssh key
       uses: webfactory/ssh-agent@v0.4.1
