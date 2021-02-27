@@ -38,11 +38,18 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
 
+    - name: Login to LeoCloud
+        uses: docker/login-action@v1
+        with:
+          registry: registry.l.aberger.at
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.LEOCLOUD_REGISTRY_PASSWORD }}
+
     - name: Build docker images
       run: |
         docker-compose build
-        docker tag docker_db registry.l.aberger.at/c.aberger/mysqldb:8
-        docker image ls
+        docker tag docker_db registry.l.aberger.at/caberger/mysqldb:8
+        docker push registry.l.aberger.at/caberger/mysqldb:8
       working-directory: docker
 
     - name: Deploy to server
