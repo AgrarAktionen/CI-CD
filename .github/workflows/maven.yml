@@ -34,7 +34,7 @@ jobs:
     # (docker pull is faster than caching in most cases.)
     - name: get pull-only images
       run: |
-        docker pull mysql:0
+        docker pull mysql:8
         docker pull openjdk:14
 
     # In this step, this action saves a list of existing images,
