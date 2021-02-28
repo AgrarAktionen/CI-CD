@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: demo
+  labels:
+    app: jee
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: nginx
+  template:
+    metadata:
+      labels:
+        app: jee
+        component: nginx
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: nginx
+          image: nginx:stable
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http

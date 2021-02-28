@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jee
+  namespace: demo
+  labels:
+    app: jee
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jee
+  template:
+    metadata:
+      labels:
+        app: jee
+    spec:
+      containers:
+      - name: appsrv
+        image: registry.l.aberger.at/caberger/appsrv:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+            name: appsrv
+      - name: nginx
+        image: nginx:stable
+        imagePullPolicy: Always        
+        ports:
+          - containerPort: 80
+            hostPort: 80
+            name: http
+        volumeMounts:
+          - name: nginx-conf
+            mountPath: /etc/nginx
+            readOnly: true
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf # place ConfigMap `nginx-conf` on /etc/nginx
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+      imagePullSecrets:
+        - name: leocloudcredentials        
+
