@@ -1,7 +1,4 @@
 const DEVELOPMENT_SERVER = "http://localhost:4000"
-const commandLineParameters = {
-    APPLICATION_SERVER: "application-server"
-}
 
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -17,14 +14,12 @@ const options = env => {
     return {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
-        APPLICATION_SERVER: env[commandLineParameters.APPLICATION_SERVER] ? env[commandLineParameters.APPLICATION_SERVER] : DEVELOPMENT_SERVER,
         OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, './target/')
     }
 }
 const environment = opts => ({
     NODE_ENV: opts.ENV,
-    appVersion: packageJson.version,
-    APPLICATION_SERVER: opts.APPLICATION_SERVER,
+    appVersion: packageJson.version
 })
 const entryPoints = [
     { chunk: "main", entry: "index.html", src: "view/index.js" }
@@ -65,7 +60,7 @@ module.exports = env => {
         entry,
         plugins: plugins(opts),
         output: {
-            path: resolve(__dirname, 'dist'),
+            path: resolve(__dirname, 'target'),
             filename: "[name]-[contenthash].js",
             chunkFilename: '[name]-[contenthash].bundle.js',
             publicPath: "/"

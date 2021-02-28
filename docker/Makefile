@@ -1,13 +1,10 @@
 SHELL=/bin/bash
 
 all:
-	docker-compose up --build
-
-build: 
-	docker-compose build
+	docker-compose -f docker-compose-dev.yml up --build
 
 stop:
-	docker-compose down
+	docker-compose -f docker-compse-dev.yml down
 
 clean:
 	$(MAKE) stop || echo "not running"
@@ -16,11 +13,6 @@ clean:
 	docker volume prune --force
 	echo "rmi..."
 	docker rmi -f $$(docker images -q)
-
-deploy:
-	$(MAKE) build
-	docker tag mysql:8 registry.l.aberger.at/caberger/mysql:8
-	docker push registry.l.aberger.at/caberger/mysql:8
 
 dropdb:
 	$(MAKE) stop
