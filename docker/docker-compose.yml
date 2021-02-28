@@ -1,22 +1,39 @@
 version: '3.3'
 services:
-  db:
+  mysql:
     build:
       context: ./mysql
     restart: always
     environment:
       MYSQL_DATABASE: 'db'
-      # So you don't have to use root, but you can if you like
       MYSQL_USER: 'user'
-      # You can use whatever password you like
       MYSQL_PASSWORD: 'password'
-      # Password for root access
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      - '3306:3306'
+      - 3306:3306
     expose:
-      - '3306'
+      - 3306
     volumes:
-      - database:/var/lib/mysql
+      - database:/var/lib/
+  nginx:
+    build:
+      context: ./nginx
+    restart: always
+    ports:
+      - 4000:80
+    expose:
+      - 4000
+    depends_on:
+      - appsrv
+  appsrv:
+    build:
+      context: ./appsrv
+    restart: always
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    depends_on:
+      - mysql
 volumes:
   database:

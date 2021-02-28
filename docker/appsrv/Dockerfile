@@ -7,5 +7,5 @@ COPY scripts/* /deployments/
 RUN sed -e 's/\r$//' -i /deployments/*.sh && chmod +x /deployments/*.sh
 
 EXPOSE 8080
-
-ENTRYPOINT ["/deployments/run.sh"]
+WORKDIR /deployments
+ENTRYPOINT ["./run.sh"]

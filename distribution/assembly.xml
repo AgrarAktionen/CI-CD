@@ -30,6 +30,14 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../docker/nginx</directory>
+            <includes>
+                <include>Dockerfile</include>
+                <include>default.conf</include>
+                <include>html</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../appsrv/target</directory>
             <outputDirectory>../docker/appsrv/deployments</outputDirectory>
             <includes>
@@ -39,7 +47,7 @@
         </fileSet>
         <fileSet>
             <directory>../www/target</directory>
-            <outputDirectory>../docker/www/deployments</outputDirectory>
+            <outputDirectory>../docker/nginx/html</outputDirectory>
             <includes>
                 <include>*</include>
             </includes>

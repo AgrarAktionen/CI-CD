@@ -4,7 +4,7 @@ all:
 	docker-compose -f docker-compose-dev.yml up --build
 
 stop:
-	docker-compose -f docker-compse-dev.yml down
+	docker-compose -f docker-compose-dev.yml down
 
 clean:
 	$(MAKE) stop || echo "not running"
