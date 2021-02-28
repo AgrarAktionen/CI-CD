@@ -1,10 +1,31 @@
+const DEVELOPMENT_SERVER = "http://localhost:4000"
+const commandLineParameters = {
+    APPLICATION_SERVER: "application-server"
+}
+
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpack = require('webpack')
-const commandLineArgs = require("command-line-args")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
+const webpack = require('webpack')
+const packageJson = require('./package.json')
+
+const options = env => {
+    const isDebug =  env.debug === "true"
+    return {
+        isDebug,
+        ENV: isDebug ? 'development' : 'production',
+        APPLICATION_SERVER: env[commandLineParameters.APPLICATION_SERVER] ? env[commandLineParameters.APPLICATION_SERVER] : DEVELOPMENT_SERVER,
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, './target/')
+    }
+}
+const environment = opts => ({
+    NODE_ENV: opts.ENV,
+    appVersion: packageJson.version,
+    APPLICATION_SERVER: opts.APPLICATION_SERVER,
+})
 const entryPoints = [
     { chunk: "main", entry: "index.html", src: "view/index.js" }
 ]
@@ -12,9 +33,6 @@ const entry = {}
 entryPoints.forEach(ep => {
     entry[ep.chunk] = "./src/" + ep.src
 })
-const IS_DEV_SERVER = true
-const OUTPUT_PATH = IS_DEV_SERVER ? resolve(__dirname, ".") : resolve('./dist/')
-
 const htmlWebpackPlugins = entryPoints.map(ep =>
     new HtmlWebpackPlugin({
         compile: false,
@@ -23,141 +41,152 @@ const htmlWebpackPlugins = entryPoints.map(ep =>
         filename: ep.entry
     })
 )
-
-const plugins = [
-    ...htmlWebpackPlugins,
-    new MiniCssExtractPlugin({
-        filename: '[name]-[contenthash].css',
-        chunkFilename: '/[id].css',
-    }),
-    new CleanWebpackPlugin({ verbose: true })
-]
-module.exports = {
-    mode: "development",
-    entry,
-    plugins,
-    output: {
-        path: resolve(__dirname, 'dist'),
-        filename: "[name]-[contenthash].js",
-        chunkFilename: '[name]-[contenthash].bundle.js',
-        publicPath: "/"
-    },
-    module: {
-        rules: [
-            {
-                test: /\.html$/,
-                use: [
-                    "html-loader",
-                ]
-            },
-            {
-                test: /\.scss$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
-                ]
-            },
-            {
-                test: /\.css$/i,
-                use: [
-                    "style-loader",
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            sourceMap: true,
-                            importLoader: 2
-                        }
-                    },
-                    "sass-loader"
-                ]
-            },
-            {
-                test: /\.js$/,
-                //exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [[
-                            '@babel/preset-env',
-                            {
-                                targets: {
-                                    browsers: [
-                                        // Best practice: https://github.com/babel/babel/issues/7789
-                                        '>=1%',
-                                        'not ie 11',
-                                        'not op_mini all'
-                                    ]
-                                },
-                                debug: false
+const plugins = opts => {
+    const env = environment(opts)
+    console.log("environment=", env)    
+    return [
+        ...htmlWebpackPlugins,
+        new MiniCssExtractPlugin({
+            filename: '[name]-[contenthash].css',
+            chunkFilename: '/[id].css',
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {from: "images", to: "images"}
+            ]
+        }),        
+        new CleanWebpackPlugin({ verbose: true }),
+        new webpack.EnvironmentPlugin(env)        
+]}
+module.exports = env => {
+    const opts = options(env)
+    return {
+        mode: opts.ENV,
+        entry,
+        plugins: plugins(opts),
+        output: {
+            path: resolve(__dirname, 'dist'),
+            filename: "[name]-[contenthash].js",
+            chunkFilename: '[name]-[contenthash].bundle.js',
+            publicPath: "/"
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.html$/,
+                    use: [
+                        "html-loader",
+                    ]
+                },
+                {
+                    test: /\.scss$/i,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        "css-loader",
+                        "sass-loader"
+                    ]
+                },
+                {
+                    test: /\.css$/i,
+                    use: [
+                        "style-loader",
+                        {
+                            loader: "css-loader",
+                            options: {
+                                modules: true,
+                                sourceMap: true,
+                                importLoader: 2
                             }
-                        ]],
-                        plugins: [
-                            ['@babel/plugin-syntax-object-rest-spread', { useBuiltIns: true }],
-                            "@babel/plugin-proposal-private-methods",
-                            "@babel/plugin-proposal-class-properties"
-                        ]
-                    }
-                }
-            },
-            {
-                test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
-                        loader: 'url-loader',
+                        },
+                        "sass-loader"
+                    ]
+                },
+                {
+                    test: /\.js$/,
+                    //exclude: /(node_modules)/,
+                    use: {
+                        loader: 'babel-loader',
                         options: {
-                            limit: 8192,
-                            name: "img/[name]_[hash].[ext]"
+                            presets: [[
+                                '@babel/preset-env',
+                                {
+                                    targets: {
+                                        browsers: [
+                                            // Best practice: https://github.com/babel/babel/issues/7789
+                                            '>=1%',
+                                            'not ie 11',
+                                            'not op_mini all'
+                                        ]
+                                    },
+                                    debug: false
+                                }
+                            ]],
+                            plugins: [
+                                ['@babel/plugin-syntax-object-rest-spread', { useBuiltIns: true }],
+                                "@babel/plugin-proposal-private-methods",
+                                "@babel/plugin-proposal-class-properties"
+                            ]
                         }
                     }
-                ]
-            },
-            {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'fonts/'
+                },
+                {
+                    test: /\.(png|jpg|gif)$/i,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 8192,
+                                name: "img/[name]_[hash].[ext]"
+                            }
                         }
-                    }
-                ]
-            },
-        ]
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
-        alias: {
-            Rest: resolve(__dirname, 'src/rest/'),
-            Lib: resolve(__dirname, 'src/lib/'),
-            Model: resolve(__dirname, 'src/model/'),
-            Styles: resolve(__dirname, 'src/styles/')
-        }
-    },
-    devtool: 'cheap-source-map',
-    devServer: {
-        contentBase: OUTPUT_PATH,
-        compress: false,
-        overlay: {
-            errors: true
+                    ]
+                },
+                {
+                    test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].[ext]',
+                                outputPath: 'fonts/'
+                            }
+                        }
+                    ]
+                },
+            ]
         },
-        hot: true,
-        port: 4000,
-        host: '0.0.0.0',
-        disableHostCheck: true,
+        resolve: {
+            extensions: ['.tsx', '.ts', '.js'],
+            alias: {
+                Rest: resolve(__dirname, 'src/rest/'),
+                Lib: resolve(__dirname, 'src/lib/'),
+                Model: resolve(__dirname, 'src/model/'),
+                Styles: resolve(__dirname, 'src/styles/')
+            }
+        },
+        devtool: 'cheap-source-map',
+        devServer: {
+            contentBase: opts.OUTPUT_PATH,
+            compress: false,
+            overlay: {
+                errors: true
+            },
+            hot: true,
+            port: 4000,
+            host: '0.0.0.0',
+            disableHostCheck: true,
 
-        historyApiFallback: {         
-            verbose: true
-        },
-        watchOptions: {
-            ignored: ['node_modules']
-        },
-        proxy: {
-            '/api/': {
-                target: 'http://localhost:8080/',
-                ws: true
+            historyApiFallback: {
+                verbose: true
+            },
+            watchOptions: {
+                ignored: ['node_modules']
+            },
+            proxy: {
+                '/api/': {
+                    target: 'http://localhost:8080/',
+                    ws: true
+                }
             }
         }
     }
