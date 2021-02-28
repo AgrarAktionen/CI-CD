@@ -36,6 +36,7 @@ jobs:
       run: |
         docker pull mysql:8
         docker pull openjdk:14
+        docker pull nginx:stable
 
     # In this step, this action saves a list of existing images,
     # the cache is created without them in the post run.
@@ -47,8 +48,9 @@ jobs:
 
     - name: Build docker images
       run: |
-        docker build mysql --tag registry.l.aberger.at/caberger/mysql:8
+        docker build mysql --tag registry.l.aberger.at/caberger/mysql:latest
         docker build appsrv --tag registry.l.aberger.at/caberger/appsrv:latest
+        docker build nginx --tag registry.l.aberger.at/caberger/nginx:latest
       working-directory: distribution/target/distribution-0.5.0-dist/docker
 
     - name: Login to LeoCloud
@@ -60,8 +62,9 @@ jobs:
 
     - name: Upload docker images to LeoCloud  
       run: |      
-        docker push registry.l.aberger.at/caberger/mysqldb:8
+        docker push registry.l.aberger.at/caberger/mysql:latest
         docker push registry.l.aberger.at/caberger/appsrv:latest
+        docker push registry.l.aberger.at/caberger/nginx:latest
 
     - name: install ssh key
       uses: webfactory/ssh-agent@v0.4.1
