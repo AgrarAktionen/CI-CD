@@ -38,3 +38,7 @@ mvn clean compile test jacoco:report
 
 Then open appsrv/target/site/jacoco/index.html.
 As you see only Person has been tested. Contributions are welcome.
+
+Example
+===
+http://hulk.l.aberger.at/caberger/api/person
