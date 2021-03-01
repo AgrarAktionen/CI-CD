@@ -34,6 +34,7 @@ jobs:
       with:
         files: 'distribution/target/*.zip'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+        release-tag: "v0.0.1"
 
     # Pull the latest image to build, and avoid caching pull-only images.
     # (docker pull is faster than caching in most cases.)
