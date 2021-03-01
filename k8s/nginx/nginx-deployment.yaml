@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+  namespace: demo
+data:
+  default: |
+    user nginx;
+    worker_processes  1;
+    events {
+      worker_connections  10240;
+    }
+    http {
+      server {
+          listen 80;
+          server_name _;
+          error_log /dev/stdout debug;
+          access_log /dev/stdout;
+          root /usr/share/nginx/html;
+          
+          location / {
+              root /usr/share/nginx/html;
+              index index.html;
+          }
+          location /api/ {
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Host $scheme://$host:$server_port;
+              proxy_set_header X-Forwarded-Request: $request;
+              proxy_set_header X-Forwarded-Server $host;
+              proxy_set_header Host $http_host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_pass http://appsrv:8080;
+          }
+      }
+    }
+  wait: |
+    #!/bin/bash
+    echo "start wait..."
+    until nslookup appsrv.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local
+    do 
+      echo waiting for appsrv...
+      sleep 2
+    done
+    echo "appsrv found"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      component: www 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: www
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/sites-available
+              readOnly: true
+#            - name: init-script
+#              mountPath: /usr/local/bin
+#              readOnly: true
+      initContainers:
+        - name: init-myservice
+          image: busybox:latest
+          command: ["ls", /"]
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+          items:
+            - key: default
+              path: default
+      - name: init-script
+        configMap:
+          name: nginx-conf
+          items:
+            - key: wait
+              path: init.sh
