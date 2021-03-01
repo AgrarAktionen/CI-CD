@@ -30,12 +30,12 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
 
-    - uses: dev-drprasad/delete-older-releases@v0.1.0
-      with:
-        repo: caberger/javafx-cdi-jpa # defaults to current repo
-        keep_latest: 0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#    - uses: dev-drprasad/delete-older-releases@v0.1.0
+#      with:
+#        repo: caberger/javafx-cdi-jpa # defaults to current repo
+#        keep_latest: 0
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Release
       uses: softprops/action-gh-release@v1
