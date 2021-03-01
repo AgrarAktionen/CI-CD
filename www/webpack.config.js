@@ -36,7 +36,7 @@ const htmlWebpackPlugins = opts => {
             chunks: [ep.chunk],
             template: `!!ejs-webpack-loader!${resolve("./" + ep.entry)}`,
             filename: ep.entry,
-            publicPath: "opts.publicPath"
+            publicPath: opts.publicPath
         })
     )}
 const plugins = opts => {
