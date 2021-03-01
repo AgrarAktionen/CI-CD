@@ -31,19 +31,19 @@ entryPoints.forEach(ep => {
 })
 const htmlWebpackPlugins = opts => {
     return entryPoints.map(ep =>
-    new HtmlWebpackPlugin({
-        compile: false,
-        chunks: [ep.chunk],
-        template: `!!ejs-webpack-loader!${resolve("./" + ep.entry)}`,
-        filename: ep.entry,
-        publicPath: opts.publicPath
-    })
-)
+        new HtmlWebpackPlugin({
+            compile: false,
+            chunks: [ep.chunk],
+            template: `!!ejs-webpack-loader!${resolve("./" + ep.entry)}`,
+            filename: ep.entry,
+            publicPath: "opts.publicPath"
+        })
+    )}
 const plugins = opts => {
     const env = environment(opts)
-    console.log("environment=", env)    
+    console.log("environment=", env)  
     return [
-        ...htmlWebpackPlugins,
+        ...htmlWebpackPlugins(opts),
         new MiniCssExtractPlugin({
             filename: '[name]-[contenthash].css',
             chunkFilename: '/[id].css',
