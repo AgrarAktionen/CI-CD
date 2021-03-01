@@ -14,7 +14,8 @@ const options = env => {
     return {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
-        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, './target/')
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, './target/'),
+        publicPath: isDebug ? "auto" : "/caberger"
     }
 }
 const environment = opts => ({
@@ -28,13 +29,14 @@ const entry = {}
 entryPoints.forEach(ep => {
     entry[ep.chunk] = "./src/" + ep.src
 })
-const htmlWebpackPlugins = entryPoints.map(ep =>
+const htmlWebpackPlugins = opts => {
+    return entryPoints.map(ep =>
     new HtmlWebpackPlugin({
         compile: false,
         chunks: [ep.chunk],
         template: `!!ejs-webpack-loader!${resolve("./" + ep.entry)}`,
         filename: ep.entry,
-        publicPath: "/caberger"
+        publicPath: opts.publicPath
     })
 )
 const plugins = opts => {
