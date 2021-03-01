@@ -39,7 +39,7 @@
         </fileSet>
         <fileSet>
             <directory>../appsrv/target</directory>
-            <outputDirectory>../docker/appsrv/deployments</outputDirectory>
+            <outputDirectory>deployments</outputDirectory>
             <includes>
                 <include>*-runner.jar</include>
                 <include>lib/*</include>

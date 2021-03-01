@@ -30,58 +30,9 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
 
-    - uses: AButler/upload-release-assets@v2.0
+    - name: upload release to github
+      uses: AButler/upload-release-assets@v2.0
       with:
         files: 'distribution/target/*.zip'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         release-tag: "v0.0.1"
-
-    # Pull the latest image to build, and avoid caching pull-only images.
-    # (docker pull is faster than caching in most cases.)
-    - name: get pull-only images
-      run: |
-        docker pull mysql:8
-        docker pull openjdk:14
-        docker pull nginx:stable
-
-    # In this step, this action saves a list of existing images,
-    # the cache is created without them in the post run.
-    # It also restores the cache if it exists.
-    - name: cache docker images
-      uses: satackey/action-docker-layer-caching@v0.0.11
-      # Ignore the failure of a step and avoid terminating the job.
-      continue-on-error: true
-
-    - name: Build docker images
-      run: |
-        docker build mysql --tag registry.l.aberger.at/caberger/mysql:latest
-        docker build appsrv --tag registry.l.aberger.at/caberger/appsrv:latest
-        docker build nginx --tag registry.l.aberger.at/caberger/nginx:latest
-      working-directory: distribution/target/distribution-0.5.0-dist/docker
-
-    - name: Login to LeoCloud
-      uses: docker/login-action@v1
-      with:
-        registry: registry.l.aberger.at
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.LEOCLOUD_REGISTRY_PASSWORD }}
-
-    - name: Upload docker images to LeoCloud  
-      run: |      
-        docker push registry.l.aberger.at/caberger/mysql:latest
-        docker push registry.l.aberger.at/caberger/appsrv:latest
-        docker push registry.l.aberger.at/caberger/nginx:latest
-
-    - name: install ssh key
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-        ssh-private-key: ${{ secrets.BUILDACTION }}
-    - name: create .ssh/known_hosts
-      run: |
-        ssh-keyscan -H -t rsa -v o.aberger.at  >> ~/.ssh/known_hosts
-
-    - name: Demo only - upload to a "classic" root server
-      run: |
-        scp application-server-*runner.jar ubuntu@o.aberger.at:
-        scp -r lib/ ubuntu@o.aberger.at:
-      working-directory: appsrv/target
