@@ -42,6 +42,15 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>webpack build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build.docker</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>say hello</id>
                         <goals>
                             <goal>npx</goal>
@@ -49,15 +58,6 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <arguments>cowsay -p LeoCloud ?!?</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>webpack build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build.docker</arguments>
                         </configuration>
                     </execution>
                 </executions>

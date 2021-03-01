@@ -30,7 +30,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
 
-          # Pull the latest image to build, and avoid caching pull-only images.
+    # Pull the latest image to build, and avoid caching pull-only images.
     # (docker pull is faster than caching in most cases.)
     - name: get pull-only images
       run: |
