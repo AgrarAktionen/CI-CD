@@ -30,7 +30,12 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
 
-    - uses: actions/upload-artifact@v2
+    - name: Delete
+      uses: ame-yu/action-delete-latest-release@v2
       with:
-        name: distribution-0.5.0-dist.zip
-        path: distribution/target/distribution-0.5.0-dist.zip
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: v0.0.1
+        tag_name: tag-here
