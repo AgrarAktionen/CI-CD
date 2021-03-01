@@ -195,7 +195,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: nginx
-          image: nginx:stable
+          image: registry.l.aberger.at/caberger/nginx:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -212,6 +212,9 @@ spec:
             items:
               - key: nginx.conf
                 path: nginx.conf
+      imagePullSecrets:
+        - name: leocloudcredentials
+
 ---
 apiVersion: v1
 kind: Service
