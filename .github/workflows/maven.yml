@@ -32,7 +32,7 @@ jobs:
 
     - uses: dev-drprasad/delete-older-releases@v0.1.0
       with:
-#        repo: caberger/<repoName> # defaults to current repo
+        repo: caberger/javafx-cdi-jpa # defaults to current repo
         keep_latest: 0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
