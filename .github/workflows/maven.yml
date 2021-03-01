@@ -15,19 +15,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v0.0.1
-        release_name: staging
-        body: |
-          Cloud Upload Release
-        draft: false
-        prerelease: true
-
     - uses: actions/checkout@v2
     - name: Set up JDK
       uses: actions/setup-java@v1
@@ -40,12 +27,41 @@ jobs:
           ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
 
-
     - name: Build with Maven
       run: mvn -B package
 
-#    - uses: actions/upload-artifact@v2
-#      with:
-#        name: distribution-0.5.0-dist.zip
-#        path: |
-#          /distribution/target/distribution-0.5.0-dist.zip
+          # Pull the latest image to build, and avoid caching pull-only images.
+    # (docker pull is faster than caching in most cases.)
+    - name: get pull-only images
+      run: |
+        docker pull mysql:8
+        docker pull openjdk:14
+        docker pull nginx:stable
+
+    # In this step, this action saves a list of existing images,
+    # the cache is created without them in the post run.
+    # It also restores the cache if it exists.
+    - name: cache docker images
+      uses: satackey/action-docker-layer-caching@v0.0.11
+      # Ignore the failure of a step and avoid terminating the job.
+      continue-on-error: true
+
+    - name: Build docker images
+      run: |
+        docker build mysql --tag registry.l.aberger.at/caberger/mysql:latest
+        docker build appsrv --tag registry.l.aberger.at/caberger/appsrv:latest
+        docker build nginx --tag registry.l.aberger.at/caberger/nginx:latest
+      working-directory: distribution/target/distribution-0.5.0-dist/docker
+
+    - name: Login to LeoCloud
+      uses: docker/login-action@v1
+      with:
+        registry: registry.l.aberger.at
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.LEOCLOUD_REGISTRY_PASSWORD }}
+
+    - name: Upload docker images to LeoCloud  
+      run: |      
+        docker push registry.l.aberger.at/caberger/mysql:latest
+        docker push registry.l.aberger.at/caberger/appsrv:latest
+        docker push registry.l.aberger.at/caberger/nginx:latest

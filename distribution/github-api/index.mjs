@@ -7,7 +7,7 @@ const token = process.argv[3]
 const basicAuth = Buffer.from(`${user}:${token}`).toString("base64")
 
 const authHeader = `Basic ${basicAuth}`
-const url = `${base}/repos/caberger/javafx-cdi-jpa/releases`
+const url = `${base}/repos/caberger/javafx-cdi-jpa/releases/latest`
 
 async function releases() {
     const response = await axios.get(url, {
@@ -16,9 +16,10 @@ async function releases() {
             Authorization: authHeader
         }
     })
-    const releases = response.data
+    const release = response.data
+    console.log("latest release=", release)
     //releases.map(r => r.tag_name).forEach(n => console.log("tag", n))
-    releases.forEach(r => console.log("-->", r))
+    //releases.forEach(r => console.log("-->", r))
 }
 releases()
 
