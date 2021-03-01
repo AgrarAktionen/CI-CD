@@ -1,0 +1,247 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-admin
+  namespace: demo
+type: kubernetes.io/basic-auth
+stringData:
+  username: admin
+  password: password
+  database: db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data
+  namespace: demo
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: managed-nfs-storage
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+  namespace: demo
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes  1;
+    events {
+      worker_connections  10240;
+    }
+    http {
+      server {
+          listen 80;
+          server_name _;
+          error_log /dev/stdout debug;
+          access_log /dev/stdout;
+          root /usr/share/nginx/html;
+          
+          location / {
+              root /usr/share/nginx/html;
+              try_files $uri $uri/ /;
+              index index.html;
+          }
+          location /api/ {
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Host $scheme://$host:$server_port;
+              proxy_set_header X-Forwarded-Request: $request;
+              proxy_set_header X-Forwarded-Server $host;
+              proxy_set_header Host $http_host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_pass http://appsrv:8080;
+          }
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-user-grant
+  namespace: demo
+data:
+  initdb.sql: |
+    CREATE USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+    grant all privileges on *.* to 'user'@'%';
+    flush privileges;
+    create database db;
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: demo
+  labels:
+    app: jee
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: mysql
+  template:
+    metadata:
+      labels:
+        app: jee
+        srv: database
+        component: mysql
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: mysql
+          image: mysql:8
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "200m"
+            limits:
+              memory: "1Gi"
+              cpu: "400m"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+              name: mysql
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true              
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-admin
+                  key: username
+            - name: MYSQL_DB
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-admin
+                  key: database
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-admin
+                  key: password
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-admin
+                  key: password
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-data
+        - name: init-scripts
+          configMap:
+            name: mysql-user-grant
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appsrv
+  namespace: demo
+  labels:
+    app: jee
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: appsrv
+  template:
+    metadata:
+      labels:
+        srv: appsrv
+        app: jee
+        component: appsrv
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: appsrv
+          image: registry.l.aberger.at/caberger/appsrv:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: appsrv
+      imagePullSecrets:
+        - name: leocloudcredentials
+---        
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: demo
+  labels:
+    app: jee
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: nginx
+  template:
+    metadata:
+      labels:
+        app: jee
+        component: nginx
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: nginx
+          image: nginx:stable
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true              
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf # place ConfigMap `nginx-conf` on /etc/nginx
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: demo
+  labels:
+    app: jee
+spec:
+  selector:
+    srv: database
+  ports:
+    - port: 3306
+      protocol: TCP
+      name: mysql
+      targetPort: 3306
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appsrv
+  namespace: demo
+  labels:
+    app: jee
+spec:
+  selector:
+    srv: appsrv
+  ports:
+    - port: 8080
+      protocol: TCP
+      name: appsrv
+      targetPort: 8080

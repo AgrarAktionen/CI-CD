@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: mysql
   namespace: demo
+  labels:
+    app: jee
 spec:
   replicas: 1
   selector:
@@ -11,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        app: jee
         component: mysql
     spec:
       restartPolicy: Always
@@ -32,6 +35,8 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3306
+              protocol: TCP
+              name: mysql
           volumeMounts:
             - name: mysql-storage
               mountPath: /var/lib/mysql
