@@ -17,8 +17,8 @@ async function releases() {
         }
     })
     const releases = response.data
-    releases.map(r => r.tag_name).forEach(n => console.log("tag", n))
-    //releases.forEach(r => console.log("-->", r))
+    //releases.map(r => r.tag_name).forEach(n => console.log("tag", n))
+    releases.forEach(r => console.log("-->", r))
 }
 releases()
 
