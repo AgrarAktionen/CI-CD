@@ -21,7 +21,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: v0.0.1
+#        tag_name: v0.0.1
         release_name: staging
         body: |
           Cloud Upload Release
@@ -44,8 +44,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: distribution-0.5.0-dist.zip
-        path: |
-          /distribution/target/distribution-0.5.0-dist.zip
+#    - uses: actions/upload-artifact@v2
+#      with:
+#        name: distribution-0.5.0-dist.zip
+#        path: |
+#          /distribution/target/distribution-0.5.0-dist.zip
