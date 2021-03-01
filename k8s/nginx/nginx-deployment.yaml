@@ -34,14 +34,11 @@ data:
       }
     }
   wait: |
-    #!/bin/bash
-    echo "start wait..."
-    until nslookup appsrv.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local
-    do 
-      echo waiting for appsrv...
+    while ! nc -z $1.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local 8080; do   
+      echo waiting for $1...
       sleep 2
-    done
-    echo "appsrv found"
+    done  
+    echo "$1 found"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -67,13 +64,18 @@ spec:
             - name: nginx-conf
               mountPath: /etc/nginx/sites-available
               readOnly: true
-#            - name: init-script
-#              mountPath: /usr/local/bin
-#              readOnly: true
+            - name: init-script
+              mountPath: /docker-entrypoint.d
+              readOnly: true
       initContainers:
         - name: init-myservice
           image: busybox:latest
-          command: ["ls", /"]
+          command: ["sh", "-c", "/docker-entrypoint.d/init.sh appsrv"]
+          volumeMounts:
+            - name: init-script
+              mountPath: "/docker-entrypoint.d/init.sh"
+              subPath: init.sh
+              readOnly: true
       volumes:
       - name: nginx-conf
         configMap:
@@ -87,3 +89,4 @@ spec:
           items:
             - key: wait
               path: init.sh
+          defaultMode: 0744
