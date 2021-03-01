@@ -1,4 +1,4 @@
-const DEVELOPMENT_SERVER = "http://localhost:4000"
+//const DEVELOPMENT_SERVER = "http://localhost:4000"
 
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -33,7 +33,8 @@ const htmlWebpackPlugins = entryPoints.map(ep =>
         compile: false,
         chunks: [ep.chunk],
         template: `!!ejs-webpack-loader!${resolve("./" + ep.entry)}`,
-        filename: ep.entry
+        filename: ep.entry,
+        publicPath: "/caberger"
     })
 )
 const plugins = opts => {
