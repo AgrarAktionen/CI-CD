@@ -42,3 +42,6 @@ As you see only Person has been tested. Contributions are welcome.
 Example
 ===
 http://hulk.l.aberger.at/caberger/api/person
+
+Coming soon: Composite Keys
+===
