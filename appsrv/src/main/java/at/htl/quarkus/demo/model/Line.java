@@ -9,7 +9,11 @@ import javax.persistence.*;
 public class Line {
     @EmbeddedId
     private LinePk linePk;
-
+/*
+    @MapsId("bill_id")
+    @ManyToOne
+    private Bill bill;
+  */
     private int amount;
 
 }

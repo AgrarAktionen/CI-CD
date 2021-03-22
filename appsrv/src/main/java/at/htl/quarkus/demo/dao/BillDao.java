@@ -15,7 +15,7 @@ public class BillDao {
     EntityManager em;
 
     public List<Bill> getAll() {
-        return em.createQuery("select b from Bill b", Bill.class).getResultList();
+        return em.createQuery("select b from Bill b left join fetch b.lines", Bill.class).getResultList();
     }
     public Bill get(int id) {
         return em.find(Bill.class, id);
