@@ -20,6 +20,11 @@ public class BillDao {
     public Bill get(int id) {
         return em.find(Bill.class, id);
     }
+
+    public void insert(Bill bill) {
+        em.persist(bill);
+        em.flush();
+    }
     public Bill save(Bill bill) {
         return em.merge(bill);
     }

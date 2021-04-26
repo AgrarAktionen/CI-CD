@@ -13,7 +13,7 @@ public class Bill {
     @GeneratedValue
     private int bill_id;
     private String number;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumns({
             @JoinColumn(name = "bill_id", referencedColumnName = "bill_id")
     })

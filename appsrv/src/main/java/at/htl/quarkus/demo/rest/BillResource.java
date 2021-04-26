@@ -30,6 +30,15 @@ public class BillResource {
 
     @PUT
     public Response addBill(Bill bill) {
+        var lines = bill.getLines();
+        bill.setLines(null);
+        dao.insert(bill);
+        var id = 1;
+        for (var l: lines) {
+            l.getLinePk().setBillId(bill.getBill_id());
+            l.getLinePk().setRow_id(id++);
+        }
+        bill.setLines(lines);
         dao.save(bill);
         return Response.ok(bill).status(Response.Status.CREATED).build();
     }

@@ -8,6 +8,6 @@ import javax.persistence.*;
 @Data
 public class Line {
     @EmbeddedId
-    private LinePk linePk;
+    private LinePk linePk = new LinePk();
     private int amount;
 }
