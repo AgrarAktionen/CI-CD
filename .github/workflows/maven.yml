@@ -46,7 +46,7 @@ jobs:
 
     - name: Build docker images
       run: |
-        docker build appsrv --tag registry.cloud.htl-leonding.ac.at/caberger/appsrv:latest
+        docker build appsrv --tag registry.cloud.htl-leonding.ac.at/c.aberger/appsrv:latest
       working-directory: distribution/target/distribution-0.5.0-dist/docker
 
     - name: Login to LeoCloud
@@ -58,4 +58,4 @@ jobs:
 
     - name: Upload docker images to LeoCloud
       run: |
-        docker push registry.cloud.htl-leonding.ac.at/caberger/appsrv:latest
+        docker push registry.cloud.htl-leonding.ac.at/c.aberger/appsrv:latest
