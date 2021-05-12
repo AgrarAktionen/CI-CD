@@ -14,8 +14,8 @@ const options = env => {
     return {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
-        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, './target/'),
-        publicPath: isDebug ? "auto" : "/caberger"
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
+        publicPath: isDebug ? "auto" : "/"
     }
 }
 const environment = opts => ({
@@ -34,7 +34,7 @@ const htmlWebpackPlugins = opts => {
         new HtmlWebpackPlugin({
             compile: false,
             chunks: [ep.chunk],
-            template: `!!ejs-webpack-loader!${resolve("./" + ep.entry)}`,
+            template: `${resolve("./" + ep.entry)}`,
             filename: ep.entry,
             publicPath: opts.publicPath
         })
@@ -58,12 +58,13 @@ const plugins = opts => {
 ]}
 module.exports = env => {
     const opts = options(env)
+    console.log("options: ", opts)
     return {
         mode: opts.ENV,
         entry,
         plugins: plugins(opts),
         output: {
-            path: resolve(__dirname, 'target'),
+            path: opts.OUTPUT_PATH,
             filename: "[name]-[contenthash].js",
             chunkFilename: '[name]-[contenthash].bundle.js',
             publicPath: "/"

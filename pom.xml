@@ -10,11 +10,24 @@
   <properties>
     <global.groupId>at.aberger.demo</global.groupId>
     <global.version>0.5.0</global.version>
+    <build.manifest.section>Build Details</build.manifest.section>
+    <build.unknown>UNKNOWN</build.unknown>
+    <build.number>${build.unknown}</build.number>
+    <build.revision>${build.unknown}</build.revision>
   </properties>
 
   <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>at.aberger.demo</groupId>
+        <artifactId>www</artifactId>
+        <version>${global.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
   </dependencyManagement>
   <dependencies>
+
   </dependencies>
   <modules>
     <module>appsrv</module>
@@ -27,13 +40,23 @@
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
           <version>3.3.0</version>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
             <groupId>com.github.eirslett</groupId>
             <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.11.0</version>
+            <version>1.11.3</version>
         </plugin>
       </plugins>
       </pluginManagement>

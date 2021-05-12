@@ -4,15 +4,17 @@ import {setCurrentSchoolId} from "Model/school/school-action-creator"
 
 const schoolTableTemplate = `
 <h1>Schools</h1>
-<table is="school-table" class="w3-table-all">
-    <caption class="w3-xlarge w3-light-blue">Schools</caption>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Schulname</th>
-        </tr>
-    </thead>
-</table>
+<div class="w3-card">
+    <table is="school-table" class="w3-table-all">
+        <caption class="w3-xlarge w3-light-blue">Schools</caption>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Schulname</th>
+            </tr>
+        </thead>
+    </table>
+</div>
 `
 const dialogTemplate = `
     <div id="school-dialog" is="school-dialog" class="w3-modal"></div>

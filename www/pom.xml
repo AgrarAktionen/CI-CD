@@ -6,9 +6,11 @@
         <groupId>at.aberger.demo</groupId>
         <artifactId>jakarta-app</artifactId>
         <version>0.5.0</version>
-    </parent> 
+    </parent>
+    <name>Web Client</name>
+    <groupId>at.aberger.demo</groupId>
     <artifactId>www</artifactId>
-    <packaging>pom</packaging>
+    <version>0.5.0</version>
     <build>
         <plugins>
             <plugin>
