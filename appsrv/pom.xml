@@ -36,7 +36,9 @@
     <dependency>
       <groupId>at.aberger.demo</groupId>
       <artifactId>www</artifactId>
-      <scope>compile</scope>
+      <version>${global.version}</version>
+      <type>pom</type>
+      <scope>import</scope>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
