@@ -16,7 +16,7 @@ const options = env => {
         ENV: isDebug ? 'development' : 'production',
         //OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
         OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/META-INF/resources/webjars/www/${packageJson.version}`),
-        publicPath: isDebug ? "auto" : "/webjars/www/"
+        publicPath: isDebug ? "auto" : "/c.aberger/webjars/www/"
     }
 }
 const environment = opts => ({
