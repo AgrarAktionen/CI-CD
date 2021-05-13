@@ -9,10 +9,16 @@
     body,h1 {font-family: "Raleway", sans-serif}
     body, html {height: 100%}
     .bgimg {
-        background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg');
+        background-image: url('/images/forestbridge.jpg');
         min-height: 100%;
         background-position: center;
         background-size: cover;
+    }
+    a:link {
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
     }
 </style>
 <body>
@@ -23,8 +29,16 @@
     </div>
     <div class="w3-display-middle">
         <h1 class="w3-jumbo w3-animate-top">LEOCLOUD QUARKUS DEMO</h1>
-        <hr class="w3-border-grey" style="margin:auto;width:40%">
-        <p class="w3-large w3-center"><a href="./webjars/www/index.html">Start the Demo</a></p>
+        <!--<hr class="w3-border-grey" style="margin:auto;width:40%">-->
+        <div class="w3-container w3-large w3-center">
+            <div class="w3-card-4" style="margin: auto;width: 300px">
+                <ul class="w3-ul w3-center">
+                    <li><a href="./webjars/www/index.html">Start the Demo</a></li>
+                    <li><a href="/q/swagger-ui">Explore the REST- API</a></li>
+                    <li><a href="/q/openapi">Download the OPENAPI document</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="w3-display-bottomleft w3-padding-large">
         Powered by <a href="https://www.aberger.at" target="_blank">c.aberger</a>

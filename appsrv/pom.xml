@@ -9,10 +9,10 @@
   </parent>
   <artifactId>application-server</artifactId>
   <properties>
-    <cucumber.version>6.8.1</cucumber.version>
-    <junit.version>4.13.2</junit.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <cucumber.version>6.8.1</cucumber.version>
     <docker-plugin.version>0.34.0</docker-plugin.version>
+    <junit.version>4.13.2</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus-plugin.version>1.13.3.Final</quarkus-plugin.version>
@@ -37,10 +37,6 @@
       <groupId>at.aberger.demo</groupId>
       <artifactId>www</artifactId>
       <version>${global.version}</version>
-      <!--
-      <type>pom</type>
-      <scope>import</scope>
-      -->
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -108,7 +104,11 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-openapi</artifactId>
+    </dependency>
+  </dependencies>
   <build>
     <resources>
       <resource>

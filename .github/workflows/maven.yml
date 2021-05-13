@@ -30,8 +30,10 @@ jobs:
         key: ${{ runner.os }}-build-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-build-m2-
-    - name: Build with Maven
-      run: mvn -B package
+
+    - name: build with Maven
+      run: mvn -Dquarkus-profile=prod -B package
+
     - name: pull jdk docker image
       run: docker pull adoptopenjdk:jdk
 
@@ -50,3 +52,8 @@ jobs:
     - name: push docker images to LeoCloud
       run: |
         docker push registry.cloud.htl-leonding.ac.at/c.aberger/appsrv:latest
+
+    - name: read me
+      run: |
+        echo "kubectl credentials have not been added to the public repository."
+        echo "use kubectl on your workstation now to deploy this service to the cloud"
