@@ -15,8 +15,8 @@ const options = env => {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
         //OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
-        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/META-INF/resources/webjars/www/${packageJson.version}`),
-        publicPath: isDebug ? "auto" : "/c.aberger/webjars/www/"
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/META-INF/resources/`),
+        publicPath: isDebug ? "auto" : "."
     }
 }
 const environment = opts => ({
@@ -24,7 +24,7 @@ const environment = opts => ({
     appVersion: packageJson.version
 })
 const entryPoints = [
-    { chunk: "main", entry: "index.html", src: "view/index.js" }
+    { chunk: "main", entry: "app.html", src: "view/index.js" }
 ]
 const entry = {}
 entryPoints.forEach(ep => {
