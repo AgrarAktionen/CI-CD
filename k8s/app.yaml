@@ -199,21 +199,14 @@ metadata:
   name: appsrv-ingress
   namespace: student-c-aberger
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /c.aberger/(.*)$
+          - path: /c.aberger(/|$)(.*)$
             pathType: Prefix
-            backend:
-              service:
-                name: appsrv
-                port:
-                  number: 80
-          - path: /c.aberger/$
-            pathType: Exact
             backend:
               service:
                 name: appsrv
