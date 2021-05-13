@@ -47,7 +47,7 @@ MicroProfile OpenAPI
 appsrv
 ===
 This is the application server
-See the [appsrv](./appsrv/README.md) subfolder for how to use CDI in Quarkus
+See the [appsrv](./appsrv/README.md) subfolder for how to use REST/JPA/CDI in Quarkus
 
 www
 ===
@@ -55,7 +55,7 @@ see the www Subfolder for the javascript client
 
 JavaFX
 ===
-See the appliation subfolder. This application is out of date, contributions welcome!
+See the application subfolder. This application is out of date, contributions welcome!
 
 Cucumber Feature Tests and Code Coverage
 ===
@@ -67,6 +67,15 @@ mvn clean compile test jacoco:report
 
 Then open appsrv/target/site/jacoco/index.html.
 As you see only Person has been tested. Contributions are welcome.
+
+Deploy into the Cloud
+===
+You have to get your credentials from the cloud, adjust your namespace
+and baseUrl, then you can deploy the application with:
+
+```bash
+kubectl deploy -f k8s/app.yaml
+```
 
 Example
 ===
