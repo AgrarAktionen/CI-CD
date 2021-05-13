@@ -11,15 +11,17 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
         java-version: 14
+    - uses: actions/checkout@v2
     - name: cache maven repository
       uses: actions/cache@v2
       with:
@@ -33,9 +35,9 @@ jobs:
 
     # Pull the latest image to build, and avoid caching pull-only images.
     # (docker pull is faster than caching in most cases.)
-    - name: get pull-only images
-      run: |
-        docker pull openjdk:14
+#    - name: get pull-only images
+#      run: |
+#        docker pull openjdk:14
 
     # In this step, this action saves a list of existing images,
     # the cache is created without them in the post run.

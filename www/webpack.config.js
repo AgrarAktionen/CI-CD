@@ -14,7 +14,8 @@ const options = env => {
     return {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
-        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
+        //OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/classes/META-INF/resources/webjars/www/${packageJson.version}`),
         publicPath: isDebug ? "auto" : "/"
     }
 }

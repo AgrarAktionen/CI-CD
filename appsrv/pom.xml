@@ -37,8 +37,14 @@
       <groupId>at.aberger.demo</groupId>
       <artifactId>www</artifactId>
       <version>${global.version}</version>
+      <!--
       <type>pom</type>
       <scope>import</scope>
+      -->
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-webjars-locator</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
