@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <base href="<%= htmlWebpackPlugin.options.baseHref %>">
     <script>
+        /*
         console.log("compute base href...")
         let base = window.location.href
         while(!base.endsWith('/')) {
@@ -9,6 +11,7 @@
         }
         window['base-href'] = base
         console.log("base is", base)        
+        */
     </script>
     <title>Leocloud Jakarta EE Demo</title>
     <meta charset="UTF-8">

@@ -16,7 +16,8 @@ const options = env => {
         ENV: isDebug ? 'development' : 'production',
         //OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
         OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/META-INF/resources/`),
-        publicPath: isDebug ? "auto" : "."
+        publicPath: isDebug ? "auto" : ".",
+        base: env.base
     }
 }
 const environment = opts => ({
@@ -38,7 +39,8 @@ const htmlWebpackPlugins = opts => {
             chunks: [ep.chunk],
             template: `${resolve("./" + ep.entry)}`,
             filename: ep.entry,
-            publicPath: opts.publicPath
+            publicPath: opts.publicPath,
+            baseHref: opts.base
         })
     )}
 const plugins = opts => {
@@ -71,12 +73,24 @@ module.exports = env => {
             chunkFilename: '[name]-[contenthash].bundle.js',
             publicPath: opts.publicPath
         },
+        
         module: {
             rules: [
                 {
-                    test: /\.html$/,
+                    test: /\.htm$/,
                     use: [
                         "html-loader",
+                    ]
+                },
+                {
+                    test: /\.html$/,
+                    use: [
+                        {
+                            loader: "underscore-template-loader",
+                            options: {
+                                engine: 'lodash',
+                            }
+                        }
                     ]
                 },
                 {
