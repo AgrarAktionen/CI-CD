@@ -1,4 +1,4 @@
-//const DEVELOPMENT_SERVER = "http://localhost:4000"
+//TODO: https://github.com/dzonatan/base-href-webpack-plugin
 
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
