@@ -52,7 +52,8 @@ const plugins = opts => {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                {from: "images", to: "images"}
+                {from: "images", to: "images"},
+                {from: "base.js", to: "base.js"}
             ]
         }),        
         //new CleanWebpackPlugin({ verbose: true }),

@@ -2,8 +2,6 @@ import "./school/school-table"
 import "./school/school-dialog"
 import {setCurrentSchoolId} from "Model/school/school-action-creator"
 
-import "../lib/baseurl"
-
 const schoolTableTemplate = `
 <h1>Schools</h1>
 <div class="w3-card">
