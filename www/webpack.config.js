@@ -24,7 +24,8 @@ const environment = opts => ({
     appVersion: packageJson.version
 })
 const entryPoints = [
-    { chunk: "main", entry: "app.html", src: "view/index.js" }
+    { chunk: "main", entry: "index.html", src: "index.js" },
+    { chunk: "app", entry: "app.html", src: "view/index.js" }
 ]
 const entry = {}
 entryPoints.forEach(ep => {
@@ -54,7 +55,7 @@ const plugins = opts => {
                 {from: "images", to: "images"}
             ]
         }),        
-        new CleanWebpackPlugin({ verbose: true }),
+        //new CleanWebpackPlugin({ verbose: true }),
         new webpack.EnvironmentPlugin(env)        
 ]}
 module.exports = env => {
