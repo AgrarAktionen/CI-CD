@@ -40,6 +40,7 @@ spec:
       containers:
         - name: appsrv
           image: registry.cloud.htl-leonding.ac.at/c.aberger/appsrv:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
       imagePullSecrets:
