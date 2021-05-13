@@ -15,8 +15,8 @@ const options = env => {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
         //OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
-        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/classes/META-INF/resources/webjars/www/${packageJson.version}`),
-        publicPath: isDebug ? "auto" : "/"
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/META-INF/resources/webjars/www/${packageJson.version}`),
+        publicPath: isDebug ? "auto" : "/webjars/www/"
     }
 }
 const environment = opts => ({
@@ -68,7 +68,7 @@ module.exports = env => {
             path: opts.OUTPUT_PATH,
             filename: "[name]-[contenthash].js",
             chunkFilename: '[name]-[contenthash].bundle.js',
-            publicPath: "/"
+            publicPath: opts.publicPath
         },
         module: {
             rules: [

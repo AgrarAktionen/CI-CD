@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --env debug=true",
-    "build": "webpack --env debug=false",
-    "build.docker": "webpack --env debug=false && rm -rf ./target/*.map"
+    "build": "webpack --env debug=false && rm -rf ./target/*.map"
   },
   "author": "caberger",
   "license": "ISC",
