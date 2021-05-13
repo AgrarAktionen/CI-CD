@@ -34,8 +34,8 @@ jobs:
     - name: build with Maven
       run: mvn -Dquarkus-profile=prod -B package
 
-    - name: pull jdk docker image
-      run: docker pull adoptopenjdk:jdk
+ #   - name: pull jdk docker image
+ #     run: docker pull adoptopenjdk:jdk
 
     - name: build docker image
       run: |
