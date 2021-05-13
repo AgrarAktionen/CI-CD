@@ -1,6 +1,6 @@
 console.log("compute base href...")
 
-let base = window.location.pathname
+let base = window.location.href
 while(!base.endsWith('/')) {
     base = base.substring(0, base.length - 1)
 }
