@@ -1,4 +1,4 @@
-FROM openjdk:14
+FROM adoptopenjdk:jdk
 
 RUN mkdir /deployments
 COPY ./deployments/*.jar /deployments/
