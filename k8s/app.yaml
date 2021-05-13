@@ -212,3 +212,10 @@ spec:
                 name: appsrv
                 port:
                   number: 80
+          - path: /c.aberger/$
+            pathType: Exact
+            backend:
+              service:
+                name: appsrv
+                port:
+                  number: 80
