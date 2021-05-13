@@ -1,1 +1,1 @@
-import "./lib/baseurl"
+console.log("loaded, href is", window['base-href'])
