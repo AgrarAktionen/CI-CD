@@ -10,7 +10,7 @@ data:
     FLUSH PRIVILEGES;
     CREATE DATABASE db;
   wait.sh: |
-    until echo '\q' | mysql -h"$HOST" -P"$PORT" -u"$USER" -p"$PASSWORD" $DATABASE; do
+    until echo '\q' | mysql -hmysql -P"$PORT" -u"$USER" -p"$PASSWORD" $DATABASE; do
         echo "waiting for godot ..."
         sleep 2
     done
@@ -57,9 +57,43 @@ spec:
       containers:
         - name: appsrv
           image: registry.cloud.htl-leonding.ac.at/c.aberger/appsrv:latest
-          imagePullPolicy: Always
           ports:
             - containerPort: 8080
+      initContainers:
+        - name: wait
+          image: mysql:8
+          command: ["sh", "-c", "/usr/local/bin/wait.sh"]
+          volumeMounts:
+            - name: init-script
+              mountPath: /usr/local/bin
+              readOnly: true
+          env:
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-admin
+                  key: username
+            - name: DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-admin
+                  key: database
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-admin
+                  key: password
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: database
+        - name: init-script
+          configMap:
+            name: mysql-setup
+            items:
+              - key: wait.sh
+                path: wait.sh
+            defaultMode: 0744
       imagePullSecrets:
         - name: leocloudcredentials
 ---
@@ -108,7 +142,6 @@ spec:
               mountPath: /var/lib/mysql
             - name: init-script
               mountPath: /docker-entrypoint-initdb.d
-#              subPath: create.sql
               readOnly: true
           env:
             - name: MYSQL_USER
