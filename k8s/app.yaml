@@ -9,6 +9,11 @@ data:
     GRANT ALL PRIVILEGES ON *.* TO 'user'@'%';
     FLUSH PRIVILEGES;
     CREATE DATABASE db;
+  wait.sh: |
+    until echo '\q' | mysql -h"$HOST" -P"$PORT" -u"$USER" -p"$PASSWORD" $DATABASE; do
+        echo "waiting for godot ..."
+        sleep 2
+    done
 ---
 apiVersion: v1
 kind: Secret
