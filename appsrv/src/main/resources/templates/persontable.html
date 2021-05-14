@@ -12,23 +12,36 @@
     </style>
 </head>
 <body>
-    <div class="w3-container w3-card-4 center" style="max-width: 600px">
-        <table class="w3-table w3-striped w3-border w3-bordered center">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {#for person in persons}
+    <div class="w3-display-middle">
+        <div class="w3-container w3-card-4 center" style="max-width: 600px">
+            <table class="w3-table w3-striped w3-border w3-bordered center">
+                <caption class="w3-xlarge w3-light-grey">Persons</caption>
+                <thead>
                     <tr>
-                        <td>{person.firstName}</td>
-                        <td>{person.lastName}</td>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                     </tr>
-                {/for}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {#for person in persons}
+                        <tr>
+                            <td>{person.firstName}</td>
+                            <td>{person.lastName}</td>
+                        </tr>
+                    {/for}
+                </tbody>
+            </table>
+            <div class="w3-container w3-center">
+                <div class="w3-panel w3-justify">
+                    <hr class="w3-border-grey">
+                    <p>Die Daten der obigen Tabelle wurden serverseitig erstellt.
+                    Dazu wird die Qute Templating Engine verwendetet.
+                    Früher musste man dazu sehr umständlich Java Server Faces benutzen.
+                    </p>
+                    <hr class="w3-border-grey">
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

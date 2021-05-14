@@ -23,7 +23,7 @@ public class BillResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     public Bill getBill(@PathParam("id") int id) {
         return dao.get(id);
     }
@@ -43,7 +43,7 @@ public class BillResource {
         return Response.ok(bill).status(Response.Status.CREATED).build();
     }
     @DELETE
-    @Path("/{id}")
+    @Path("{id}")
     public Response delete(@PathParam("id") int id) {
         var bill = dao.get(id);
         dao.delete(bill);

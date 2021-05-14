@@ -28,7 +28,7 @@ public class PersonResource {
         return persons;
     }
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     public Person getPerson(@PathParam("id") int id) {
         return personDao.get(id);
     }
@@ -38,14 +38,14 @@ public class PersonResource {
         return Response.ok(person).status(Response.Status.CREATED).build();
     }
     @DELETE
-    @Path("/{id}")
+    @Path("{id}")
     public Response delete(@PathParam("id") int id) {
         var person = personDao.get(id);
         personDao.remove(person);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
     @GET
-    @Path("/download")
+    @Path("download")
     @Produces(MediaType.TEXT_PLAIN)
     public Response downloadAllPersons() {
         var persons = personDao.getAll();

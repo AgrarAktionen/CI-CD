@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("html")
+@Path("app")
 @Produces(MediaType.TEXT_HTML)
 public class HelloResource {
     @Inject

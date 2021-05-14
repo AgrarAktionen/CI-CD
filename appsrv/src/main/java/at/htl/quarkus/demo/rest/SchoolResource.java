@@ -20,11 +20,10 @@ public class SchoolResource {
     SchoolDao schoolDao;
 
     @GET
-    @Path("/")
     public List<School> all() {
         return schoolDao.all();
     }
-    @Path("/{id:[0-9]+}")
+    @Path("{id:[0-9]+}")
     @GET
     public School getSchool(@PathParam("id") int id) {
         return schoolDao.findById(id);
