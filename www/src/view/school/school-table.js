@@ -17,12 +17,14 @@ class SchoolTable extends HTMLTableElement {
         }
     }
     render(schools) {
-        this.clear()
-        if (!this.tBodies.length) {
-            this.createTBody()
+        if (schools.length > 0) {
+            this.clear()
+            if (!this.tBodies.length) {
+                this.createTBody()
+            }
+            const body = this.tBodies[0]
+            schools.map(school => this.insertRow(body, school))
         }
-        const body = this.tBodies[0]
-        schools.map(school => this.insertRow(body, school))
     }
     insertRow(body, school) {
         const row = body.insertRow()
