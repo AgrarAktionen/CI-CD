@@ -37,7 +37,7 @@ class SchoolDialog extends HTMLDivElement {
     template(school) {
         return `
             ${styles}
-            <div class="w3-modal-content" id="dlg">
+            <div class="w3-modal-content w3-card-4 w3-animate-opacity" id="dlg">
                 <header class="w3-container w3-teal">
                      <span id="close" class="w3-button w3-display-topright">&times;</span>
                       <h2>Edit School ${school.name}</h2>
