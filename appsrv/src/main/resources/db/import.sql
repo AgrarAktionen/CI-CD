@@ -1,8 +1,8 @@
 UPDATE hibernate_sequence set next_val = 1000;
 
 INSERT INTO School(id, name, street) values
-    (1, 'HTL-Perg', 'Machlandstr. 48'),
-    (2, 'HTL-Leonding', 'Limesstrasse 8-12');
+    (1, 'HTL-Leonding', 'Limesstrasse 8-12'),
+    (2, 'HTL-Perg', 'Machlandstr. 48');
 INSERT INTO Course(id, name, school_id) values(1, '4BHIF', 1);
 
 INSERT INTO Person(id, LastName, FirstName, MatNr, course_id) values

@@ -28,9 +28,11 @@ const dialog = document.importNode(dialogTemplateElement.content, true)
 
 const content = document.getElementById("content")
 content.addEventListener("school-selected", editSchool)
-
 content.appendChild(table)
-content.appendChild(dialog)
+
+
+const dlg = document.getElementById("dialog")
+dlg.appendChild(dialog)
 
 function editSchool(e) {
     const school = e.detail.school
