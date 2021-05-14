@@ -1,6 +1,7 @@
 FROM adoptopenjdk:jdk
 
 RUN mkdir /deployments
+COPY deployments/*.jar /deployments/
 COPY scripts/* /deployments/
 RUN sed -e 's/\r$//' -i /deployments/*.sh && chmod +x /deployments/*.sh
 
