@@ -1,27 +1,26 @@
-import {schoolObservable} from "Model/observables"
+import { School } from "Model/school/school"
 import store from "Model/store"
-import {findSchoolById} from "Model/school/school-action-creator"
 import styles from "Styles/styles"
 
-class SchoolDialog extends HTMLDivElement {
+class SchoolDialog {
     connectedCallback() {
+        console.log("school-dialog connected")
         this.attachShadow({mode: "open"})
-        schoolObservable
-            .map(school => school.currentSchoolId)
+        store.model
+            .map(model => model.currentSchoolId)
             .filter(id => !!id)
             .subscribe(schoolId => this.render(schoolId))
     }
     render(schoolId) {
-        const state = store.getState()
-        const school = findSchoolById(schoolId)
+        const school = store.state.schools.find(school => school.id == schoolId)
         this.shadowRoot.innerHTML = this.template(school)
         const close = this.shadowRoot.getElementById("close")
-        close.addEventListener("click", e => this.close(e))
+        close.addEventListener("click", e => this.close())
         const closeButton = this.shadowRoot.getElementById("close-button")
-        closeButton.addEventListener("click", e => this.close(e))
+        closeButton.addEventListener("click", e => this.close())
         this.shadowRoot.getElementById("save").addEventListener("click", e => this.save(e))
     }
-    close(e) {
+    close() {
         const dlg = this.shadowRoot.getElementById("dlg")
         console.log("dialog is", dlg)
         this.style.display = "none"
@@ -32,7 +31,7 @@ class SchoolDialog extends HTMLDivElement {
     }
     save(e) {
         setTimeout(() => alert("TODO: save the data"), 20)
-        this.close(e)
+        this.close()
     }
     template(school) {
         return `
@@ -60,4 +59,5 @@ class SchoolDialog extends HTMLDivElement {
         `
     }
 }
-customElements.define("school-dialog", SchoolDialog, {extends: "div"})
+console.log("define school-dialog...")
+customElements.define("school-dialog", SchoolDialog)

@@ -13,11 +13,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/w3-css/4.1.0/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <title>JEE Demo</title>
+    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script>
+        window.addEventListener('WebComponentsReady', function() {
+            console.log("web components ready")
+        })
+      </script>
 </head>
 
 <body>
-    <div class="w3-display-middle">
-        <div class="w3-container">
+    <div class="w3-display-container">
+        <div class="w3-container ">
             <div class="w3-panel">
                 <div class="w3-panel">
                     <div class="w3-card-4">
@@ -25,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w3-panel" style="margin:auto;width:60%">
+            <div class="w3-panel">
                 <hr class="w3-border-grey">
                 <p class=" w3-justify">Die Daten der obigen Tabelle wurden mit REST vom Applikationsserver geladen und die Daten der JSON - Antwort
                     erst im Browser dynamisch mit Javascript als HTML-Tabelle dargestellt.<br/>

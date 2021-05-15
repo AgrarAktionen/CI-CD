@@ -26,6 +26,7 @@
     "sass-loader": "^11.0.0",
     "style-loader": "^2.0.0",
     "text-loader": "0.0.1",
+    "ts-loader": "^9.1.2",
     "underscore-template-loader": "^1.1.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.13.0",
@@ -33,9 +34,10 @@
     "webpack-dev-server": "^3.11.1"
   },
   "dependencies": {
+    "@types/rx": "^4.1.2",
+    "@webcomponents/webcomponentsjs": "^2.5.0",
     "file-loader": "^6.2.0",
-    "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0",
+    "rx": "^4.1.0",
     "rxjs-es": "^5.0.0-beta.12"
   }
 }

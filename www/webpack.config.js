@@ -25,8 +25,8 @@ const environment = opts => ({
     appVersion: packageJson.version
 })
 const entryPoints = [
-    { chunk: "main", entry: "index.html", src: "index.js" },
-    { chunk: "app", entry: "app.html", src: "view/index.js" }
+    { chunk: "main", entry: "index.html", src: "index.ts" },
+    { chunk: "app", entry: "app.html", src: "view/app.ts" }
 ]
 const entry = {}
 entryPoints.forEach(ep => {
@@ -111,8 +111,13 @@ module.exports = env => {
                     ]
                 },
                 {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/
+                },
+                {
                     test: /\.js$/,
-                    //exclude: /(node_modules)/,
+                    exclude: /(node_modules)/,
                     use: {
                         loader: 'babel-loader',
                         options: {

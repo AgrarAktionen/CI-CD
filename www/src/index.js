@@ -1,1 +1,0 @@
-console.log("loaded, href is", window['base-href'])
