@@ -27,6 +27,8 @@
     "style-loader": "^2.0.0",
     "text-loader": "0.0.1",
     "ts-loader": "^9.1.2",
+    "@types/rx": "^4.1.2",
+    "typescript": "^4.2.4",
     "underscore-template-loader": "^1.1.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.13.0",
@@ -34,7 +36,6 @@
     "webpack-dev-server": "^3.11.1"
   },
   "dependencies": {
-    "@types/rx": "^4.1.2",
     "@webcomponents/webcomponentsjs": "^2.5.0",
     "file-loader": "^6.2.0",
     "rx": "^4.1.0",
