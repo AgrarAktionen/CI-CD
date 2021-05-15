@@ -14,37 +14,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <title>JEE Demo</title>
     <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script>
-        window.addEventListener('WebComponentsReady', function() {
-            console.log("web components ready")
-        })
-      </script>
 </head>
 
 <body>
-    <div class="w3-display-container">
-        <div class="w3-container ">
+    <div class="w3-container ">
+        <div class="w3-panel">
             <div class="w3-panel">
-                <div class="w3-panel">
-                    <div class="w3-card-4">
-                        <div id="content"></div>
+                <div class="w3-card-4">
+                    <div id="content">
+                        <school-table></school-table>
                     </div>
                 </div>
             </div>
-            <div class="w3-panel">
-                <hr class="w3-border-grey">
-                <p class=" w3-justify">Die Daten der obigen Tabelle wurden mit REST vom Applikationsserver geladen und die Daten der JSON - Antwort
-                    erst im Browser dynamisch mit Javascript als HTML-Tabelle dargestellt.<br/>
-                    Klicke auf eine Zeile und du siehst den Vorteil:
-                    Es gibt kein Neuladen und damit ein angenehmeres Arbeiten für den Benutzer 
-                    (<b>S</b>ingle <b>P</b>age <b>A</b>pplication).
-                </p>
-                <hr class="w3-border-grey">
-            </div>
+        </div>
+        <div class="w3-panel">
+            <hr class="w3-border-grey">
+            <p class=" w3-justify">Die Daten der obigen Tabelle wurden mit REST vom Applikationsserver geladen und die Daten der JSON - Antwort
+                erst im Browser dynamisch mit Javascript als HTML-Tabelle dargestellt.<br/>
+                Klicke auf eine Zeile und du siehst den Vorteil:
+                Es gibt kein Neuladen und damit ein angenehmeres Arbeiten für den Benutzer 
+                (<b>S</b>ingle <b>P</b>age <b>A</b>pplication).
+            </p>
+            <hr class="w3-border-grey">
         </div>
     </div>
     <div class="w3-container w3-center">
-        <div id="dialog"></div>
+        <school-dialog id="school-dialog" class="w3-modal">
+        </school-dialog>
     </div>
 </body>
 

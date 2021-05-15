@@ -1,10 +1,35 @@
-
+import styles from "Styles/styles"
 import store from "../../model/store"
 import { loadSchools } from "../../rest/school/school-service"
 
+const tableTemplateHtml = `
+    ${styles}
+    <style>
+        tr:hover {
+            cursor: pointer;
+        }
+    </style>
+    <table id="table" class="w3-table w3-striped">
+        <caption class="w3-xlarge w3-light-grey">Schools</caption>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Schulname</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+`
+const template = document.createElement("template")
+template.innerHTML = tableTemplateHtml
+
 class SchoolTable extends HTMLElement {
     async connectedCallback() {
-        this.table = this.getElementsByTagName("table")[0]
+        const shadowRoot = this.attachShadow({mode: "open"})
+        const table = document.importNode(template.content, true)
+        shadowRoot.appendChild(table)
+        this.table = shadowRoot.getElementById("table")
         store.model
             .map(model => model.schools)
             .distinctUntilChanged()
@@ -14,8 +39,8 @@ class SchoolTable extends HTMLElement {
     }
     /** remove all existing bodies for re-render */
     clear() {
-        while (this.table.tBodies.length) {
-            this.tBodies[0].remove()
+        while (this.table.tBodies && this.table.tBodies.length) {
+            this.table.tBodies[0].remove()
         }
     }
     render(schools) {
@@ -32,7 +57,6 @@ class SchoolTable extends HTMLElement {
         const row = body.insertRow()
         row.insertCell().innerText = `${school.id}`
         row.insertCell().innerText = school.name
-        //row.style = "cursor:pointer"
         row.onclick = () => this.schoolClicked(school)
     }
     schoolClicked(school) {
@@ -41,6 +65,5 @@ class SchoolTable extends HTMLElement {
         this.dispatchEvent(event)
     }
 }
-
 
 customElements.define("school-table", SchoolTable)
