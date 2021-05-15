@@ -25,6 +25,7 @@ const template = document.createElement("template")
 template.innerHTML = tableTemplateHtml
 
 class SchoolTable extends HTMLElement {
+
     async connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
         const table = document.importNode(template.content, true)
@@ -61,7 +62,6 @@ class SchoolTable extends HTMLElement {
     }
     schoolClicked(school) {
         const event = new CustomEvent("school-selected", {bubbles: true, composed: true, detail: {school}})
-        console.log("raise event", event)
         this.dispatchEvent(event)
     }
 }

@@ -13,33 +13,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/w3-css/4.1.0/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <title>JEE Demo</title>
+    <style>
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            width: 500px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="w3-container ">
-        <div class="w3-panel">
-            <div class="w3-panel">
+    <div class="w3-container">
+            <div class="w3-panel center">
                 <div class="w3-card-4">
                     <div id="content">
                         <school-table></school-table>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="w3-panel">
-            <hr class="w3-border-grey">
-            <p class=" w3-justify">Die Daten der obigen Tabelle wurden mit REST vom Applikationsserver geladen und die Daten der JSON - Antwort
-                erst im Browser dynamisch mit Javascript als HTML-Tabelle dargestellt.<br/>
-                Klicke auf eine Zeile und du siehst den Vorteil:
-                Es gibt kein Neuladen und damit ein angenehmeres Arbeiten für den Benutzer 
-                (<b>S</b>ingle <b>P</b>age <b>A</b>pplication).
-            </p>
-            <hr class="w3-border-grey">
-        </div>
-    </div>
-    <div class="w3-container w3-center">
-        <school-dialog id="school-dialog" class="w3-modal">
-        </school-dialog>
+            <div class="w3-panel center">
+                <hr class="w3-border-grey">
+                <p class="w3-justify">Die Daten der obigen Tabelle wurden mit REST vom Applikationsserver geladen und die Daten der JSON - Antwort
+                    erst im Browser dynamisch mit Javascript als HTML-Tabelle dargestellt.<br/>
+                    Klicke auf eine Zeile und du siehst den Vorteil:
+                    Es gibt kein Neuladen und damit ein angenehmeres Arbeiten für den Benutzer. 
+                    (<b>S</b>ingle <b>P</b>age <b>A</b>pplication).
+                </p>
+                <hr class="w3-border-grey">
+            </div>
+        
+            <div class="w3-container w3-center">
+                <school-dialog id="school-dialog" class="w3-modal">
+                </school-dialog>
+            </div>
     </div>
 </body>
 

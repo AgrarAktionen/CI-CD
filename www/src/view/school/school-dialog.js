@@ -30,7 +30,6 @@ function template(school) {
 
 class SchoolDialog extends HTMLElement {
     connectedCallback() {
-        console.log("school-dialog connected")
         store.model
             .map(model => model.currentSchoolId)
             .filter(id => !!id)
@@ -61,5 +60,4 @@ class SchoolDialog extends HTMLElement {
     }
 }
 
-console.log("define school-dialog...")
 customElements.define("school-dialog", SchoolDialog)
