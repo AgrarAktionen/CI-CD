@@ -1,6 +1,7 @@
 import store from "../model/store"
 import "./school/school-dialog"
 import "./school/school-table"
+import "@webcomponents/webcomponentsjs/webcomponents-loader"
 
 window.addEventListener('WebComponentsReady', function() {
     console.log("web components ready")
