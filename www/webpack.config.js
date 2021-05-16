@@ -26,7 +26,7 @@ const environment = opts => ({
 })
 const entryPoints = [
     { chunk: "main", entry: "index.html", src: "index.ts" },
-    { chunk: "app", entry: "app.html", src: "view/app.ts" }
+    { chunk: "app", entry: "app.html", src: "view/app.js" }
 ]
 const entry = {}
 entryPoints.forEach(ep => {

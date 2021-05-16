@@ -1,8 +1,9 @@
 import styles from "Styles/styles"
 import store from "../../model/store"
 import { loadSchools } from "../../rest/school/school-service"
+import { html } from "Lib/html"
 
-const tableTemplateHtml = `
+const template = html`
     ${styles}
     <style>
         tr:hover {
@@ -21,14 +22,12 @@ const tableTemplateHtml = `
         </tbody>
     </table>
 `
-const template = document.createElement("template")
-template.innerHTML = tableTemplateHtml
 
 class SchoolTable extends HTMLElement {
 
     async connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
-        const table = document.importNode(template.content, true)
+        const table = document.importNode(this.template(styles).content, true)
         shadowRoot.appendChild(table)
         this.table = shadowRoot.getElementById("table")
         store.model
@@ -63,6 +62,28 @@ class SchoolTable extends HTMLElement {
     schoolClicked(school) {
         const event = new CustomEvent("school-selected", {bubbles: true, composed: true, detail: {school}})
         this.dispatchEvent(event)
+    }
+    template(styles) {
+        const content = String.raw`
+            ${styles}
+            <style>
+                tr:hover {
+                    cursor: pointer;
+                }
+            </style>
+            <table id="table" class="w3-table w3-striped">
+                <caption class="w3-xlarge w3-light-grey">Schools</caption>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Schulname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        `
+        return html(content)
     }
 }
 

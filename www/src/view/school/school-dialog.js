@@ -1,14 +1,43 @@
 
 import store from "Model/store"
 import styles from "Styles/styles"
+import { html } from "Lib/html"
 
-function template(school) {
-    return `
+class SchoolDialog extends HTMLElement {
+    connectedCallback() {
+        store.model
+            .map(model => model.currentSchoolId)
+            .filter(id => !!id)
+            .subscribe(schoolId => this.render(schoolId))
+    }
+    render(schoolId) {
+        const school = store.state.schools.find(school => school.id == schoolId)
+        console.log("edit school", school)
+        const content = document.importNode(this.template(styles, school).content, true)
+        const shadowRoot = this.attachShadow({mode: "open"})
+        shadowRoot.appendChild(content)
+        const close = shadowRoot.getElementById("close")
+        close.addEventListener("click", e => this.close())
+        const closeButton = shadowRoot.getElementById("close-button")
+        closeButton.addEventListener("click", e => this.close())
+        shadowRoot.getElementById("save").addEventListener("click", e => this.save(e))
+    }
+    close() {
+        const dlg = this.shadowRoot.getElementById("dlg")
+        console.log("dialog is", dlg)
+        this.style.display = "none"
+    }
+    save(e) {
+        setTimeout(() => alert("TODO: save the data"), 20)
+        this.close()
+    }
+    template(styles, school) {
+        const content = String.raw`
         ${styles}
         <div class="w3-modal-content w3-card-4 w3-animate-opacity" id="dlg">
             <header class="w3-container w3-teal">
-                 <span id="close" class="w3-button w3-display-topright">&times;</span>
-                  <h2>Edit School ${school.name}</h2>
+                    <span id="close" class="w3-button w3-display-topright">&times;</span>
+                    <h2>Edit School ${school.name}</h2>
             </header>
 
             <div class="w3-container">
@@ -25,38 +54,8 @@ function template(school) {
                 <p>TODO: Add edit field for name and implement save</p>
             </footer>
         </div>
-    `
-}
-
-class SchoolDialog extends HTMLElement {
-    connectedCallback() {
-        store.model
-            .map(model => model.currentSchoolId)
-            .filter(id => !!id)
-            .subscribe(schoolId => this.render(schoolId))
-    }
-    render(schoolId) {
-        const school = store.state.schools.find(school => school.id == schoolId)
-        const shadowRoot = this.attachShadow({mode: "open"})
-        shadowRoot.innerHTML = template(school)
-        const close = this.shadowRoot.getElementById("close")
-        close.addEventListener("click", e => this.close())
-        const closeButton = this.shadowRoot.getElementById("close-button")
-        closeButton.addEventListener("click", e => this.close())
-        this.shadowRoot.getElementById("save").addEventListener("click", e => this.save(e))
-    }
-    close() {
-        const dlg = this.shadowRoot.getElementById("dlg")
-        console.log("dialog is", dlg)
-        this.style.display = "none"
-    }
-    open() {
-        console.log("open dialog...")
-        this.style.display = "block"
-    }
-    save(e) {
-        setTimeout(() => alert("TODO: save the data"), 20)
-        this.close()
+        `
+        return html(content)
     }
 }
 
