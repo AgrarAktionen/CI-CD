@@ -3,7 +3,7 @@ import store from "../../model/store"
 import { loadSchools } from "../../rest/school/school-service"
 import { html } from "Lib/html"
 
-const template = html`
+const template = styles => html`
     ${styles}
     <style>
         tr:hover {
@@ -27,8 +27,7 @@ class SchoolTable extends HTMLElement {
 
     async connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
-        const table = document.importNode(this.template(styles).content, true)
-        shadowRoot.appendChild(table)
+        shadowRoot.appendChild(document.importNode(template(styles).content, true))
         this.table = shadowRoot.getElementById("table")
         store.model
             .map(model => model.schools)
@@ -62,28 +61,6 @@ class SchoolTable extends HTMLElement {
     schoolClicked(school) {
         const event = new CustomEvent("school-selected", {bubbles: true, composed: true, detail: {school}})
         this.dispatchEvent(event)
-    }
-    template(styles) {
-        const content = String.raw`
-            ${styles}
-            <style>
-                tr:hover {
-                    cursor: pointer;
-                }
-            </style>
-            <table id="table" class="w3-table w3-striped">
-                <caption class="w3-xlarge w3-light-grey">Schools</caption>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Schulname</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        `
-        return html(content)
     }
 }
 
