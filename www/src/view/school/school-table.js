@@ -63,5 +63,4 @@ class SchoolTable extends HTMLElement {
         this.dispatchEvent(event)
     }
 }
-
 customElements.define("school-table", SchoolTable)
