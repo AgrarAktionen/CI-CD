@@ -28,7 +28,6 @@ const template = (styles, school) => {
     </div>
     `
 }
-
 class SchoolDialog extends HTMLElement {
     connectedCallback() {
         store.model

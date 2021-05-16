@@ -1,15 +1,14 @@
 // template literal handler
-
 export function html(innerHtml: string[], ...keys: string[]) {
     const template = document.createElement("template")
-    let s = ""
+    let raw = ""
     for(let i = 0; i < innerHtml.length; i++) {
-        s += innerHtml[i]
+        raw += innerHtml[i]
         if (keys.length > i) {
-            s += keys[i]
+            raw += keys[i]
         }
     }
-    template.innerHTML = s
+    template.innerHTML = raw
     return template
 }
 
