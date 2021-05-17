@@ -22,13 +22,13 @@ ${styles}
 
 <div class="w3-container">
     <div class="w3-panel center">
-        <div class="w3-card-4">
+        <div class="w3-card-4 w3-animate-top">
             <div id="content">
                 <school-table></school-table>
             </div>
         </div>
     </div>
-    <div class="w3-panel center">
+    <div class="w3-panel center w3-animate-bottom">
         <hr class="w3-border-grey">
         <p class="w3-justify">Die Daten der obigen Tabelle wurden mit REST vom Applikationsserver geladen und die Daten der JSON - Antwort
             erst im Browser dynamisch mit Javascript als HTML-Tabelle dargestellt.<br/>

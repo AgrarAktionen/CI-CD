@@ -3,29 +3,26 @@ import store from "Model/store"
 import styles from "Styles/styles"
 import { html } from "Lib/html"
 
-const template = (styles, school) => html`
+const template = school => html`
     ${styles}
     <div class="w3-modal-content w3-card-4 w3-animate-opacity" id="dlg">
-        <header class="w3-container w3-teal">
+        <header class="w3-container w3-light-grey">
                 <span id="close" class="w3-button w3-display-topright">&times;</span>
                 <h2>Edit School ${school.name}</h2>
         </header>
-
         <div class="w3-container">
             <p>ID: ${school.id}</p>
             <p>Name: ${school.name}</p>
         </div>
-        
-        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-            <button id="save" class="w3-button w3-green" type="submit">Speichern</button>
-            <button id="close-button" type="button" class="w3-button w3-red" onclick="e => this.close()">Abbrechen</button>
+        <div class="w3-container w3-border-top w3-padding-16">
+            <button id="save" class="w3-btn w3-round w3-border" type="submit">Speichern</button>
+            <button id="close-button" class="w3-btn w3-round w3-border" type="button" onclick="e => this.close()">Abbrechen</button>
         </div>
-        
-        <footer class="w3-container w3-teal">
+        <footer class="w3-container w3-light-grey">
             <p>TODO: Add edit field for name and implement save</p>
         </footer>
     </div>
- `
+`
 class SchoolDialog extends HTMLElement {
     connectedCallback() {
         this.attachShadow({mode: "open"})
@@ -37,7 +34,7 @@ class SchoolDialog extends HTMLElement {
     render(schoolId) {
         const shadowRoot = this.shadowRoot
         const school = store.state.schools.find(school => school.id == schoolId)
-        const content = document.importNode(template(styles, school).content, true)
+        const content = document.importNode(template(school).content, true)
         shadowRoot.innerHTML = ""
         shadowRoot.appendChild(content)
         const close = shadowRoot.getElementById("close")

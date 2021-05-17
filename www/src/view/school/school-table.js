@@ -3,7 +3,8 @@ import store from "../../model/store"
 import { loadSchools } from "../../rest/school/school-service"
 import { html } from "Lib/html"
 
-const template = styles => html`
+
+const template = () => html`
     ${styles}
     <style>
         tr:hover {
@@ -14,7 +15,7 @@ const template = styles => html`
         <caption class="w3-xlarge w3-light-grey">Schools</caption>
         <thead>
             <tr>
-                <th>Id</th>
+                <th class="w3-right">Id</th>
                 <th>Schulname</th>
             </tr>
         </thead>
@@ -22,11 +23,15 @@ const template = styles => html`
         </tbody>
     </table>
 `
+const rowTemplate = school => html`
+    <td class="w3-right">${school.id}</td>
+    <td>${school.name}</td>
+`
 
 class SchoolTable extends HTMLElement {
     async connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
-        shadowRoot.appendChild(document.importNode(template(styles).content, true))
+        shadowRoot.appendChild(document.importNode(template().content, true))
         this.table = shadowRoot.getElementById("table")
         store.model
             .map(model => model.schools)
@@ -42,24 +47,19 @@ class SchoolTable extends HTMLElement {
         }
     }
     render(schools) {
-        if (schools.length > 0) {
-            this.clear()
-            if (!this.table.tBodies.length) {
-                this.table.createTBody()
-            }
-            const body = this.table.tBodies[0]
-            schools.map(school => this.addRow(body, school))
-        }
-    }
-    addRow(body, school) {
-        const row = body.insertRow()
-        row.insertCell().innerText = `${school.id}`
-        row.insertCell().innerText = school.name
-        row.onclick = e => this.schoolClicked(school, e)
+        const body = this.shadowRoot.querySelector("tbody")
+        body.innerHTML = ""
+        schools.forEach(school => {
+            const row = body.insertRow()
+            const rowData = document.importNode(rowTemplate(school).content, true)
+            row.onclick = e => this.schoolClicked(school, e)
+            row.appendChild(rowData)
+        })
     }
     schoolClicked(school) {
         const event = new CustomEvent("school-selected", {bubbles: true, composed: true, detail: {school}})
         this.dispatchEvent(event)
     }
 }
+
 customElements.define("school-table", SchoolTable)
