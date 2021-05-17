@@ -1,5 +1,3 @@
-//TODO: https://github.com/dzonatan/base-href-webpack-plugin
-
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -213,7 +211,6 @@ function preprocessor(options) {
         } catch(error) {
             loaderContext.emitError(error)
         }
-    
         return result
     }
 }

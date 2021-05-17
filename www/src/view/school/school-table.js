@@ -29,7 +29,7 @@ const rowTemplate = school => html`
 `
 
 class SchoolTable extends HTMLElement {
-    async connectedCallback() {
+    connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
         shadowRoot.appendChild(document.importNode(template().content, true))
         this.table = shadowRoot.getElementById("table")
@@ -52,7 +52,7 @@ class SchoolTable extends HTMLElement {
         schools.forEach(school => {
             const row = body.insertRow()
             const rowData = document.importNode(rowTemplate(school).content, true)
-            row.onclick = e => this.schoolClicked(school, e)
+            row.onclick = e => this.schoolClicked(school)
             row.appendChild(rowData)
         })
     }
