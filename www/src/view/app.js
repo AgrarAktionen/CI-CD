@@ -47,7 +47,6 @@ class AppComponent extends HTMLElement {
         const content = document.importNode(template.content, true)
         shadowRoot.appendChild(content)
         const schoolTable = shadowRoot.querySelector("school-table")
-        console.log("schooltable is", schoolTable)
         schoolTable.addEventListener("school-selected", e  => this.editSchool(e))
     }
     editSchool(e) {

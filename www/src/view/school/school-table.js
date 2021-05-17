@@ -24,7 +24,6 @@ const template = styles => html`
 `
 
 class SchoolTable extends HTMLElement {
-
     async connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
         shadowRoot.appendChild(document.importNode(template(styles).content, true))
@@ -56,7 +55,7 @@ class SchoolTable extends HTMLElement {
         const row = body.insertRow()
         row.insertCell().innerText = `${school.id}`
         row.insertCell().innerText = school.name
-        row.onclick = () => this.schoolClicked(school)
+        row.onclick = e => this.schoolClicked(school, e)
     }
     schoolClicked(school) {
         const event = new CustomEvent("school-selected", {bubbles: true, composed: true, detail: {school}})

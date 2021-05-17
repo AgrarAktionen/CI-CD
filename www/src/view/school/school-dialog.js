@@ -3,8 +3,7 @@ import store from "Model/store"
 import styles from "Styles/styles"
 import { html } from "Lib/html"
 
-const template = (styles, school) => {
-    return html`
+const template = (styles, school) => html`
     ${styles}
     <div class="w3-modal-content w3-card-4 w3-animate-opacity" id="dlg">
         <header class="w3-container w3-teal">
@@ -27,29 +26,27 @@ const template = (styles, school) => {
         </footer>
     </div>
     `
-}
 class SchoolDialog extends HTMLElement {
     connectedCallback() {
+        this.attachShadow({mode: "open"})
         store.model
             .map(model => model.currentSchoolId)
             .filter(id => !!id)
             .subscribe(schoolId => this.render(schoolId))
     }
     render(schoolId) {
+        const shadowRoot = this.shadowRoot
         const school = store.state.schools.find(school => school.id == schoolId)
-        console.log("edit school", school)
         const content = document.importNode(template(styles, school).content, true)
-        const shadowRoot = this.attachShadow({mode: "open"})
+        shadowRoot.innerHTML = ""
         shadowRoot.appendChild(content)
         const close = shadowRoot.getElementById("close")
-        close.addEventListener("click", e => this.close())
+        close.addEventListener("click", e => this.close(e))
         const closeButton = shadowRoot.getElementById("close-button")
         closeButton.addEventListener("click", e => this.close())
         shadowRoot.getElementById("save").addEventListener("click", e => this.save(e))
     }
     close() {
-        const dlg = this.shadowRoot.getElementById("dlg")
-        console.log("dialog is", dlg)
         this.style.display = "none"
     }
     save(e) {

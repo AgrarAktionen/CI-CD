@@ -36,7 +36,7 @@ entryPoints.forEach(ep => {
 const htmlWebpackPlugins = opts => {
     return entryPoints.map(ep =>
         new HtmlWebpackPlugin({
-            compile: false,
+            compile: !opts.debug,
             chunks: [ep.chunk],
             template: `${resolve("./" + ep.entry)}`,
             filename: ep.entry,
@@ -73,22 +73,8 @@ module.exports = env => {
             chunkFilename: '[name]-[contenthash].bundle.js',
             publicPath: opts.publicPath
         },
-        
         module: {
             rules: [
-                /*
-                {
-                    test: /\.html$/,
-                    use: [
-                        {
-                            loader: "underscore-template-loader",
-                            options: {
-                                engine: 'lodash',
-                            }
-                        }
-                    ]
-                },
-                */
                 {
                     test: /\.html$/,
                     use: [
