@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 //const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require("copy-webpack-plugin")
+const _ = require("lodash")
 
 const webpack = require('webpack')
 const packageJson = require('./package.json')
@@ -17,7 +18,7 @@ const options = env => {
         //OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, '../appsrv/src/main/resources/META-INF/resources/'),
         OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/META-INF/resources/`),
         publicPath: isDebug ? "auto" : ".",
-        base: env.base
+        baseHref: env.base
     }
 }
 const environment = opts => ({
@@ -39,8 +40,7 @@ const htmlWebpackPlugins = opts => {
             chunks: [ep.chunk],
             template: `${resolve("./" + ep.entry)}`,
             filename: ep.entry,
-            publicPath: opts.publicPath,
-            baseHref: opts.base
+            publicPath: opts.publicPath
         })
     )}
 const plugins = opts => {
@@ -76,6 +76,7 @@ module.exports = env => {
         
         module: {
             rules: [
+                /*
                 {
                     test: /\.html$/,
                     use: [
@@ -83,6 +84,18 @@ module.exports = env => {
                             loader: "underscore-template-loader",
                             options: {
                                 engine: 'lodash',
+                            }
+                        }
+                    ]
+                },
+                */
+                {
+                    test: /\.html$/,
+                    use: [
+                        {
+                            loader: "html-loader",
+                            options: {
+                                preprocessor: preprocessor(opts)
                             }
                         }
                     ]
@@ -203,5 +216,19 @@ module.exports = env => {
                 }
             }
         }
+    }
+}
+
+function preprocessor(options) {
+    return (content, loaderContext) => {
+        let result = content
+        try {
+            const compiled = _.template(content)
+            result = compiled({options})
+        } catch(error) {
+            loaderContext.emitError(error)
+        }
+    
+        return result
     }
 }
