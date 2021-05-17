@@ -1,4 +1,6 @@
-// template literal handler
+/** template literal handler 
+(c) Christian Aberger (http://www.aberger.at)
+*/
 export function html(innerHtml: string[], ...keys: string[]) {
     const template = document.createElement("template")
     let raw = ""
