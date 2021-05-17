@@ -25,7 +25,7 @@ const template = (styles, school) => html`
             <p>TODO: Add edit field for name and implement save</p>
         </footer>
     </div>
-    `
+ `
 class SchoolDialog extends HTMLElement {
     connectedCallback() {
         this.attachShadow({mode: "open"})
