@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("app")
 @Produces(MediaType.TEXT_HTML)
-public class HelloResource {
+public class PersonTableTemplateResource {
     @Inject
     PersonDao personDao;
 
