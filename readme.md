@@ -51,7 +51,7 @@ See the [appsrv](./appsrv/README.md) subfolder for how to use REST/JPA/CDI in Qu
 
 www
 ===
-see the www Subfolder for the javascript client
+see the [www](./www/readme.md) subfolder for the javascript client
 
 JavaFX
 ===
