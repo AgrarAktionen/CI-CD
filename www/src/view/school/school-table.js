@@ -1,6 +1,5 @@
 import styles from "Styles/styles"
 import store from "../../model/store"
-import { loadSchools } from "../../rest/school/school-service"
 import { html } from "Lib/html"
 
 
@@ -38,8 +37,6 @@ class SchoolTable extends HTMLElement {
             .distinctUntilChanged()
             .filter(school => !!school)
             .subscribe(schools => this.render(schools))
-
-        loadSchools()
     }
     /** remove all existing bodies for re-render */
     clear() {

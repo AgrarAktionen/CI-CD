@@ -11,8 +11,7 @@ const template = school => html`
                 <h2>Edit School ${school.name}</h2>
         </header>
         <div class="w3-container">
-            <p>ID: ${school.id}</p>
-            <p>Name: ${school.name}</p>
+            <input id="name" type="text" placeholder="Name der Schule" value="${school.name}"/>
         </div>
         <div class="w3-container w3-border-top w3-padding-16">
             <button id="save" class="w3-btn w3-round w3-border" type="submit">Speichern</button>
@@ -47,7 +46,8 @@ class SchoolDialog extends HTMLElement {
         this.style.display = "none"
     }
     save(e) {
-        setTimeout(() => alert("TODO: save the data"), 20)
+        const school = {...store.state.schools[store.model.currentSchoolId], name: this.shadowRoot.getElementById("name").value}
+        this.dispatchEvent(new CustomEvent("save-school", {detail: {school}}))
         this.close()
     }
 }

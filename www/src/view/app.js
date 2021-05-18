@@ -4,8 +4,14 @@ import "./school/school-dialog"
 import "./school/school-table"
 import { html } from "Lib/html"
 import styles from "Styles/styles"
+import { loadSchools } from "../rest/school/school-service"
+
+window.addEventListener("WebComponentsReady", e => {
+    loadSchools()
+})
 
 const template = html`
+
 ${styles}
 <style>
     .center {
@@ -15,7 +21,7 @@ ${styles}
 </style>
 <div class="w3-container w3-card">
     <div class="w3-panel w3-center">
-        <school-dialog id="school-dialog" class="w3-modal">
+        <school-dialog class="w3-modal">
         </school-dialog>
     </div>
 </div>
@@ -29,31 +35,36 @@ ${styles}
         </div>
     </div>
     <div class="w3-panel center w3-animate-bottom">
-        <hr class="w3-border-grey">
+        <hr class="w3-border-grey"/>
         <p class="w3-justify">Die Daten der obigen Tabelle wurden mit REST vom Applikationsserver geladen und die Daten der JSON - Antwort
             erst im Browser dynamisch mit Javascript als HTML-Tabelle dargestellt.<br/>
             Klicke auf eine Zeile und du siehst den Vorteil:
             Es gibt kein Neuladen und damit ein angenehmeres Arbeiten für den Benutzer  
             (<b>S</b>ingle <b>P</b>age <b>A</b>pplication).
         </p>
-        <hr class="w3-border-grey">
+        <hr class="w3-border-grey"/>
     </div>
 </div>
 `
-
 class AppComponent extends HTMLElement {
     connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
         const content = document.importNode(template.content, true)
         shadowRoot.appendChild(content)
         const schoolTable = shadowRoot.querySelector("school-table")
-        schoolTable.addEventListener("school-selected", e  => this.editSchool(e))
+        schoolTable.addEventListener("school-selected", e  => this.editSchool(e.detail.school))
+        const schoolDialog = shadowRoot.querySelector("school-dialog")
+        schoolDialog.addEventListener("save-school", e => this.saveSchool(e))
     }
-    editSchool(e) {
-        const school = e.detail.school
+    editSchool(school) {
         store.currentSchoolId = school.id
-        const schoolDialog = this.shadowRoot.getElementById("school-dialog")
+        const schoolDialog = this.shadowRoot.querySelector("school-dialog")
         schoolDialog.style.display = "block"
+    }
+    saveSchool(e) {
+        const school = e.detail.school
+        alert(`TODO: save ${school.name}`)
     }
 }
 customElements.define("app-component", AppComponent)
+
