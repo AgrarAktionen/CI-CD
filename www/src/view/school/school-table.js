@@ -36,6 +36,7 @@ class SchoolTable extends HTMLElement {
         store.model
             .map(model => model.schools)
             .distinctUntilChanged()
+            .filter(school => !!school)
             .subscribe(schools => this.render(schools))
 
         loadSchools()

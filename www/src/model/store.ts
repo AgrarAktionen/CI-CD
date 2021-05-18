@@ -1,32 +1,28 @@
 import { Model } from "./model"
-import { Observable, Observer } from "rx"
+import { BehaviorSubject, Observable} from "rx"
 
 import { School } from "./school/school"
 
-let state = new Model()
-
 class Store {
-    observers: Observer<Model>[] = []
-
-    observable:Observable<Model> = Observable.create(observer => this.observers.push(observer))
+    private subject = new BehaviorSubject<Model>(new Model())
 
     set schools(schools: School[]) {
-        state = {...state, schools}
-        this._next()
-        
+        this.next({...this.state, schools})
     }
     set currentSchoolId(id: number) {
-        state = {...state, currentSchoolId: id}
-        this._next()
+        this.next({...this.state, currentSchoolId: id})
+    }
+    set state(_notAllowed: Model) {
+        throw new Error("state is read only")
     }
     get state() {
-        return state
+        return this.subject.getValue()
     }
     get model(): Observable<Model> {
-        return this.observable
+        return this.subject
     }
-    _next() {
-        this.observers.forEach(observer => observer.onNext(state))
+    private next(state: Model) {
+        this.subject.onNext(state)
     }
 }
 export default new Store()

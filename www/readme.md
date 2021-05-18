@@ -10,9 +10,10 @@ Other browsers are shimmed by using webcomponents.
 We do mix 2 simple things: mutation and asynchronicity that - when mixed together - 
 can behave like [coke and menthos](https://www.youtube.com/watch?v=ZwyMcV9emmc).
 To avoid that we use [Observables](http://reactivex.io/)
-and make use of 2 fundamental design principles:
+and make use of 3 fundamental design principles:
 - Single source of truth
 - Read Only State
+- Changes are made with pure functions
 
 We use Typescript to implement this, but without the heavy overhead that would be neccessary with libraries like redux or immutablejs.
 
