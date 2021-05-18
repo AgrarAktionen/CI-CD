@@ -4,7 +4,7 @@ import "./school/school-dialog"
 import "./school/school-table"
 import { html } from "Lib/html"
 import styles from "Styles/styles"
-import { loadSchools } from "../rest/school/school-service"
+import { loadSchools } from "Rest/school/school-service"
 
 window.addEventListener("WebComponentsReady", e => {
     loadSchools()
@@ -62,7 +62,6 @@ class AppComponent extends HTMLElement {
         schoolDialog.style.display = "block"
     }
     saveSchool(school) {
-        console.log("save school", school)
         store.school = school
         alert(`TODO: save ${school.name} to server`)
     }
