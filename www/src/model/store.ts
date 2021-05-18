@@ -7,12 +7,12 @@ class Store {
     private subject = new BehaviorSubject<Model>(new Model())
 
     set schools(schools: School[]) {
-        this.next({...this.state, schools})
+        this.next({...this.state, schools: this.sorted(schools)})
     }
     set school(school: School) {
         this.next({
             ...this.state,
-            schools: this.state.schools.filter(s => s.id != school.id).concat(school).sort((l, r) => l.id - r.id)
+            schools: this.sorted(this.state.schools.filter(s => s.id != school.id).concat(school))
         })
     }
     set currentSchoolId(id: number) {
@@ -27,7 +27,9 @@ class Store {
     get model(): Observable<Model> {
         return this.subject
     }
-
+    private sorted(schools: School[]) {
+        return schools.sort((l, r) => l.id - r.id).slice()
+    }
     private next(state: Model) {
         this.subject.onNext(state)
     }
