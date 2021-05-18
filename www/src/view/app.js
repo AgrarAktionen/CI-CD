@@ -11,7 +11,6 @@ window.addEventListener("WebComponentsReady", e => {
 })
 
 const template = html`
-
 ${styles}
 <style>
     .center {

@@ -2,7 +2,6 @@ import styles from "Styles/styles"
 import store from "../../model/store"
 import { html } from "Lib/html"
 
-
 const template = () => html`
     ${styles}
     <style>
@@ -49,8 +48,8 @@ class SchoolTable extends HTMLElement {
         body.innerHTML = ""
         schools.forEach(school => {
             const row = body.insertRow()
-            const rowData = document.importNode(rowTemplate(school).content, true)
             row.onclick = e => this.schoolClicked(school)
+            const rowData = rowTemplate(school).content.cloneNode(true)
             row.appendChild(rowData)
         })
     }
