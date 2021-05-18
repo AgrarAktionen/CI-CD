@@ -49,21 +49,22 @@ ${styles}
 class AppComponent extends HTMLElement {
     connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
-        const content = document.importNode(template.content, true)
+        const content = template.content.cloneNode(true)
         shadowRoot.appendChild(content)
         const schoolTable = shadowRoot.querySelector("school-table")
         schoolTable.addEventListener("school-selected", e  => this.editSchool(e.detail.school))
         const schoolDialog = shadowRoot.querySelector("school-dialog")
-        schoolDialog.addEventListener("save-school", e => this.saveSchool(e))
+        schoolDialog.addEventListener("save-school", e => this.saveSchool(e.detail.school))
     }
     editSchool(school) {
         store.currentSchoolId = school.id
         const schoolDialog = this.shadowRoot.querySelector("school-dialog")
         schoolDialog.style.display = "block"
     }
-    saveSchool(e) {
-        const school = e.detail.school
-        alert(`TODO: save ${school.name}`)
+    saveSchool(school) {
+        console.log("save school", school)
+        store.school = school
+        alert(`TODO: save ${school.name} to server`)
     }
 }
 customElements.define("app-component", AppComponent)

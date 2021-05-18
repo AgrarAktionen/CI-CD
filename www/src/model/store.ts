@@ -9,6 +9,12 @@ class Store {
     set schools(schools: School[]) {
         this.next({...this.state, schools})
     }
+    set school(school: School) {
+        this.next({
+            ...this.state,
+            schools: this.state.schools.filter(s => s.id != school.id).concat(school).sort((l, r) => l.id - r.id)
+        })
+    }
     set currentSchoolId(id: number) {
         this.next({...this.state, currentSchoolId: id})
     }
@@ -21,6 +27,7 @@ class Store {
     get model(): Observable<Model> {
         return this.subject
     }
+
     private next(state: Model) {
         this.subject.onNext(state)
     }

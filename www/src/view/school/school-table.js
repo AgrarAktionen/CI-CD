@@ -30,7 +30,7 @@ const rowTemplate = school => html`
 class SchoolTable extends HTMLElement {
     connectedCallback() {
         const shadowRoot = this.attachShadow({mode: "open"})
-        shadowRoot.appendChild(document.importNode(template().content, true))
+        shadowRoot.appendChild(template().content.cloneNode(true))
         this.table = shadowRoot.getElementById("table")
         store.model
             .map(model => model.schools)

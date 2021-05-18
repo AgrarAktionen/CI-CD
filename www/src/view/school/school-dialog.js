@@ -18,7 +18,7 @@ const template = school => html`
             <button id="close-button" class="w3-btn w3-round w3-border" type="button" onclick="e => this.close()">Abbrechen</button>
         </div>
         <footer class="w3-container w3-light-grey">
-            <p>TODO: Add edit field for name and implement save</p>
+            <p>Not saved to server (security)</p>
         </footer>
     </div>
 `
@@ -33,7 +33,7 @@ class SchoolDialog extends HTMLElement {
     render(schoolId) {
         const shadowRoot = this.shadowRoot
         const school = store.state.schools.find(school => school.id == schoolId)
-        const content = document.importNode(template(school).content, true)
+        const content = template(school).content.cloneNode(true)
         shadowRoot.innerHTML = ""
         shadowRoot.appendChild(content)
         const close = shadowRoot.getElementById("close")
@@ -46,7 +46,10 @@ class SchoolDialog extends HTMLElement {
         this.style.display = "none"
     }
     save(e) {
-        const school = {...store.state.schools[store.model.currentSchoolId], name: this.shadowRoot.getElementById("name").value}
+        const school = {
+            ...store.state.schools.find(s => s.id == store.state.currentSchoolId),
+            name: this.shadowRoot.getElementById("name").value
+        }
         this.dispatchEvent(new CustomEvent("save-school", {detail: {school}}))
         this.close()
     }
