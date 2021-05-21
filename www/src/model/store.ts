@@ -28,7 +28,7 @@ class Store {
         return this.subject
     }
     private sorted(schools: School[]) {
-        return schools.sort((l, r) => l.id - r.id).slice()
+        return schools.slice().sort((l, r) => l.id - r.id)
     }
     private next(state: Model) {
         this.subject.onNext(state)
