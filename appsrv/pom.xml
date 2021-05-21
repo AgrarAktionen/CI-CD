@@ -33,11 +33,13 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+  <!--
     <dependency>
       <groupId>at.aberger.demo</groupId>
       <artifactId>www</artifactId>
       <version>${global.version}</version>
     </dependency>
+  -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>

@@ -77,6 +77,13 @@ and baseUrl, then you can deploy the application with:
 kubectl deploy -f k8s/app.yaml
 ```
 
-Example
+Continous Integration and Delivery (CI/CD)
 ===
+
+On every push the application is compiled and uploaded to the cloud registry. See the "Actions" tab in this github project for details.
+
+Deployment
+===
+
+The Demo can be seen at
 https://student.cloud.htl-leonding.ac.at/c.aberger/
