@@ -1,7 +1,6 @@
 package at.htl.quarkus.demo.model;
 
 import lombok.Data;
-import lombok.Generated;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
