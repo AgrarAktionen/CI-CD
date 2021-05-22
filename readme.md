@@ -70,6 +70,10 @@ As you see only Person has been tested. Contributions are welcome.
 
 Deploy into the Cloud
 ===
+
+Before we deploy to a real cloud we test our application on minikube.
+This is described (here)[https://aberger.at/blog/cloud/2021/05/04/minikube-intro.html].
+
 You have to get your credentials from the cloud, adjust your namespace
 and baseUrl, then you can deploy the application with:
 
