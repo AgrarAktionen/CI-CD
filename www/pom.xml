@@ -12,6 +12,9 @@
     <groupId>at.aberger.demo</groupId>
     <artifactId>www</artifactId>
     <version>0.5.0</version>
+    <properties>
+        <base.href>http://localhost:4000/</base.href>
+    </properties>
     <build>
         <plugins>
             <plugin>
@@ -32,7 +35,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm run build</id>
+                        <id>npm run build with base ${base.href}</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>exec</goal>
@@ -42,6 +45,8 @@
                             <arguments>
                                 <argument>run</argument>
                                 <argument>build</argument>
+                                <argument>--</argument>
+                                <argument>base=${base.href}</argument>
                             </arguments>
                         </configuration>
                     </execution>

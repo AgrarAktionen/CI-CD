@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --env debug=true --env base=/ ",
-    "build": "webpack --env debug=false --env base=https://student.cloud.htl-leonding.ac.at/c.aberger/ && rm -rf ./target/*.map"
+    "build": "webpack --env debug=false --env "
   },
   "author": "caberger",
   "license": "ISC",

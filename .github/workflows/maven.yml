@@ -32,7 +32,7 @@ jobs:
           ${{ runner.os }}-build-m2-
 
     - name: build with Maven
-      run: mvn -Dquarkus-profile=prod -B package
+      run: mvn -Dquarkus-profile=prod -Dbase.href=https://student.cloud.htl-leonding.ac.at/c.aberger/ -B package
 
  #   - name: pull jdk docker image
  #     run: docker pull adoptopenjdk:jdk
