@@ -37,7 +37,7 @@ class SchoolDialog extends HTMLElement {
         shadowRoot.innerHTML = ""
         shadowRoot.appendChild(content)
         const close = shadowRoot.getElementById("close")
-        close.addEventListener("click", e => this.close(e))
+        close.onlick = e => this.close(e)
         const closeButton = shadowRoot.getElementById("close-button")
         closeButton.addEventListener("click", e => this.close())
         shadowRoot.getElementById("save").addEventListener("click", e => this.save(e))
