@@ -9,8 +9,8 @@ Although we do not use Redux, this example also demonstrates the most important 
 It makes use of [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) and the [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM). Both are implemented in native code in all popular browsers that we are interested in, so this gives optimal performance.
 Other browsers are shimmed by using webcomponents.
 
-We do mix 2 simple things: mutation and asynchronicity that - when mixed together - 
-can behave like [coke and menthos](https://www.youtube.com/watch?v=ZwyMcV9emmc). For Details see this [blog post](https://aberger.at/blog/typescript/mvc/2021/05/23/immutable-state.html).
+We do mix two simple things: mutation and asynchronicity that - when mixed together - 
+can behave like [menthos and coke](https://www.youtube.com/watch?v=ZwyMcV9emmc). For Details see this [blog post](https://aberger.at/blog/typescript/mvc/2021/05/23/immutable-state.html).
 
 
 To avoid all that we use [Observables](http://reactivex.io/)
