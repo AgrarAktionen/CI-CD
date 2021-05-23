@@ -16,18 +16,17 @@ class Store {
     private subject = new BehaviorSubject<Model>(initialState)
 
     set schools(schools: School[]) {
-        this.next(produce(this.state, draft => {
-            draft.schools = schools.reduce((array, school) => {
+        this.next(produce(this.state, model => {
+            model.schools = schools.reduce((array, school) => {
                 array[school.id] = school
                 return array
             }, [])
         }))
     }
     set school(school: School) {
-        const model = produce(this.state, draft => {
-            draft.schools[school.id] = school
-        })
-        this.next(model)
+        this.next(produce(this.state, model => {
+            model.schools[school.id] = school
+        }))
     }
     set currentSchoolId(id: number) {
         this.next(produce(this.state, model => {model.currentSchoolId = id}))
@@ -40,9 +39,6 @@ class Store {
     }
     get model(): Observable<Model> {
         return this.subject
-    }
-    private sorted(schools: School[]) {
-        return schools.slice().sort((l, r) => l.id - r.id)
     }
     private next(state: Model) {
         this.subject.onNext(state)

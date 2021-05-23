@@ -47,7 +47,7 @@ class SchoolDialog extends HTMLElement {
     }
     save(e) {
         const school = {
-            ...store.state.schools.find(s => s.id == store.state.currentSchoolId),
+            ...store.state.schools[store.state.currentSchoolId],
             name: this.shadowRoot.getElementById("name").value
         }
         this.dispatchEvent(new CustomEvent("save-school", {detail: {school}}))
