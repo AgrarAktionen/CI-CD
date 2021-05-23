@@ -1,22 +1,36 @@
-import { Model } from "./model"
+/** 
+ * Read Only State design pattern example.
+ * (c) Christian Aberger (2021) - http://www.aberger.at
+ */
+import produce from "immer"
 import { BehaviorSubject, Observable} from "rx"
 
+import { Model } from "./model"
 import { School } from "./school/school"
 
+const initialState: Model = {
+    schools: [],
+    currentSchoolId: null
+}
 class Store {
-    private subject = new BehaviorSubject<Model>(new Model())
+    private subject = new BehaviorSubject<Model>(initialState)
 
     set schools(schools: School[]) {
-        this.next({...this.state, schools: this.sorted(schools)})
+        this.next(produce(this.state, draft => {
+            draft.schools = schools.reduce((array, school) => {
+                array[school.id] = school
+                return array
+            }, [])
+        }))
     }
     set school(school: School) {
-        this.next({
-            ...this.state,
-            schools: this.sorted(this.state.schools.filter(s => s.id != school.id).concat(school))
+        const model = produce(this.state, draft => {
+            draft.schools[school.id] = school
         })
+        this.next(model)
     }
     set currentSchoolId(id: number) {
-        this.next({...this.state, currentSchoolId: id})
+        this.next(produce(this.state, model => {model.currentSchoolId = id}))
     }
     set state(_notAllowed: Model) {
         throw new Error("state is read only")

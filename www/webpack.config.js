@@ -33,7 +33,7 @@ entryPoints.forEach(ep => {
 const htmlWebpackPlugins = opts => {
     return entryPoints.map(ep =>
         new HtmlWebpackPlugin({
-            compile: !opts.debug,
+            compile: true,
             chunks: [ep.chunk],
             template: `${resolve("./" + ep.entry)}`,
             filename: ep.entry,

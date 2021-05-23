@@ -32,7 +32,7 @@ class SchoolDialog extends HTMLElement {
     }
     render(schoolId) {
         const shadowRoot = this.shadowRoot
-        const school = store.state.schools.find(school => school.id == schoolId)
+        const school = store.state.schools[schoolId]
         const content = template(school).content.cloneNode(true)
         shadowRoot.innerHTML = ""
         shadowRoot.appendChild(content)

@@ -44,6 +44,7 @@ class SchoolTable extends HTMLElement {
         }
     }
     render(schools) {
+        console.log("render", schools)
         const body = this.shadowRoot.querySelector("tbody")
         body.innerHTML = ""
         schools.forEach(school => {
