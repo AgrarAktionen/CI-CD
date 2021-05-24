@@ -39,7 +39,7 @@ jobs:
 
     - name: build docker image
       run: |
-        docker build appsrv --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/appsrv:latest
+        docker build appsrv --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/appsrv:demo
       working-directory: distribution/target/distribution-0.5.0-dist/docker
 
     - name: login to LeoCloud
@@ -51,7 +51,7 @@ jobs:
 
     - name: push docker images to LeoCloud
       run: |
-        docker push registry.cloud.htl-leonding.ac.at/c.aberger/appsrv:latest
+        docker push registry.cloud.htl-leonding.ac.at/c.aberger/appsrv:demo
 
     - name: read me
       run: |
