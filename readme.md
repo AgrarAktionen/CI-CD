@@ -72,7 +72,9 @@ Deploy into the Cloud
 ===
 
 Before we deploy to a real cloud we test our application on minikube.
-This is described (here)[https://aberger.at/blog/cloud/2021/05/04/minikube-intro.html].
+First of all we install minikube. This is described (here)[https://aberger.at/blog/cloud/2021/05/04/minikube-intro.html].
+For Installing kubernetes on Docker Desktop read [this article](https://andrewlock.net/running-kubernetes-and-the-dashboard-with-docker-desktop/).
+Note: kubernetes on Desktop does not have the standard storage class, you can create it with [this yaml](./k8s/minikube/docker-standard-storage-class.yaml)
 
 You have to get your credentials from the cloud, adjust your namespace
 and baseUrl, then you can deploy the application with:
