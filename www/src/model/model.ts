@@ -1,6 +1,6 @@
 import { School } from "./school/school"
 
 export interface Model {
-    schools: School[]
-    currentSchoolId?: number
+    readonly schools: School[]
+    readonly currentSchoolId?: number
 }
