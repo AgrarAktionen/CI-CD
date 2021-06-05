@@ -26,6 +26,20 @@
             "request": "launch",
             "mainClass": "at.htl.quarkus.demo.Main",
             "projectName": "application-server"
-        }
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "express-backend",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}/express-server",
+            "program": "./dist/main.js",
+            "args": [
+            ],
+            "preLaunchTask": "build express-server"
+        },
+
     ]
 }

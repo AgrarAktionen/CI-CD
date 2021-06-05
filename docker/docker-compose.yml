@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_DATABASE: 'db'
       MYSQL_USER: 'user'
+      # it is not a problem to check in password in clear text:
+      # the mysql service is only accessible within this namespace.
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:

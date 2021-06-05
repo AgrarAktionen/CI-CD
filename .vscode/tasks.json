@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build express-server",
+			"type": "npm",
+			"script": "build",
+			"path": "express-server/",
+			"group": "build",
+			"problemMatcher": [],
+		}
+	]
+}
