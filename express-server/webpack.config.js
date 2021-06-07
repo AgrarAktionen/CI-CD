@@ -1,5 +1,6 @@
 const path = require("path")
 const nodeExternals = require('webpack-node-externals')
+const webpack = require('webpack')
 
 let mode = "development"
 let devtool = "inline-source-map"
@@ -38,6 +39,12 @@ module.exports = env => {
                 { test: /\.ts$/, loader: "ts-loader" }
             ]
         },
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js']
+        },
+        plugins: [
+            new webpack.ProgressPlugin(),
+        ]
     }
 }
 

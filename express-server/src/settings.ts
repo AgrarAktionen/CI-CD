@@ -1,16 +1,18 @@
 import { Command } from 'commander'
+import * as fs from "fs"
+import { load } from "js-yaml"
 
-interface DatabaseSettings {
+export interface DatabaseSettings {
     host: string,
     username: string,
     password: string
 }
 
-interface Settings {
-    databaseSettings: DatabaseSettings
+export interface Settings {
+    database: DatabaseSettings
 }
 
-function loadSettings() {
+export function loadSettings() {
     const program = new Command()
     program
         .version("0.0.1")
@@ -19,5 +21,9 @@ function loadSettings() {
     
     program.parse(process.argv)
     const options = program.opts()
-    
+    const path = options.config as string
+    const configData = fs.readFileSync(path, "utf-8")
+    const settings = load(configData) as Settings
+
+    return settings
 }

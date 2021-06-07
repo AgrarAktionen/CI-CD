@@ -37,6 +37,7 @@
             "cwd": "${workspaceFolder}/express-server",
             "program": "./dist/main.js",
             "args": [
+                "--config", "config/localhost-settings.yaml"
             ],
             "preLaunchTask": "build express-server"
         },
