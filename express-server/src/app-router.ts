@@ -5,7 +5,7 @@ class Router {
         this.setupRoutes(app)
     }
     private setupRoutes(app: core.Express) {
-        app.get("/", (req, res) => {
+        app.get("/", (_, res) => {
             res.send("hello world!")
         })
 
