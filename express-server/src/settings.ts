@@ -10,7 +10,7 @@ interface Settings {
     databaseSettings: DatabaseSettings
 }
 
-function loadSettings() {
+export function loadSettings() {
     const program = new Command()
     program
         .version("0.0.1")

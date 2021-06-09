@@ -40,6 +40,5 @@
             ],
             "preLaunchTask": "build express-server"
         },
-
     ]
 }

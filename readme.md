@@ -86,7 +86,7 @@ kubectl deploy -f k8s/app.yaml
 Continous Integration and Delivery (CI/CD)
 ===
 
-On every push the application is compiled and uploaded to the cloud registry. See the "Actions" tab in this github project for details.
+On every push the application is compiled and uploaded to the cloud registry. See the "Actions" tab in this github project for details. See also [CI/CD und DevOps](https://aberger.at/blog/2021/05/29/cloud-startproject.html) in my blog.
 
 Deployment
 ===
