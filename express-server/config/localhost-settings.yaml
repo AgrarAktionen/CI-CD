@@ -1,7 +1,7 @@
     # this database is only available on localhost, 
     # so passwords are unnecessary and can be checked in in clear text.
     database: 
-      host: localhost,
-      username: user,
+      host: localhost
+      username: user
       password: password
       database: db

@@ -1,30 +1,23 @@
 import {DatabaseSettings} from "./settings"
-import {Knex} from "knex"
+import {Knex, knex} from "knex"
 
 class EntityManager {
     private _knex: Knex;
     initialize(databaseSettings: DatabaseSettings) {
-        const connection: Knex.StaticConnectionConfig = {
+        const connection: Knex.MySqlConnectionConfig = {
             host : databaseSettings.host,
             user : databaseSettings.username,
             password : databaseSettings.password,
             database : databaseSettings.database
-          }
+        }
 
-          //this._knex = Knex.(connection)
-        /*
-        knex = require('knex')({
-            client: 'mysql',
-            connection: {
-              host : databaseSettings.host,
-              user : databaseSettings.username,
-              password : databaseSettings.password,
-              database : databaseSettings.database
-            }
-        })
-        */        
+        this._knex = knex({
+          client: "mysql",
+          connection})
+    }
+    createQuery<T>(table: string): Knex.QueryBuilder<T> {
+        return this._knex<T>(table)
     }
 }
-function databaseSetup(host: string) {
 
-}
+export default new EntityManager()
