@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/js-yaml": "^4.0.1",
+    "mysql": "^2.18.1"
+  }
+}

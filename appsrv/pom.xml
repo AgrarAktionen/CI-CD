@@ -33,11 +33,15 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+  <!--
+
     <dependency>
       <groupId>at.aberger.demo</groupId>
       <artifactId>www</artifactId>
       <version>${global.version}</version>
+      <scope>provided</scope>
     </dependency>
+  -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>
@@ -106,6 +110,9 @@
     </dependency>
   </dependencies>
   <build>
+  <!--
+
+
     <resources>
       <resource>
         <directory>../www/target</directory>
@@ -114,6 +121,7 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
+    -->
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

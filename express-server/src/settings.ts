@@ -6,6 +6,7 @@ export interface DatabaseSettings {
     host: string,
     username: string,
     password: string
+    database: string
 }
 
 export interface Settings {
