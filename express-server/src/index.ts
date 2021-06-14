@@ -8,7 +8,6 @@ const app = express()
 app.use(express.static("html"))
 
 app.use((req, res, next) => {
-    console.log("filter")
     if (req.url.startsWith("/api/")) {
         res.set("Content-Type", "application/json")
     }
