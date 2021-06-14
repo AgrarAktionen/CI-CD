@@ -31,6 +31,20 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../docker/express</directory>
+            <includes>
+                <include>Dockerfile</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>../www</directory>
+            <outputDirectory>../docker/express</outputDirectory>
+            <includes>
+                <include>package.json</include>
+                <include>target/**/*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../appsrv/target</directory>
             <outputDirectory>../docker/appsrv/deployments</outputDirectory>
             <includes>
