@@ -1,12 +1,8 @@
-# Docker containers for development
+# Docker containers for development and deployment
 
-Run 
-~~~bash
-make
-~~~
-or 
-~~~bash
-docker-compose -f docker-compose-dev.yml
-~~~
+Development
+===
+For running a development mysql server see thw [mysql](./mysql/readme.md) folder.
 
-for starting up a mysql-server
+
+

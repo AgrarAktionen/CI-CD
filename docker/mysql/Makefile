@@ -1,10 +1,10 @@
 SHELL=/bin/bash
 
 all:
-	docker-compose -f docker-compose-dev.yml up --build
+	docker-compose up --build && \
 
 stop:
-	docker-compose -f docker-compose-dev.yml down
+	docker-compose down
 
 clean:
 	$(MAKE) stop || echo "not running"
@@ -19,3 +19,4 @@ dropdb:
 	docker volume rm docker_database
 
 .PHONY: cleanall all stop dropdb deploy
+
