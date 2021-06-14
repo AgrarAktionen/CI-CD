@@ -27,5 +27,8 @@ services:
       - 8080
     depends_on:
       - mysql
+  express:
+      build:
+        context: ./express      
 volumes:
   database:
