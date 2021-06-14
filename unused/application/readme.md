@@ -1,7 +1,8 @@
 # JavaFX CDI and JPA Application - out of date
 
+Unused and to be improved
 TODO
---
+---
 get this running again with current API
 
 Running

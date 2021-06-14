@@ -34,12 +34,11 @@
   </dependencyManagement>
   <dependencies>
   <!--
-
     <dependency>
       <groupId>at.aberger.demo</groupId>
       <artifactId>www</artifactId>
       <version>${global.version}</version>
-      <scope>provided</scope>
+      <scope>import</scope>
     </dependency>
   -->
     <dependency>
@@ -110,9 +109,6 @@
     </dependency>
   </dependencies>
   <build>
-  <!--
-
-
     <resources>
       <resource>
         <directory>../www/target</directory>
@@ -121,7 +117,6 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
-    -->
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

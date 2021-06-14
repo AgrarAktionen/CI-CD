@@ -7,6 +7,7 @@
         <format>dir</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
+
     <fileSets>
         <fileSet>
             <directory>../docker</directory>
@@ -30,27 +31,22 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../docker/nginx</directory>
-            <includes>
-                <include>Dockerfile</include>
-                <include>default.conf</include>
-                <include>html</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <directory>../appsrv/target</directory>
             <outputDirectory>../docker/appsrv/deployments</outputDirectory>
             <includes>
                 <include>*-runner.jar</include>
-                <include>lib/*</include>
+                <!--<include>lib/*</include>-->
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../www/target</directory>
-            <outputDirectory>../docker/nginx/html</outputDirectory>
+            <directory>../www/target/</directory>
+            <outputDirectory>./www</outputDirectory>
             <includes>
-                <include>*</include>
+                <include>**/*</include>
             </includes>
+            <excludes>
+                <exclude>**/*.map</exclude>
+            </excludes>
         </fileSet>
     </fileSets>
 </assembly>
