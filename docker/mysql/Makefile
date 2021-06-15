@@ -1,7 +1,6 @@
-SHELL=/bin/bash
-
+#SHELL=/bin/bash
 all:
-	docker-compose up --build && \
+	docker-compose up --build
 
 stop:
 	docker-compose down
@@ -16,7 +15,8 @@ clean:
 
 dropdb:
 	$(MAKE) stop
-	docker volume rm docker_database
+	docker container prune -f
+	docker volume rm mysql_database
 
 .PHONY: cleanall all stop dropdb deploy
 
