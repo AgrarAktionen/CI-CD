@@ -36,12 +36,21 @@
                 <include>Dockerfile</include>
             </includes>
         </fileSet>
+
         <fileSet>
-            <directory>../www</directory>
+            <directory>../express-server</directory>
             <outputDirectory>../docker/express</outputDirectory>
             <includes>
                 <include>package.json</include>
-                <include>target/**/*</include>
+                <include>config/**/*</include>
+                <include>dist/**/*</include>
+            </includes>
+        </fileSet>        
+        <fileSet>
+            <directory>../www/target/express</directory>
+            <outputDirectory>../docker/express/html</outputDirectory>
+            <includes>
+                <include>**/*</include>
             </includes>
         </fileSet>
         <fileSet>
@@ -52,6 +61,7 @@
                 <!--<include>lib/*</include>-->
             </includes>
         </fileSet>
+        <!--
         <fileSet>
             <directory>../www/target/</directory>
             <outputDirectory>./www</outputDirectory>
@@ -62,5 +72,6 @@
                 <exclude>**/*.map</exclude>
             </excludes>
         </fileSet>
+        -->
     </fileSets>
 </assembly>

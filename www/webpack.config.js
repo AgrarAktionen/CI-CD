@@ -10,10 +10,11 @@ const packageJson = require('./package.json')
 
 const options = env => {
     const isDebug =  env.debug === "true"
+    const outputFolder = env.target == "quarkus" ? "META-INF/resources" : "express"
     return {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
-        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/META-INF/resources/`),
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, `target/${outputFolder}/`),
         publicPath: isDebug ? "auto" : ".",
         baseHref: env.base
     }
