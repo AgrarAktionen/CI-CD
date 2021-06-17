@@ -49,7 +49,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm run build with base ${base.href} for quarkus</id>
+                        <id>npm run build for quarkus</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>exec</goal>
@@ -59,8 +59,6 @@
                             <arguments>
                                 <argument>run</argument>
                                 <argument>build.quarkus</argument>
-                                <argument>--</argument>
-                                <argument>base=${base.href}</argument>
                             </arguments>
                         </configuration>
                     </execution>
