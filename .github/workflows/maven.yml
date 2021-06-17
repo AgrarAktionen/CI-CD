@@ -34,8 +34,8 @@ jobs:
     - name: build with Maven
       run: |
         mvn -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
-        ls -l express
-        ls -l express/dist
+        ls -l express-server
+        ls -l express-server/dist
 
     - name: build docker images
       run: |
