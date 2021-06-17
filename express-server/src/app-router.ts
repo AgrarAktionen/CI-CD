@@ -3,7 +3,7 @@ import em from "./entity-manager"
 import {School} from "./model/school"
 
 class Router {
-    async startApp(app: core.Express, port: number) {
+    async setup(app: core.Express) {
         this.setupRoutes(app)
     }
     private setupRoutes(app: core.Express) {

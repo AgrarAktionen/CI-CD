@@ -8,7 +8,7 @@
         <artifactId>jakarta-app</artifactId>
         <version>0.5.0</version>
     </parent>
-    <name>Web Client</name>
+    <name>Express - Server</name>
     <groupId>at.aberger.demo</groupId>
     <artifactId>express-server</artifactId>
     <version>0.5.0</version>

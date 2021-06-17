@@ -5,3 +5,4 @@
       username: user
       password: password
       database: db
+    port: 8080

@@ -11,6 +11,7 @@ export interface DatabaseSettings {
 
 export interface Settings {
     database: DatabaseSettings
+    port: number
 }
 
 export function loadSettings() {
