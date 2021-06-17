@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --env debug=true --env base=/ ",
-    "build.quarkus": "webpack --env debug=false --env target=quarkus",
+    "build.quarkus": "webpack --env debug=false --env target=quarkus --env base=https://student.cloud.htl-leonding.ac.at/c.aberger/",
     "build.express": "webpack --env debug=false --env target=express"    
   },
   "author": "caberger",
