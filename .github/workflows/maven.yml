@@ -34,12 +34,11 @@ jobs:
     - name: build with Maven
       run: |
         mvn -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
+        cat www/target/META-INF/resources/index.html
 
     - name: build docker images
       run: |
         docker build appsrv --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/appsrv
-        pwd
-        ls -l express
         docker build express --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/express
       working-directory: distribution/target/distribution-0.5.0-dist/docker
 
