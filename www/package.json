@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --env debug=true --env base=/ ",
     "build.quarkus": "webpack --env debug=false --env target=quarkus --env base=https://student.cloud.htl-leonding.ac.at/c.aberger/",
-    "build.express": "webpack --env debug=false --env target=express --env "    
+    "build.express": "webpack --env debug=false --env target=express --env "
   },
   "author": "caberger",
   "license": "ISC",
@@ -41,6 +41,7 @@
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.5.0",
     "immer": "^9.0.2",
-    "rx": "^4.1.0"
+    "rx": "^4.1.0",
+    "w3-css": "^4.1.0"
   }
 }
