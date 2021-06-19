@@ -59,6 +59,9 @@
                             <arguments>
                                 <argument>run</argument>
                                 <argument>build.quarkus</argument>
+                                <argument>--</argument>
+                                <argument>--env</argument>
+                                <argument>base=${base.href}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -88,6 +91,7 @@
                                 <argument>run</argument>
                                 <argument>build.express</argument>
                                 <argument>--</argument>
+                                <argument>--env</argument>                                
                                 <argument>base=${base.href}</argument>
                             </arguments>
                         </configuration>
