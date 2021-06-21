@@ -39,7 +39,7 @@ jobs:
       run: |
         docker build appsrv --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/appsrv
         docker build express --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/express
-        docker build express --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/nginx
+#        docker build express --tag registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/nginx
       working-directory: distribution/target/distribution-0.5.0-dist/docker
 
     - name: login to LeoCloud
