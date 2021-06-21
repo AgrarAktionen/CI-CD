@@ -44,7 +44,7 @@
                             <executable>npx</executable>
                             <arguments>
                                 <argument>cowsay</argument>
-                                <argument>quarkus !?!</argument>
+                                <argument>nginx ?!</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -61,37 +61,6 @@
                                 <argument>build.quarkus</argument>
                                 <argument>--</argument>
                                 <argument>--env</argument>
-                                <argument>base=${base.href}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm cowsay express</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npx</executable>
-                            <arguments>
-                                <argument>cowsay</argument>
-                                <argument>express !?!</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm run build with base ${base.href} for express</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>build.express</argument>
-                                <argument>--</argument>
-                                <argument>--env</argument>                                
                                 <argument>base=${base.href}</argument>
                             </arguments>
                         </configuration>

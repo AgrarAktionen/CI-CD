@@ -61,10 +61,9 @@
                 <!--<include>lib/*</include>-->
             </includes>
         </fileSet>
-        <!--
         <fileSet>
             <directory>../www/target/</directory>
-            <outputDirectory>./www</outputDirectory>
+            <outputDirectory>../docker/nginx/html</outputDirectory>
             <includes>
                 <include>**/*</include>
             </includes>
@@ -72,6 +71,5 @@
                 <exclude>**/*.map</exclude>
             </excludes>
         </fileSet>
-        -->
     </fileSets>
 </assembly>
