@@ -17,6 +17,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../docker</directory>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
+        <fileSet>
             <directory>../docker/appsrv</directory>
             <includes>
                 <include>Dockerfile</include>
@@ -34,6 +41,13 @@
             <directory>../docker/express</directory>
             <includes>
                 <include>Dockerfile</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>../docker/nginx</directory>
+            <includes>
+                <include>Dockerfile</include>
+                <include>default.conf</include>
             </includes>
         </fileSet>
 

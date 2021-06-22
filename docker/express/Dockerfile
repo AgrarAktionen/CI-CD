@@ -4,7 +4,6 @@ RUN mkdir -p /srv/app/html
 COPY package.json /srv/app/
 RUN cd /srv/app && npm install && rm -f package-lock.json
 COPY dist/main.js /srv/app/
-COPY html /srv/app/html/
 COPY config /srv/app/config/
 
 EXPOSE 8080
