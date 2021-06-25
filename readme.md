@@ -1,13 +1,14 @@
 # Quarkus Application Example
 
 This Jakarta Enterprise Edition example shows how to deploy
-an application to to the Kubernetes Bare Metal [LeoCloud](https://cloud.htl-leonding.ac.at) by
-continuous delivery.
+an application to the Kubernetes Bare Metal [LeoCloud](https://cloud.htl-leonding.ac.at) by continuous delivery.
 
 It is made up of the following components:
-- an application server implemented with [quarkus](https://quarkus.io)
 - a mysql Database 
-- a REST Browser Client implemented in Javascript using webpack. 
+- a [SPA](https://en.wikipedia.org/wiki/Single-page_application) Browser Client Application implemented in Javascript accessing either
+the quarkus backend or the express server backend.
+- a supersonic fast application server implemented with [quarkus](https://quarkus.io), compiled to a [native image](https://quarkus.io/guides/building-native-image)
+- a nodejs express server accessing the same database as an alternative to Quarkus
 
 The Application is currently [deployed on the LeoCloud](https://student.cloud.htl-leonding.ac.at/c.aberger/)
 
@@ -93,3 +94,4 @@ Deployment
 
 The Demo can be seen at
 https://student.cloud.htl-leonding.ac.at/c.aberger/
+
