@@ -5,13 +5,13 @@ USERNAME=$2
 IMAGES=appsrv express nginx
 pushd $SCRIPT_DIR
 
-if [[ "$1." == "build."]]
+if [[ "$1." == "build." ]]
 then
     for image in $IMAGES
     do
         docker build $image --tag registry.cloud.htl-leonding.ac.at/${USERNAME}/$image || exit 3
     done
-elif [[ "$1." == "push."]]
+elif [[ "$1." == "push." ]]
 then
     for image in $IMAGES
     do
