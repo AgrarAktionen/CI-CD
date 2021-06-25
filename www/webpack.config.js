@@ -13,7 +13,8 @@ const options = env => {
     return {
         isDebug,
         ENV: isDebug ? 'development' : 'production',
-        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, "target/META-INF/resources"),
+       //OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, "target/META-INF/resources"),
+        OUTPUT_PATH: isDebug ? resolve(__dirname, ".") : resolve(__dirname, "target"),
         publicPath: isDebug ? "auto" : ".",
         baseHref: env.base
     }
