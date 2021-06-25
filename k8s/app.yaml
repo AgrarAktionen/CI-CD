@@ -240,19 +240,31 @@ kind: Ingress
 metadata:
   name: nginx-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /c.aberger$, /c.aberger/(.*)$
+          - path: /c.aberger(/|$)(.*)$
             pathType: Prefix
             backend:
               service:
                 name: nginx
                 port:
                   number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: quarkus-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+spec:
+  rules:
+    - host: student.cloud.htl-leonding.ac.at
+      http:
+        paths:
           - path: /c.aberger/api/(.*)$
             pathType: Prefix
             backend:
