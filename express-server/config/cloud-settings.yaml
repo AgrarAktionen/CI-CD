@@ -1,5 +1,5 @@
     # this database is only available in the local namespace and demo only, 
-    # so passwords are unnecessary and can be checked in in clear text.
+    # so passwords are unnecessary and can be checked in as clear text.
     database: 
       host: mysql
       username: user

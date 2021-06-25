@@ -10,8 +10,9 @@ class Router {
         app.get("/", (_, res) => {
             res.set("Content-Type", "text/plain").send("hello world")
         })
-        app.get("/api/school", async (_, res) => {
+        app.get("/app/school", async (_, res) => {
             const schools = await em.createQuery<School>("School")
+            console.log("sending schools", JSON.stringify(schools))
             res.send(schools)
         })
     }
