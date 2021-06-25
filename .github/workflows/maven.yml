@@ -47,9 +47,8 @@ jobs:
 
     - name: push docker images to LeoCloud
       run: |
-        docker push registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/appsrv
-#        docker push registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/express
-#        docker push registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/nginx
+        distribution/target/distribution-0.5.0-dist/docker/build.sh push ${{ secrets.REGISTRY_USER }}
+#       docker push registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/appsrv
 
     - name: read me
       run: |
