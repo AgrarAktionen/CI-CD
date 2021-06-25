@@ -1,10 +1,6 @@
-FROM adoptopenjdk:jdk
-
-RUN mkdir /deployments
-COPY deployments/*.jar /deployments/
-COPY scripts/* /deployments/
-RUN sed -e 's/\r$//' -i /deployments/*.sh && chmod +x /deployments/*.sh
-
+FROM registry.access.redhat.com/ubi8/ubi-minimal
+WORKDIR /deployments/
+COPY deployments/*-runner /deployments/application
+RUN chmod 775 /deployments
 EXPOSE 8080
-WORKDIR /deployments
-ENTRYPOINT ["./run.sh"]
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]

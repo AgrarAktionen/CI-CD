@@ -71,7 +71,7 @@
             <directory>../appsrv/target</directory>
             <outputDirectory>../docker/appsrv/deployments</outputDirectory>
             <includes>
-                <include>*-runner.jar</include>
+                <include>*-runner*</include>
                 <!--<include>lib/*</include>-->
             </includes>
         </fileSet>
