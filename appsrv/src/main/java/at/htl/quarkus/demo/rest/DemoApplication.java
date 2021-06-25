@@ -20,7 +20,7 @@ import javax.ws.rs.core.Application;
                 version = "0.0.5",
                 contact = @Contact(
                         name = "Christian Aberger",
-                        url = "http://cloud.htl-leonding.ac.at",
+                        url = "https://student.cloud.htl-leonding.ac.at/c.aberger",
                         email = "c.aberger@htl-leonding.ac.at"),
                 license = @License(
                         name = "Apache 2.0",
