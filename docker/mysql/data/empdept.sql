@@ -1,16 +1,4 @@
-create database db;
-GRANT ALL PRIVILEGES ON *.* TO 'user'@'%';
 use db;
-DELIMITER $$
-CREATE FUNCTION to_date(s varchar(20), fmt varchar(20)) RETURNS DATE
-BEGIN
-    DECLARE dt DATE;
-    select str_to_date(s, '%d-%m-%Y') into dt; 
-    RETURN dt;
-END;
-$$
-DELIMITER ;
-
 -- insert historical dept/empt data :) 
 
 CREATE TABLE `DEPT` (
@@ -34,7 +22,7 @@ CREATE TABLE `EMP` (
   INDEX `fk_EMP_DEPT_idx` (`DEPTNO` ASC),
   CONSTRAINT `fk_EMP_DEPT`
     FOREIGN KEY (`DEPTNO`)
-    REFERENCES `mydb`.`DEPT` (`DEPTNO`)
+    REFERENCES `DEPT` (`DEPTNO`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -47,32 +35,31 @@ INSERT INTO DEPT (DNAME, LOC) VALUES ('SALES','CHICAGO');
 INSERT INTO DEPT (DNAME, LOC) VALUES ('OPERATIONS','BOSTON');
 
 INSERT INTO EMP VALUES
-(7369,'SMITH','CLERK',to_date('17-12-1980','dd-mm-yyyy'),800,NULL,2);
+(7369,'SMITH','CLERK', str_to_date('17-12-1980','%d-%m-%Y'),800,NULL,2);
 INSERT INTO EMP VALUES
-(7499,'ALLEN','SALESMAN',to_date('20-2-1981','dd-mm-yyyy'),1600,300,3);
+(7499,'ALLEN','SALESMAN', str_to_date('20-2-1981','%d-%m-%Y'),1600,300,3);
 INSERT INTO EMP VALUES
-(7521,'WARD','SALESMAN',to_date('22-2-1981','dd-mm-yyyy'),1250,500,3);
+(7521,'WARD','SALESMAN', str_to_date('22-2-1981','%d-%m-%Y'),1250,500,3);
 INSERT INTO EMP VALUES
-(7566,'JONES','MANAGER',to_date('2-4-1981','dd-mm-yyyy'),2975,NULL,2);
+(7566,'JONES','MANAGER', str_to_date('2-4-1981','%d-%m-%Y'),2975,NULL,2);
 INSERT INTO EMP VALUES
-(7654,'MARTIN','SALESMAN',to_date('28-9-1981','dd-mm-yyyy'),1250,1400,3);
+(7654,'MARTIN','SALESMAN', str_to_date('28-9-1981','%d-%m-%Y'),1250,1400,3);
 INSERT INTO EMP VALUES
-(7698,'BLAKE','MANAGER',to_date('1-5-1981','dd-mm-yyyy'),2850,NULL,3);
+(7698,'BLAKE','MANAGER', str_to_date('1-5-1981','%d-%m-%Y'),2850,NULL,3);
 INSERT INTO EMP VALUES
-(7782,'CLARK','MANAGER',to_date('9-6-1981','dd-mm-yyyy'),2450,NULL,1);
+(7782,'CLARK','MANAGER', str_to_date('9-6-1981','%d-%m-%Y'),2450,NULL,1);
 INSERT INTO EMP VALUES
-(7788,'SCOTT','ANALYST',to_date('13-7-87','dd-mm-yyyy'),3000,NULL,2);
+(7788,'SCOTT','ANALYST', str_to_date('13-7-87','%d-%m-%Y'),3000,NULL,2);
 INSERT INTO EMP VALUES
-(7839,'KING','PRESIDENT',to_date('17-11-1981','dd-mm-yyyy'),5000,NULL,1);
+(7839,'KING','PRESIDENT', str_to_date('17-11-1981','%d-%m-%Y'),5000,NULL,1);
 INSERT INTO EMP VALUES
-(7844,'TURNER','SALESMAN',to_date('8-9-1981','dd-mm-yyyy'),1500,0,3);
+(7844,'TURNER','SALESMAN', str_to_date('8-9-1981','%d-%m-%Y'),1500,0,3);
 INSERT INTO EMP VALUES
-(7876,'ADAMS','CLERK',to_date('13-7-87','dd-mm-yyyy'),1100,NULL,2);
+(7876,'ADAMS','CLERK', str_to_date('13-7-87','%d-%m-%Y'),1100,NULL,2);
 INSERT INTO EMP VALUES
-(7900,'JAMES','CLERK',to_date('3-12-1981','dd-mm-yyyy'),950,NULL,3);
+(7900,'JAMES','CLERK', str_to_date('3-12-1981','%d-%m-%Y'),950,NULL,3);
 INSERT INTO EMP VALUES
-(7902,'FORD','ANALYST',to_date('3-12-1981','dd-mm-yyyy'),3000,NULL,2);
+(7902,'FORD','ANALYST', str_to_date('3-12-1981','%d-%m-%Y'),3000,NULL,2);
 INSERT INTO EMP VALUES
-(7934,'MILLER','CLERK',to_date('23-1-1982','dd-mm-yyyy'),1300,NULL,1);
+(7934,'MILLER','CLERK', str_to_date('23-1-1982','%d-%m-%Y'),1300,NULL,1);
 
-drop function to_date;
