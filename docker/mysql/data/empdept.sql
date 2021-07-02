@@ -1,4 +1,5 @@
 create database db;
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'%';
 use db;
 DELIMITER $$
 CREATE FUNCTION to_date(s varchar(20), fmt varchar(20)) RETURNS DATE
