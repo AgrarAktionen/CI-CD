@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
         - name: appsrv
-          image: registry.cloud.htl-leonding.ac.at/c.aberger/appsrv
+          image: registry.cloud.htl-leonding.ac.at/20170011/appsrv
           ports:
             - containerPort: 8080
           resources:
@@ -113,7 +113,7 @@ spec:
     spec:
       containers:
         - name: express
-          image: registry.cloud.htl-leonding.ac.at/c.aberger/express
+          image: registry.cloud.htl-leonding.ac.at/20170011/express
           ports:
             - containerPort: 8080
           resources:
@@ -174,7 +174,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: registry.cloud.htl-leonding.ac.at/c.aberger/nginx:latest
+          image: registry.cloud.htl-leonding.ac.at/20170011/nginx:latest
           ports:
             - containerPort: 80
           resources:
@@ -317,7 +317,7 @@ spec:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /c.aberger(/|$)(.*)$
+          - path: /20170011(/|$)(.*)$
             pathType: Prefix
             backend:
               service:
@@ -336,7 +336,7 @@ spec:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /c.aberger/api/(.*)$
+          - path: /20170011/api/(.*)$
             pathType: Prefix
             backend:
               service:
@@ -355,7 +355,7 @@ spec:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /c.aberger/app/(.*)$
+          - path: /20170011/app/(.*)$
             pathType: Prefix
             backend:
               service:
