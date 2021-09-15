@@ -15,7 +15,7 @@ import java.util.List;
 public class CsvDownloader {
 
     ItemDao itemDao = new ItemDao();
-    String fileName = "file.csv";
+    String fileName = "com.aktionen.agrar.download.file.csv";
 
     public static void main(String[] args) throws IOException {
         //fetchCSV(); //uncomment to get new API CSV DATA
