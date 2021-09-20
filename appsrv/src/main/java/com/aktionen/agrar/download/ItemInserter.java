@@ -8,6 +8,7 @@ import io.quarkus.scheduler.Scheduled;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class ItemInserter {
         //-----------------ItemInsert--------------------///
         List<Item> items = csvDownloader.createItemList();
         itemDao.insertAll(items, "Faie");
+        //itemDao.update(items, "Faie");
 
         //-----------------PriceInsert--------------------///
 

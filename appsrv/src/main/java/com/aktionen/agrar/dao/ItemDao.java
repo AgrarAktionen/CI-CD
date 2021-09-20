@@ -25,27 +25,12 @@ public class ItemDao {
                     .getSingleResult();
             for(Item item:items) {
                 item.setApiLink(apiLink);
-
-                em.persist(item);
-                //em.merge(item);
-                em.flush();
-            }
-        }
-    public void updateRedundent(List<Item> items, String name){
-        APILink apiLink = em.createQuery("select a from APILink a where a.description = :desc", APILink.class)
-                .setParameter("desc", name)
-                .getSingleResult();
-
-        for(Item item:items){
-            item.setApiLink(apiLink);
-            {
+               // if(item.getArtikelbezeichnung())
                 //em.persist(item);
                 em.merge(item);
                 em.flush();
             }
-
         }
-    }
 
 
     public List<Item> getAll() {

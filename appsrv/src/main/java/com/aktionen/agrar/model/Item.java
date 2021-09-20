@@ -3,12 +3,16 @@ package com.aktionen.agrar.model;
 import com.opencsv.bean.CsvBindByPosition;
 import lombok.Data;
 
+import javax.inject.Named;
 import javax.persistence.*;
 import java.util.List;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class Item {
+@Named
+
+public class Item implements Serializable {
    // Artikelbezeichnung;Hersteller;Artikelnummer;Kategoriepfad;Beschreibungsfeld;Bild-Link;Deeplink;Verfuegbarkeit;Bruttopreis;Stattpreis;EAN;Versandkosten;
 
     @Id
@@ -23,7 +27,7 @@ public class Item {
     @CsvBindByPosition(position = 1)
     private String hersteller;
 
-    @Column(length = 1000)
+    @Column(length = 100, unique = true)
     @CsvBindByPosition(position = 2)
     private String artikelnummer;
 
@@ -56,7 +60,7 @@ public class Item {
     private String versandkosten;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "itemId", referencedColumnName = "itemId")
+    @JoinColumn(name = "artikelnummer", referencedColumnName = "artikelnummer")
     private List<Price> prices;
 
     @ManyToOne(fetch = FetchType.EAGER)
