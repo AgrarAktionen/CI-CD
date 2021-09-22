@@ -60,7 +60,7 @@ public class Item implements Serializable {
     private String versandkosten;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "artikelnummer", referencedColumnName = "artikelnummer")
+    @JoinColumn(name = "itemId", referencedColumnName = "itemId")
     private List<Price> prices;
 
     @ManyToOne(fetch = FetchType.EAGER)

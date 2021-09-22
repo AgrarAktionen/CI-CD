@@ -4,10 +4,11 @@ import com.opencsv.bean.CsvBindByPosition;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class Price {
+public class Price implements Serializable {
 
     @EmbeddedId
     private PricePk pricePk;

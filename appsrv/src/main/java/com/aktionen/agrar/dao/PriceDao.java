@@ -33,7 +33,7 @@ public class PriceDao {
                     .getSingleResult();
 
             price.setPricePk(new PricePk(item.getItemId(), timestamp));
-            //em.persist(item);
+            em.persist(item);
             em.merge(price);
             em.flush();
             currentId++;

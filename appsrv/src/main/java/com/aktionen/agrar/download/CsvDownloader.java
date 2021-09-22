@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.*;
 import java.net.URL;
 import java.util.List;
+
 @QuarkusMain
 public class CsvDownloader {
 
@@ -20,6 +21,7 @@ public class CsvDownloader {
     public static void main(String[] args) throws IOException {
         //fetchCSV(); //uncomment to get new API CSV DATA
         Quarkus.run(args);
+
     }
 
     public List<Item> createItemList() throws FileNotFoundException {

@@ -3,11 +3,12 @@ package com.aktionen.agrar.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 
-public class Shop {
+public class Shop implements Serializable {
 
     @Id
     @GeneratedValue
