@@ -28,9 +28,9 @@ public class ItemInserter {
     PriceDao priceDao;
 
 
-    @Scheduled(cron="0 0 8 * * ?")
+    @Scheduled(every="60m")
     public void insertData() throws IOException {
-        //csvDownloader.fetchCSV();
+        csvDownloader.fetchCSV();
 
         //-----------------ItemInsert--------------------///
         List<Item> items = csvDownloader.createItemList();
