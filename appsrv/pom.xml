@@ -120,11 +120,6 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-scheduler</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.quarkiverse.jberet</groupId>
-      <artifactId>quarkus-jberet</artifactId>
-      <version>1.0.0</version>
-    </dependency>
   </dependencies>
   <build>
     <resources>
