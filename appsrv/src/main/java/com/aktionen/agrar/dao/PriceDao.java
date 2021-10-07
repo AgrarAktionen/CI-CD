@@ -8,7 +8,6 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-//import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class PriceDao {
                     .getSingleResult();
 
             price.setPricePk(new PricePk(item.getItemId(), timestamp));
-            em.persist(item);
+            //em.persist(item);
             em.merge(price);
             em.flush();
             currentId++;

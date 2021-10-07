@@ -3,7 +3,6 @@ package com.aktionen.agrar.model;
 import lombok.Data;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;

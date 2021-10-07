@@ -3,16 +3,12 @@ package com.aktionen.agrar.model;
 import com.opencsv.bean.CsvBindByPosition;
 import lombok.Data;
 
-import javax.inject.Named;
 import javax.persistence.*;
 import java.util.List;
-import java.io.Serializable;
 
 @Data
 @Entity
-@Named
-
-public class Item implements Serializable {
+public class Item {
    // Artikelbezeichnung;Hersteller;Artikelnummer;Kategoriepfad;Beschreibungsfeld;Bild-Link;Deeplink;Verfuegbarkeit;Bruttopreis;Stattpreis;EAN;Versandkosten;
 
     @Id
@@ -66,5 +62,8 @@ public class Item implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "apiId")
     private APILink apiLink;
+
+    private boolean inserted = false;
+
 
 }

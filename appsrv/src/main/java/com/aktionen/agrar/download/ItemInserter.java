@@ -1,19 +1,12 @@
 package com.aktionen.agrar.download;
 
 import com.aktionen.agrar.dao.ItemDao;
+import com.aktionen.agrar.dao.PredectionDao;
 import com.aktionen.agrar.dao.PriceDao;
-import com.aktionen.agrar.model.Item;
-import com.aktionen.agrar.model.Price;
-import io.quarkus.scheduler.Scheduled;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.SystemException;
 import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
-import java.io.IOException;
-import java.util.List;
 
 @ApplicationScoped
 @Transactional
@@ -28,39 +21,48 @@ public class ItemInserter {
     @Inject
     PriceDao priceDao;
 
+    @Inject
+    PredectionDao predectionDao;
+
 /*
-    @Scheduled(every="60m")
+    @Scheduled(every="100s")
     public void insertData() throws IOException {
         csvDownloader.fetchCSV();
+        List<Item> items = csvDownloader.createItemList();
+        List<Price> prices = csvDownloader.createPriceList();
 
         //-----------------ItemInsert--------------------///
-        List<Item> items = csvDownloader.createItemList();
         itemDao.insertAll(items, "Faie");
 
         //-----------------PriceInsert--------------------///
 
-        List<Price> prices = csvDownloader.createPriceList();
         priceDao.insertAll(prices);
     }
-*/
+
+
+
     @Inject
     UserTransaction userTransaction;
 
     @PostConstruct
     public void init() throws SystemException {
         //set a timeout as high as you need
-        userTransaction.setTransactionTimeout(7200);
+        userTransaction.setTransactionTimeout(3600);
     }
 
     @Transactional
-    @Scheduled(every = "100s")
-    public void process() throws IOException {
-        csvDownloader.fetchCSV();
+    @Scheduled(every = "1000s")
+    public void process() throws IOException, TranslateException, ImageReadException, ModelException {
+        //csvDownloader.fetchCSV();
         List<Item> items = csvDownloader.createItemList();
         List<Price> prices = csvDownloader.createPriceList();
+        List<PredictedItem> predictedItemList= csvDownloader.createPredictedItemList();
         itemDao.insertAll(items, "Faie");
+        //itemDao.insert(items, "Faie");
         priceDao.insertAll(prices);
+        predectionDao.insertAll(predictedItemList);
 
     }
+ */
 
 }

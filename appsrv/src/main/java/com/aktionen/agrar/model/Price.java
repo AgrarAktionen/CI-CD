@@ -3,12 +3,13 @@ package com.aktionen.agrar.model;
 import com.opencsv.bean.CsvBindByPosition;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
 @Data
 @Entity
-public class Price implements Serializable {
+public class Price {
 
     @EmbeddedId
     private PricePk pricePk;
