@@ -22,12 +22,6 @@ public class ItemResource {
     @Inject
     ItemDao itemDao;
 
-    @PUT
-    @Path("itemInsert")
-    public void insertData() throws FileNotFoundException {
-        List<Item> items = csvDownloader.createItemList();
-        itemDao.insertAll(items, "Faie");
-    }
 
     @GET
     @Path("/")

@@ -1,22 +1,17 @@
 package com.aktionen.agrar.download;
 
-import ai.djl.ModelException;
-import ai.djl.translate.TranslateException;
+
 import com.aktionen.agrar.dao.ItemDao;
-import com.aktionen.agrar.dao.PredectionDao;
 import com.aktionen.agrar.dao.PriceDao;
 import com.aktionen.agrar.model.Item;
-import com.aktionen.agrar.model.PredictedItem;
 import com.aktionen.agrar.model.Price;
 import com.opencsv.bean.CsvToBeanBuilder;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.scheduler.Scheduled;
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.io.IOUtils;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.SystemException;
 import javax.transaction.Transactional;
@@ -26,11 +21,14 @@ import java.net.URL;
 import java.util.List;
 
 @QuarkusMain
-@ApplicationScoped
-@Transactional
 public class CsvDownloader {
 
     String fileName = "file.csv";
+    List<Item> items = createItemList();
+    List<Price> prices = createPriceList();
+
+    public CsvDownloader() throws FileNotFoundException {
+    }
 
     public static void main(String[] args) throws IOException {
         //fetchCSV(); //uncomment to get new API CSV DATA
@@ -60,17 +58,6 @@ public class CsvDownloader {
 
         return priceList;
     }
-    public List<PredictedItem> createPredictedItemList() throws FileNotFoundException {
-        List<PredictedItem> predictedItemList = new CsvToBeanBuilder(
-                new FileReader(fileName))
-                .withSeparator(';')          // custom CSV parser
-                .withType(PredictedItem.class)
-                .withSkipLines(1)
-                .build()
-                .parse();
-
-        return predictedItemList;
-    }
 
 
     public void fetchCSV() throws IOException {
@@ -86,8 +73,6 @@ public class CsvDownloader {
     @Inject
     PriceDao priceDao;
 
-    @Inject
-    PredectionDao predectionDao;
 
     @Inject
     UserTransaction userTransaction;
@@ -99,16 +84,42 @@ public class CsvDownloader {
     }
 
     @Transactional
-    @Scheduled(every = "10000s")
-    public void process() throws IOException, TranslateException, ImageReadException, ModelException {
-        //csvDownloader.fetchCSV();
-        List<Item> items = createItemList();
-        List<Price> prices = createPriceList();
-        List<PredictedItem> predictedItemList= createPredictedItemList();
-        itemDao.insertAll(items, "Faie");
-        //itemDao.insert(items, "Faie");
-        priceDao.insertAll(prices);
-        predectionDao.insertAll(predictedItemList);
 
+    @Scheduled(every = "2s")
+    public void process() throws IOException {
+        //csvDownloader.fetchCSV();
+        Item item = firstItemElement();
+        Price price = firstPriceElement();
+        itemDao.insert(item, "Faie");
+        priceDao.insertAll(price, item);
+        deleteFirstElement();
+
+    }
+
+
+    private void updateList() throws FileNotFoundException {
+
+    }
+
+    private void deleteFirstElement() {
+        items.remove(0);
+        prices.remove(0);
+    }
+
+    private Item firstItemElement() throws FileNotFoundException {
+        if(items.isEmpty()) {
+            items = createItemList();
+        }
+        Item item = items.get(0);
+
+        return item;
+    }
+
+    private Price firstPriceElement() throws FileNotFoundException {
+        if(prices.isEmpty()) {
+            prices = createPriceList();
+        }
+        Price price = prices.get(0);
+        return price;
     }
 }

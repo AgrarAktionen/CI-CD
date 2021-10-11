@@ -1,7 +1,6 @@
 package com.aktionen.agrar.download;
 
 import com.aktionen.agrar.dao.ItemDao;
-import com.aktionen.agrar.dao.PredectionDao;
 import com.aktionen.agrar.dao.PriceDao;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -20,9 +19,7 @@ public class ItemInserter {
 
     @Inject
     PriceDao priceDao;
-
-    @Inject
-    PredectionDao predectionDao;
+    
 
 /*
     @Scheduled(every="100s")

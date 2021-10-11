@@ -15,7 +15,7 @@ import java.util.List;
 public class ItemDao {
     @Inject
     EntityManager em;
-
+/*
         public void insertAll(List<Item> items, String name){
             APILink apiLink = em.createQuery("select a from APILink a where a.description = :desc", APILink.class)
                     .setParameter("desc", name)
@@ -28,29 +28,53 @@ public class ItemDao {
                 em.flush();
             }
         }
-    public void insert(List<Item> items, String name){
+
+ */
+    public void insert(Item item, String name){
 
         APILink apiLink = em.createQuery("select a from APILink a where a.description = :desc", APILink.class)
                 .setParameter("desc", name)
                 .getSingleResult();
 
-        for(Item item:items) {
 
-            if((em.createQuery("select i from Item i where i.artikelnummer = :desc", Item.class)
+        if((em.createQuery("select i from Item i where i.artikelnummer = :artikelnummer", Item.class)
+                .setParameter("artikelnummer", item.getArtikelnummer())
+                .getResultList().size()) > 0){
+
+
+            em.createQuery("update Item i set i.hersteller = :hersteller where i.artikelnummer = :artikelnummer")
+                    .setParameter("hersteller", item.getHersteller())
+                    .setParameter("artikelnummer", item.getArtikelnummer()).executeUpdate();
+
+            //em.remove(item);
+            //item.setApiLink(apiLink);
+            //em.merge(item);
+            //em.flush();
+
+/*
+            if ((em.createQuery("select i from Item i where i.artikelnummer = :desc", Item.class)
                     .setParameter("desc", item.getArtikelnummer())
-                    .getSingleResult()).equals(item)){
+                    .getSingleResult().getArtikelnummer()).equals(item.getArtikelnummer())) {
 
                 //item.setApiLink(apiLink);
                 //em.merge(item);
                 //em.flush();
-            }else{
+            } else {
                 item.setApiLink(apiLink);
                 em.persist(item);
                 em.flush();
             }
 
 
+ */
+
+
+        }else {
+            item.setApiLink(apiLink);
+            em.persist(item);
+            em.flush();
         }
+
 
 
     }
@@ -68,6 +92,7 @@ public class ItemDao {
 
     public Item get(int id) {
         return em.find(Item.class, id);
+
     }
 
     public void delete(Item item) {

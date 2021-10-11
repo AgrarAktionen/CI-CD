@@ -25,12 +25,6 @@ public class PriceResource {
     @Inject
     PriceDao priceDao;
 
-    @PUT
-    @Path("priceInsert")
-    public void insertDatas() throws FileNotFoundException {
-        List<Price> prices = csvDownloader.createPriceList();
-        priceDao.insertAll(prices);
-    }
 
     @GET
     public List<Price> all() {

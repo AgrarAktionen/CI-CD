@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>at.aberger.demo</groupId>
@@ -22,16 +22,8 @@
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>2.2.3.Final</quarkus.platform.version>
-    <djl.version>0.12.0</djl.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-
   </properties>
-  <repositories>
-    <repository>
-      <id>djl.ai</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    </repository>
-  </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -41,25 +33,18 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>ai.djl</groupId>
-        <artifactId>bom</artifactId>
-        <version>${djl.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
-  <!--
-    <dependency>
-      <groupId>at.aberger.demo</groupId>
-      <artifactId>www</artifactId>
-      <version>${global.version}</version>
-      <scope>import</scope>
-    </dependency>
-  -->
-  
+    <!--
+      <dependency>
+        <groupId>at.aberger.demo</groupId>
+        <artifactId>www</artifactId>
+        <version>${global.version}</version>
+        <scope>import</scope>
+      </dependency>
+    -->
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>
@@ -67,6 +52,10 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-agroal</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -85,6 +74,11 @@
       <artifactId>lombok</artifactId>
       <version>1.18.16</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -128,33 +122,17 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy</artifactId>
+      <artifactId>quarkus-resteasy-qute</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-jackson</artifactId>
+      <groupId>io.quarkiverse.jberet</groupId>
+      <artifactId>quarkus-jberet</artifactId>
+      <version>1.0.0</version>
     </dependency>
     <dependency>
-      <!-- This is required for quarkus native-image generation, not sure why -->
-      <groupId>io.netty</groupId>
-      <artifactId>netty-tcnative</artifactId>
-      <version>2.0.31.Final</version>
-    </dependency>
-    <dependency>
-      <!-- GraalVM doesn't work with ImageIO, use apache commons imaging instead -->
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-imaging</artifactId>
-      <version>1.0-alpha1</version>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-junit5</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <scope>test</scope>
+      <groupId>io.quarkiverse.jberet</groupId>
+      <artifactId>quarkus-jberet-rest</artifactId>
+      <version>0.0.4</version>
     </dependency>
   </dependencies>
   <build>
@@ -256,61 +234,6 @@
       <properties>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
-    </profile>
-    <profile>
-      <id>pytorch</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>ai.djl.pytorch</groupId>
-          <artifactId>pytorch-model-zoo</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>ai.djl.pytorch</groupId>
-          <artifactId>pytorch-engine</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>ai.djl.pytorch</groupId>
-          <artifactId>pytorch-native-auto</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>tensorflow</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.bytedeco</groupId>
-          <artifactId>javacpp</artifactId>
-          <!-- Only 1.5.4 works with GraalVM -->
-          <version>1.5.4</version>
-        </dependency>
-        <dependency>
-          <groupId>org.bytedeco</groupId>
-          <artifactId>javacpp</artifactId>
-          <version>1.5.4</version>
-          <classifier>macosx-x86_64</classifier>
-        </dependency>
-        <dependency>
-          <groupId>com.google.protobuf</groupId>
-          <artifactId>protobuf-java</artifactId>
-          <!-- Why this get downgraded to 3.6.1 by default? -->
-          <version>3.8.0</version>
-        </dependency>
-        <dependency>
-          <groupId>ai.djl.tensorflow</groupId>
-          <artifactId>tensorflow-engine</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>ai.djl.tensorflow</groupId>
-          <artifactId>tensorflow-model-zoo</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>ai.djl.tensorflow</groupId>
-          <artifactId>tensorflow-native-auto</artifactId>
-        </dependency>
-      </dependencies>
     </profile>
   </profiles>
 </project>

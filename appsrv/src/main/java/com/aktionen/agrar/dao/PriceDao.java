@@ -20,24 +20,18 @@ public class PriceDao {
     @Inject
     ItemDao itemDao;
 
-    public void insertAll(List<Price> prices){
+    public void insertAll(Price price, Item item){
     // TODO create a currentId which is an actual id in the database: hibernate_sequence -> import SQL
-        //Item firstItem = itemDao.get(0);
-        //int currentId = firstItem.getItemId();
-        int currentId = 1000;
-        for(Price price:prices){
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            Item item = em.createQuery("select p from Item p where p.itemId = :ids", Item.class)
-                    .setParameter("ids", currentId)
-                    .getSingleResult();
 
-            price.setPricePk(new PricePk(item.getItemId(), timestamp));
-            //em.persist(item);
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            price.setPricePk(new PricePk(1000, timestamp));
+            //em.persist(price);
             em.merge(price);
             em.flush();
-            currentId++;
 
-        }
+
+
     }
 
     public List<Price> getAll() {
