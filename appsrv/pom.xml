@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>at.aberger.demo</groupId>
@@ -18,10 +18,10 @@
     <junit.version>4.13.2</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>2.3.0.Final</quarkus-plugin.version>
+    <quarkus-plugin.version>1.13.7.Final</quarkus-plugin.version>
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>2.2.3.Final</quarkus.platform.version>
+    <quarkus.platform.version>1.13.7.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
   </properties>
   <dependencyManagement>
@@ -36,15 +36,15 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-    <!--
-      <dependency>
-        <groupId>at.aberger.demo</groupId>
-        <artifactId>www</artifactId>
-        <version>${global.version}</version>
-        <scope>import</scope>
-      </dependency>
-    -->
-
+  <!--
+    <dependency>
+      <groupId>at.aberger.demo</groupId>
+      <artifactId>www</artifactId>
+      <version>${global.version}</version>
+      <scope>import</scope>
+    </dependency>
+  -->
+  
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>
@@ -110,29 +110,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-openapi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.opencsv</groupId>
-      <artifactId>opencsv</artifactId>
-      <version>5.3</version>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-scheduler</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-qute</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkiverse.jberet</groupId>
-      <artifactId>quarkus-jberet</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkiverse.jberet</groupId>
-      <artifactId>quarkus-jberet-rest</artifactId>
-      <version>0.0.4</version>
     </dependency>
   </dependencies>
   <build>
