@@ -31,7 +31,7 @@ public class CsvDownloader {
     }
 
     public static void main(String[] args) throws IOException {
-        fetchCSV(); //uncomment to get new API CSV DATA
+        //fetchCSV(); //uncomment to get new API CSV DATA
         Quarkus.run(args);
     }
 
@@ -60,9 +60,9 @@ public class CsvDownloader {
     }
 
 
-    public void fetchCSV() throws IOException {
+    public static void fetchCSV() throws IOException {
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
-        FileOutputStream fileOS = new FileOutputStream(fileName);
+        FileOutputStream fileOS = new FileOutputStream("file.csv");
         int i = IOUtils.copy(inputStream, fileOS);
 
     }
@@ -85,15 +85,19 @@ public class CsvDownloader {
 
     @Transactional
 
-    @Scheduled(every = "2s")
+    @Scheduled(every = "2s", delayed = "30s")
     public void process() throws IOException {
-        //csvDownloader.fetchCSV();
+
         Item item = firstItemElement();
         Price price = firstPriceElement();
         itemDao.insert(item, "Faie");
         priceDao.insertAll(price, item);
         deleteFirstElement();
 
+    }
+    @Scheduled(every = "100s")
+    public void csv() throws IOException {
+        fetchCSV();
     }
 
 
