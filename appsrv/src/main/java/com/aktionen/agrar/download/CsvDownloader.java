@@ -31,7 +31,7 @@ public class CsvDownloader {
     }
 
     public static void main(String[] args) throws IOException {
-        //fetchCSV(); //uncomment to get new API CSV DATA
+        fetchCSV(); //uncomment to get new API CSV DATA
         Quarkus.run(args);
     }
 
