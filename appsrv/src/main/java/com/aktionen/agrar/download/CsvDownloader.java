@@ -23,7 +23,7 @@ import java.util.List;
 @QuarkusMain
 public class CsvDownloader {
 
-    String fileName = "file.csv";
+    String fileName = "appsrv/file.csv";
     List<Item> items = createItemList();
     List<Price> prices = createPriceList();
 
@@ -62,7 +62,7 @@ public class CsvDownloader {
 
     public static void fetchCSV() throws IOException {
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
-        FileOutputStream fileOS = new FileOutputStream("file.csv");
+        FileOutputStream fileOS = new FileOutputStream("appsrv/file.csv");
         int i = IOUtils.copy(inputStream, fileOS);
 
     }
