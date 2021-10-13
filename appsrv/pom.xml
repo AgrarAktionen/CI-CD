@@ -188,10 +188,10 @@
   </build>
   <profiles>
     <profile>
-      <id>native</id>
+      <id>uber-jar</id>
       <activation>
         <property>
-          <name>native</name>
+          <name>uber-jar</name>
         </property>
       </activation>
       <build>
@@ -207,7 +207,7 @@
                 </goals>
                 <configuration>
                   <systemPropertyVariables>
-                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                    <uber-jar.image.path>${project.build.directory}/${project.build.finalName}-runner</uber-jar.image.path>
                     <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                     <maven.home>${maven.home}</maven.home>
                   </systemPropertyVariables>
@@ -218,7 +218,7 @@
         </plugins>
       </build>
       <properties>
-        <quarkus.package.type>native</quarkus.package.type>
+        <quarkus.package.type>uber-jar</quarkus.package.type>
       </properties>
     </profile>
   </profiles>
