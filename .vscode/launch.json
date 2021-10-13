@@ -24,7 +24,7 @@
             "type": "java",
             "name": "Application Server",
             "request": "launch",
-            "mainClass": "at.htl.quarkus.demo.Main",
+            "mainClass": "com.aktionen.agrar.download.CsvDownloader",
             "projectName": "application-server"
         },
         {
