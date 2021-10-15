@@ -23,7 +23,7 @@ import java.util.List;
 @QuarkusMain
 public class CsvDownloader {
 
-    String fileName = "appsrv/file.csv";
+    String fileName = "/var/lib/appsrv/file.csv";
     List<Item> items = createItemList();
     List<Price> prices = createPriceList();
 
@@ -62,7 +62,7 @@ public class CsvDownloader {
 
     public static void fetchCSV() throws IOException {
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
-        FileOutputStream fileOS = new FileOutputStream("appsrv/file.csv");
+        FileOutputStream fileOS = new FileOutputStream("/var/lib/appsrv/file.csv");
         int i = IOUtils.copy(inputStream, fileOS);
 
     }
@@ -73,18 +73,19 @@ public class CsvDownloader {
     @Inject
     PriceDao priceDao;
 
-
+    /*
     @Inject
     UserTransaction userTransaction;
+
 
     @PostConstruct
     public void init() throws SystemException {
         //set a timeout as high as you need
         userTransaction.setTransactionTimeout(3600);
     }
+     */
 
     @Transactional
-
     @Scheduled(every = "2s", delayed = "30s")
     public void process() throws IOException {
 
@@ -98,11 +99,6 @@ public class CsvDownloader {
     @Scheduled(every = "100s")
     public void csv() throws IOException {
         fetchCSV();
-    }
-
-
-    private void updateList() throws FileNotFoundException {
-
     }
 
     private void deleteFirstElement() {
