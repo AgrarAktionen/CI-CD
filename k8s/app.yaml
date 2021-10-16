@@ -27,6 +27,18 @@ stringData:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: appsrvstorage
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 50Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: database
 spec:
   accessModes:
@@ -87,6 +99,9 @@ spec:
                   name: mysql-admin
                   key: password
       volumes:
+        - name: appsrvstorage
+          persistentVolumeClaim:
+            claimName: appsrvstorage
         - name: init-script
           configMap:
             name: mysql-setup
@@ -94,6 +109,9 @@ spec:
               - key: wait.sh
                 path: wait.sh
             defaultMode: 0744
+      volumeMounts:
+        - name: appsrvstorage
+          mountPath: /var/lib/appsrvstorage
       imagePullSecrets:
         - name: leocloudcredentials
 ---
