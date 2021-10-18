@@ -67,6 +67,9 @@ spec:
           image: registry.cloud.htl-leonding.ac.at/20170011/appsrv
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: appsrvstorage
+              mountPath: /var/lib/appsrvstorage
           resources:
                 requests:
                   memory: "64Mi"
@@ -109,9 +112,6 @@ spec:
               - key: wait.sh
                 path: wait.sh
             defaultMode: 0744
-      volumeMounts:
-        - name: appsrvstorage
-          mountPath: /var/lib/appsrvstorage
       imagePullSecrets:
         - name: leocloudcredentials
 ---
