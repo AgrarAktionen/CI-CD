@@ -18,18 +18,16 @@ import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import java.io.*;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 
 @QuarkusMain
 public class CsvDownloader {
 
-    String fileName = "var/lib/appsrvstorage/file.csv";
-    InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
-    FileOutputStream fileOS = new FileOutputStream(fileName);
-    int i = IOUtils.copy(inputStream, fileOS);
+    String fileName = "file.csv";
 
-    List<Item> items = createItemList();
-    List<Price> prices = createPriceList();
+    List<Item> items = new LinkedList<>();
+    List<Price> prices = new LinkedList<>();
 
     public CsvDownloader() throws IOException {
     }
@@ -66,7 +64,7 @@ public class CsvDownloader {
 
     public static void fetchCSV() throws IOException {
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
-        FileOutputStream fileOS = new FileOutputStream("var/lib/appsrvstorage/file.csv");
+        FileOutputStream fileOS = new FileOutputStream("file.csv");
         int i = IOUtils.copy(inputStream, fileOS);
 
     }
@@ -90,7 +88,7 @@ public class CsvDownloader {
      */
 
     @Transactional
-    @Scheduled(every = "2s", delayed = "30s")
+    @Scheduled(every = "2s", delayed = "300s")
     public void process() throws IOException {
 
         Item item = firstItemElement();
