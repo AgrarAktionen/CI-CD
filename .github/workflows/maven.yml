@@ -33,8 +33,7 @@ jobs:
 
     - name: build with Maven
       run: |
-        mvn -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
-#       mvn -Pnative -Dquarkus.native.container-build=true -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
+        mvn -Pnative -Dquarkus.native.container-build=true -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
 #       jvm build (not optimized for cloud): mvn -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
     - name: build docker images
       run: distribution/target/distribution-0.5.0-dist/docker/build.sh build ${{ secrets.REGISTRY_USER }}
@@ -48,8 +47,7 @@ jobs:
 
     - name: push docker images to LeoCloud
       run: |
-        docker push registry.cloud.htl-leonding.ac.at/${{ secrets.REGISTRY_USER }}/appsrv
- #      distribution/target/distribution-0.5.0-dist/docker/build.sh push ${{ secrets.REGISTRY_USER }}
+        distribution/target/distribution-0.5.0-dist/docker/build.sh push ${{ secrets.REGISTRY_USER }}
 
     - name: read me
       run: |
