@@ -34,7 +34,7 @@ jobs:
     - name: build with Maven
       run: |
         ls -l
-        mvn -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
+        mvn -Dquarkus.container-image.build=true -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
 #       mvn -Pnative -Dquarkus.native.container-build=true -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
 #       jvm build (not optimized for cloud): mvn -Dquarkus-profile=prod -Dbase.href=${{ secrets.BASE_HREF }} -B install
     - name: build docker images
