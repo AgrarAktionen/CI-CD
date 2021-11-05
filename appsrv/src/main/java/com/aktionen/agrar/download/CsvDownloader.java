@@ -63,10 +63,15 @@ public class CsvDownloader {
 
 
     public static void fetchCSV() throws IOException {
-        InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
-        FileOutputStream fileOS = new FileOutputStream("/var/lib/appsrvstorage/file.csv");
-        int i = IOUtils.copy(inputStream, fileOS);
+        //InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
+        //FileOutputStream fileOS = new FileOutputStream("/var/lib/appsrvstorage/file.csv");
+        //int i = IOUtils.copy(inputStream, fileOS);
 
+        String s = "Artikelbezeichnung;Hersteller;Artikelnummer;Kategoriepfad;Beschreibungsfeld;Bild-Link;Deeplink;Verfuegbarkeit;Bruttopreis;Stattpreis;EAN;Versandkosten;\n" +
+                "\"Milchsammelstück Interpuls ITP207\";\"keine Angabe\";\"FA146\";\"Tierhaltung>Milchwirtschaft>Melkzeuge und Zubehör>Milchsammelstücke>Milchsammelstücke Schafe/Ziege\";\"Vollautomatisches Milchsammelstück für Schafe und Ziegen 20ccm, 30Gramm, Milchanschluss 14x10mm Ein Absperrventil öffnet und schließt automatisch sowol beim Melken als auch beim Waschen (in Ruhestellung geschlossen)\";https://www.faie.at/media/image/c4/0a/ef/art_pro_fo_ed_146_200x200.jpg;\"https://www.faie.at/tierhaltung/milchwirtschaft/melkzeuge-und-zubehoer/milchsammelstuecke/milchsammelstuecke-schafeziege/5000146/milchsammelstueck-interpuls-itp207\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);23,50;33,50;\"\"; 9,95;";
+        InputStream inputStream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+        FileOutputStream fileOS = new FileOutputStream("file.csv");
+        IOUtils.copy(inputStream, fileOS);
     }
 
     @Inject
@@ -100,6 +105,7 @@ public class CsvDownloader {
     }
     @Scheduled(every = "100s")
     public void csv() throws IOException {
+        System.out.println("Downloading from Api...");
         fetchCSV();
     }
 
