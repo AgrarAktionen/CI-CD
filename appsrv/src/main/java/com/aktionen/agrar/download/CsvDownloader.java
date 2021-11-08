@@ -93,7 +93,7 @@ public class CsvDownloader {
      */
 
     @Transactional
-    @Scheduled(every = "2s", delayed = "300s") //Item insert, every singel item
+    @Scheduled(every = "2s", delayed = "30s") //Item insert, every singel item
     public void process() throws IOException {
 
         Item item = firstItemElement();
