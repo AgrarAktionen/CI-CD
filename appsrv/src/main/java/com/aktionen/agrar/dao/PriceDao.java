@@ -25,7 +25,7 @@ public class PriceDao {
 
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            price.setPricePk(new PricePk(1000, timestamp));
+            price.setPricePk(new PricePk(item.getItemId(), timestamp));
             //em.persist(price);
             em.merge(price);
             em.flush();
