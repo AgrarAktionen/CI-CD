@@ -71,12 +71,9 @@ spec:
             - name: appsrvstorage
               mountPath: /var/lib/appsrvstorage
           resources:
-                requests:
-                  memory: "64Mi"
-                  cpu: "250m"
-                limits:
-                  memory: "128Mi"
-                  cpu: "500m"
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
       initContainers:
         - name: wait
           image: mysql:8

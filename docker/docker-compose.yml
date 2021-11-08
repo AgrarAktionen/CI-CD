@@ -27,8 +27,11 @@ services:
       - 8080
     depends_on:
       - mysql
+    volumes:
+      - appsrvstorage:/var/lib/appsrvstorage/
   express:
       build:
-        context: ./express      
+        context: ./express
 volumes:
   database:
+  appsrvstorage:
