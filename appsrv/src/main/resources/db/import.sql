@@ -8,6 +8,11 @@ insert into db.APILink(apiId, url, description, user, password, shopId) values (
 insert into db.APILink(apiId, url, description, user, password, shopId) values (2, '', '', 'wdawd', 'awd', 2);
 insert into db.APILink(apiId, url, description, user, password, shopId) values (3, '', '', 'awd', 'awd', 2);
 
+insert into db.User(id, username, email, password) values (1, 'Xaver', 'xaver@gmail.com', 'password');
+insert into db.User(id, username, email, password) values (2, 'Max', 'max@gmail.com', 'password');
+insert into db.User(id, username, email, password) values (3, 'Tobi', 'tobi@gmail.com', 'password');
+insert into db.User(id, username, email, password) values (4, 'Simsi', 'simsi@gmail.com', 'password');
+
 INSERT INTO School(id, name, street) values
     (1, 'HTL-Leonding', 'Limesstrasse 8-12'),
     (2, 'HTL-Perg', 'Machlandstr. 48');
