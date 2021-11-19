@@ -4,15 +4,15 @@ metadata:
   name: mysql-setup
 data:
   create.sql: |
-    ALTER USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-    GRANT ALL PRIVILEGES ON *.* TO 'user'@'%';
-    FLUSH PRIVILEGES;
-    CREATE DATABASE db;
+    select "hello from database init script!" from dual;
   wait.sh: |
     until echo '\q' | mysql -hmysql -P"$PORT" -u"$USER" -p"$PASSWORD" $DATABASE; do
         echo "waiting for godot ..."
         sleep 2
     done
+  leocloud.cnf: |
+    [mysqld]
+    innodb_use_native_aio = 0
 ---
 apiVersion: v1
 kind: Secret
@@ -72,8 +72,8 @@ spec:
               mountPath: /var/lib/appsrvstorage
           resources:
             limits:
-              memory: "1024Mi"
-              cpu: "1000m"
+              memory: 1024Mi
+              cpu: 2048m
       initContainers:
         - name: wait
           image: mysql:8
@@ -228,31 +228,40 @@ spec:
             items:
               - key: create.sql
                 path: create.sql
+        - name: mysql-cnf
+          configMap:
+            name: mysql-setup
+            items:
+              - key: leocloud.cnf
+                path: leocloud.cnf                  
       containers:
         - name: mysql
           image: mysql:8
+#          command: ["tail", "-f", "/dev/null"]
           resources:
             limits:
-              memory: "1Gi"
-              cpu: "1000m"
-          imagePullPolicy: Always
+              memory: 1Gi
+              cpu: 2048m
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3306
           volumeMounts:
             - name: mysql-storage
-              mountPath: /var/lib/mysql/
+              mountPath: /var/lib/mysql
             - name: init-script
               mountPath: /docker-entrypoint-initdb.d
               readOnly: true
-#          command: ["tail"]
-#          args: [ "-f", "/dev/null" ]
+            - name: mysql-cnf
+              mountPath: /etc/mysql/conf.d/leocloud.cnf
+              subPath: leocloud.cnf
+              readOnly: true      
           env:
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
                   name: mysql-admin
                   key: username
-            - name: MYSQL_DB
+            - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
                   name: mysql-admin
@@ -267,6 +276,8 @@ spec:
                 secretKeyRef:
                   name: mysql-admin
                   key: password
+            - name: MYSQL_ROOT_HOST
+              value: '%'
 ---
 apiVersion: v1
 kind: Service
