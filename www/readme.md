@@ -1,28 +1,27 @@
-# Browser REST client _using the platform only_
+# AgrarAktionen
 
-This project implements a pure Typescript REST - Client implemented without any
-foreign UI-libraries (no Angular, no Vuejs, no React, no Redux, no lit-html, no Polymer...).
-The example shows how to implement the [Model View Controller Architecture](https://aberger.at/blog/architecture/javafx/2019/10/26/mvc-pattern-javafx.html) in a browser client application.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
 
-The example makes use of [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) and the [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM). Both are implemented natively in all popular browsers that we are interested in, so this gives optimal performance.
-Other browsers are shimmed by using webcomponents.
+## Development server
 
-We do mix two simple things: mutation and asynchronicity that - when mixed together - 
-can behave like [menthos and coke](https://www.youtube.com/watch?v=ZwyMcV9emmc). For Details see this [blog post](https://aberger.at/blog/typescript/mvc/2021/05/23/immutable-state.html).
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Code scaffolding
 
-To avoid all that we use [Observables](http://reactivex.io/)
-and make use of 3 fundamental design principles:
-- Single source of truth
-- Read Only State
-- Changes are made with pure functions
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-We use Typescript to implement this, but without the heavy overhead that would be neccessary with libraries like Redux or Immutablejs.
-Although we do not use Redux, we use [immer](https://immerjs.github.io/immer/) for implemening
-the producers for our read only application state.
+## Build
 
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-See [model.ts](./src/model/model.ts) and [store.ts](./src/model/store.ts) in the project as an example.
+## Running unit tests
 
-We do not use lit-html. Still you should install the lit-html Plugin to get the syntax highlighting for the html templates in your code editor.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
