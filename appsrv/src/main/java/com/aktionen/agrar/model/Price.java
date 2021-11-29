@@ -24,6 +24,8 @@ public class Price {
 
     private boolean validFlag;
 
+    private double percentage;
+
 
 /*
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Agrar Aktionen Mobile</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 10%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>
+            id
+        </th>
+        <th>
+            alreadyUsed
+        </th>
+        <th>
+            bytes
+        </th>
+        <th>
+            classification
+        </th>
+        <th>
+            classname
+        </th>
+        <th>
+            probability
+        </th>
+        <th>
+            usable
+        </th>
+    </tr>
+    {#for image in images}
+    <tr>
+        <td><a href="http://localhost:8080/api/similarItems/getAlreadyUsed">{image.id}</a></td>
+        <td>{image.alreadyUsed}</td>
+        <td>{image.bytes}></td>
+        <td>{image.classification}</td>
+        <td>{image.classname}</td>
+        <td>{image.probability}</td>
+        <td>{image.usable}</td>
+
+    </tr>
+    {/for}
+
+</table>
+</body>
+</html>

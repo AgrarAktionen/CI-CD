@@ -8,20 +8,4 @@ insert into db.APILink(apiId, url, description, user, password, shopId) values (
 insert into db.APILink(apiId, url, description, user, password, shopId) values (2, '', '', 'wdawd', 'awd', 2);
 insert into db.APILink(apiId, url, description, user, password, shopId) values (3, '', '', 'awd', 'awd', 2);
 
-insert into db.User(id, username, email, password) values (1, 'Xaver', 'xaver@gmail.com', 'password');
-insert into db.User(id, username, email, password) values (2, 'Max', 'max@gmail.com', 'password');
-insert into db.User(id, username, email, password) values (3, 'Tobi', 'tobi@gmail.com', 'password');
-insert into db.User(id, username, email, password) values (4, 'Simsi', 'simsi@gmail.com', 'password');
-
-INSERT INTO School(id, name, street) values
-    (1, 'HTL-Leonding', 'Limesstrasse 8-12'),
-    (2, 'HTL-Perg', 'Machlandstr. 48');
-INSERT INTO Course(id, name, school_id) values(1, '4BHIF', 1);
-
-INSERT INTO Person(id, LastName, FirstName, MatNr, course_id) values
-    (1, 'Doe', 'John', '1234', 1),
-    (2, 'Roe', 'Jane', '5678', 1),
-    (3, 'Sixpack', 'Joe', '9012', 1);
-
-insert into db.Bill(bill_id, number) values (1, 'R0123435');
-insert into db.Line(bill_id, row_id, amount) values (1, 1, 60);
+-- INSERT INTO db.User(email, password, username, loggedIn) VALUES ('g@g.g', '12341234', 'user', false)

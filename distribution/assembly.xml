@@ -76,7 +76,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../www/dist/</directory>
+            <directory>../www</directory>
             <outputDirectory>../docker/nginx/html</outputDirectory>
             <includes>
                 <include>**/*</include>
