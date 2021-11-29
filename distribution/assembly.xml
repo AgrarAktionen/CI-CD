@@ -53,7 +53,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../www/dist/</directory>
+            <directory>../www/dist/agrar-aktionen</directory>
             <outputDirectory>../docker/nginx/html</outputDirectory>
             <includes>
                 <include>**/*</include>
