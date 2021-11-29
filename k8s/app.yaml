@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
         - name: appsrv
-          image: registry.cloud.htl-leonding.ac.at/20170033/appsrv
+          image: registry.cloud.htl-leonding.ac.at/20170011/appsrv
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -128,7 +128,7 @@ spec:
     spec:
       containers:
         - name: express
-          image: registry.cloud.htl-leonding.ac.at/20170033/express
+          image: registry.cloud.htl-leonding.ac.at/20170011/express
           ports:
             - containerPort: 8080
           resources:
@@ -189,7 +189,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: registry.cloud.htl-leonding.ac.at/20170033/nginx:latest
+          image: registry.cloud.htl-leonding.ac.at/20170011/nginx:latest
           ports:
             - containerPort: 80
           resources:
@@ -342,7 +342,7 @@ spec:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /20170033(/|$)(.*)$
+          - path: /20170011(/|$)(.*)$
             pathType: Prefix
             backend:
               service:
@@ -361,7 +361,7 @@ spec:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /20170033/api/(.*)$
+          - path: /20170011/api/(.*)$
             pathType: Prefix
             backend:
               service:
@@ -380,7 +380,7 @@ spec:
     - host: student.cloud.htl-leonding.ac.at
       http:
         paths:
-          - path: /20170033/app/(.*)$
+          - path: /20170011/app/(.*)$
             pathType: Prefix
             backend:
               service:
