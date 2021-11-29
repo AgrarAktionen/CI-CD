@@ -30,9 +30,7 @@
 
   </dependencies>
   <modules>
-    <module>www</module>
     <module>appsrv</module>
-    <module>express-server</module>
     <module>docker</module>
     <module>distribution</module>
   </modules>

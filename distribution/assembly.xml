@@ -38,35 +38,12 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../docker/express</directory>
-            <includes>
-                <include>Dockerfile</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <directory>../docker/nginx</directory>
             <includes>
                 <include>Dockerfile</include>
                 <include>default.conf</include>
             </includes>
-        </fileSet>
-
-        <fileSet>
-            <directory>../express-server</directory>
-            <outputDirectory>../docker/express</outputDirectory>
-            <includes>
-                <include>package.json</include>
-                <include>config/**/*</include>
-                <include>dist/**/*</include>
-            </includes>
-        </fileSet>        
-        <fileSet>
-            <directory>../www/target/express</directory>
-            <outputDirectory>../docker/express/html</outputDirectory>
-            <includes>
-                <include>**/*</include>
-            </includes>
-        </fileSet>
+        </fileSet>   
         <fileSet>
             <directory>../appsrv/target</directory>
             <outputDirectory>../docker/appsrv/deployments</outputDirectory>
@@ -76,7 +53,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../www/target/</directory>
+            <directory>../www/dist/</directory>
             <outputDirectory>../docker/nginx/html</outputDirectory>
             <includes>
                 <include>**/*</include>

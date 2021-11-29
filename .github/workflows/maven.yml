@@ -31,6 +31,16 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-m2-
 
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: npm install
+    - name: build Angular
+      run: |
+        npm install
+        npm run build
+        
     - name: build with Maven
       run: |
         ls -l

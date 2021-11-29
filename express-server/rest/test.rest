@@ -1,5 +1,0 @@
-GET http://localhost:8080
-Content-Type: "application/json"
-###
-GET http://localhost:8080/api/school
-Content-Type: "application/json"
