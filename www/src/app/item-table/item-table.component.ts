@@ -15,6 +15,10 @@ export class ItemTableComponent implements OnInit {
   items: Item [] = []
   itemsAnzeige: Item [] = []
   isHere: Boolean = false;
+  kategorien: string [] = []
+  kategorieGrad: number = 1;
+  kategoriePfad: string [] = [];
+  kategorieName: string = '';
 
   p: number = 1;
   seitenzahl: number = 10;
@@ -28,14 +32,100 @@ export class ItemTableComponent implements OnInit {
     this.itemService.getAll().subscribe(itemsAnzeige => {
       this.itemsAnzeige = itemsAnzeige
       itemsAnzeige.forEach(element => {
-        element.beschreibungsfeld = element.beschreibungsfeld.substring(0, 80);
-        element.beschreibungsfeld += "..."
+        if(element.beschreibungsfeld != "") {  
+          element.beschreibungsfeld = element.beschreibungsfeld.substring(0, 80);
+          element.beschreibungsfeld += "..."
+        }
       });
     })
+    this.itemService.getPrimeKategorie().subscribe(kategorien => this.kategorien = kategorien)
   }
 
   seitenanzahl(anzahl: number) {
    this.seitenzahl = anzahl;
+  }
+  textKürzen() {
+    this.itemsAnzeige.forEach(element => {
+      if(element.beschreibungsfeld != "") {  
+        element.beschreibungsfeld = element.beschreibungsfeld.substring(0, 80);
+        element.beschreibungsfeld += "..."
+      }
+    });
+  }
+  clickKategorie(kategorie: string) {
+    if(this.kategorieGrad == 1) {
+      this.kategorien = []
+      this.kategoriePfad[0] = kategorie;
+      this.itemsAnzeige = []
+      this.itemService.getKategorieItem(this.kategoriePfad[0]).subscribe(itemsAnzeige => {
+        this.itemsAnzeige = itemsAnzeige
+        this.items = this.itemsAnzeige;
+        this.textKürzen()
+      })
+      this.itemService.getSecondKategorie(this.kategoriePfad[0]).subscribe(kategorien => this.kategorien = kategorien)
+      this.kategorieGrad++;
+      this.kategorieName += kategorie;
+    } else if(this.kategorieGrad == 2) {
+      this.kategorien = []
+      this.kategoriePfad[1] = "/" + kategorie;
+      this.itemsAnzeige = []
+      this.itemService.getKategorieItem(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(itemsAnzeige => {
+        this.itemsAnzeige = itemsAnzeige
+        this.items = this.itemsAnzeige;
+        this.textKürzen()
+      })
+      this.itemService.getThirdKategorie(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(kategorien => this.kategorien = kategorien)
+      this.kategorieGrad++;
+      this.kategorieName = '';
+      this.kategorieName += "/" + kategorie;
+    } else if(this.kategorieGrad == 3) {
+      this.kategorien = []
+      this.kategoriePfad[2] = "/" + kategorie;
+      this.itemsAnzeige = []
+      this.itemService.getKategorieItem(this.kategoriePfad[0] + this.kategoriePfad[1] + this.kategoriePfad[2]).subscribe(itemsAnzeige => {
+        this.itemsAnzeige = itemsAnzeige
+        this.items = this.itemsAnzeige;
+        this.textKürzen()
+      })
+      this.itemService.getFourthKategorie(this.kategoriePfad[0] + this.kategoriePfad[1] + this.kategoriePfad[2]).subscribe(kategorien => this.kategorien = kategorien)
+      this.kategorieGrad++;
+      this.kategorieName = '';
+      this.kategorieName += "/" + kategorie;
+    } 
+  }
+
+  kategorieZurueck() {
+    if(this.kategorieGrad == 2) {
+      this.kategorien = []
+      this.itemsAnzeige = []
+      this.itemService.getAll().subscribe(itemsAnzeige => {
+        this.itemsAnzeige = itemsAnzeige
+        this.items = this.itemsAnzeige;
+        this.textKürzen()
+      })
+      this.itemService.getPrimeKategorie().subscribe(kategorien => this.kategorien = kategorien)
+      this.kategorieGrad--;
+    } else if(this.kategorieGrad == 3) {
+      this.kategorien = []
+      this.itemsAnzeige = []
+      this.itemService.getKategorieItem(this.kategoriePfad[0]).subscribe(itemsAnzeige => {
+        this.itemsAnzeige = itemsAnzeige
+        this.items = this.itemsAnzeige;
+        this.textKürzen()
+      })
+      this.kategorieGrad--;
+      this.itemService.getSecondKategorie(this.kategoriePfad[0]).subscribe(kategorien => this.kategorien = kategorien)
+    } else if(this.kategorieGrad == 4) {
+      this.kategorien = []
+      this.kategorieGrad--;
+      this.itemsAnzeige = []
+      this.itemService.getKategorieItem(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(itemsAnzeige => {
+        this.itemsAnzeige = itemsAnzeige
+        this.items = this.itemsAnzeige;
+        this.textKürzen()
+      })
+      this.itemService.getThirdKategorie(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(kategorien => this.kategorien = kategorien)
+    }
   }
 
   clicked(item: Item) {
@@ -56,6 +146,14 @@ export class ItemTableComponent implements OnInit {
           }
         });
       }
+      /*
+      this.itemsAnzeige.forEach(element => {
+        if(element.beschreibungsfeld != "") {  
+          element.beschreibungsfeld = element.beschreibungsfeld.substring(0, 80);
+          element.beschreibungsfeld += "..."
+        }
+      });
+      */
       this.isHere = false;
     }
    
