@@ -19,8 +19,8 @@ import javax.ws.rs.core.Application;
                     version = "0.0.5",
                     contact = @Contact(
                             name = "Agrar Aktionen Mobile",
-                            url = "https://student.cloud.htl-leonding.ac.at/20170011",
-                            email = "20170011@students.htl-perg.ac.at"),
+                            url = "https://student.cloud.htl-leonding.ac.at/20170033",
+                            email = "20170033@students.htl-perg.ac.at"),
                     license = @License(
                             name = "Apache 2.0",
                             url = "https://www.apache.org/licenses/LICENSE-2.0.html"))
