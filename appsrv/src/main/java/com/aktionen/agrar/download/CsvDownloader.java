@@ -171,7 +171,7 @@ public class CsvDownloader {
 
 
 
-    @Scheduled(every = "2s", delayed = "100s") //120s
+    @Scheduled(every = "4s", delayed = "100s") //120s
     @Transactional
     public void process() throws IOException, TranslateException, ImageReadException, ModelException {
 
