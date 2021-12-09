@@ -171,7 +171,7 @@ public class CsvDownloader {
 
 
 
-    @Scheduled(every = "4s", delayed = "100s") //120s
+    @Scheduled(every = "4s", delayed = "120s") //120s
     @Transactional
     public void process() throws IOException, TranslateException, ImageReadException, ModelException {
 
@@ -189,7 +189,7 @@ public class CsvDownloader {
 
     }
 
-    @Scheduled(every = "1000s") //100s are only for test purpose, it should be reloaded once a day in reality
+    @Scheduled(every = "1500s") //100s are only for test purpose, it should be reloaded once a day in reality
     @Transactional
     public void csv() throws IOException, NoSuchAlgorithmException {
         System.out.println("Downloading CSV...");
@@ -201,7 +201,7 @@ public class CsvDownloader {
         //toCSV(toImport);
     }
 
-    @Scheduled(every = "1s", delayed = "100s")
+    @Scheduled(every = "3s", delayed = "120s")
     @Transactional
     public void cleaner() throws IOException, NoSuchAlgorithmException {
         CheckSum currentCheckSum = fetchCSV();
