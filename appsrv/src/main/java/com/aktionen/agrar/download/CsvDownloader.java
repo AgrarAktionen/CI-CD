@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class CsvDownloader {
     //final String FILEURI = "file.csv";
 
     List<Item> items = new LinkedList<>();
-    List<Price> prices = new LinkedList<>();
+    //List<Price> prices = new LinkedList<>();
     List<PredictedItem> predictedItems = new LinkedList<>();
     byte[] BYTES;
 
@@ -107,7 +108,6 @@ public class CsvDownloader {
         //        "\"Lattenhammer mit Fiberglasstiel\";\"Erba\";\"FA39\";\"Werkzeuge Maschinen>Handwerkzeug>Zangen,Zwingen,Schlagwerkzeug>Schlagwerkzeuge, Feilen>Hämmer\";\"Praktischer Hammer mit starkem Magnet und Topp-Verarbeitung.\";https://www.faie.at/media/image/22/df/16/art_pro_fo_bd_39_v2_200x200.jpg;\"https://www.faie.at/werkzeuge-maschinen/handwerkzeug/zangen-zwingen-schlagwerkzeug/schlagwerkzeuge-feilen/haemmer/5000039/lattenhammer-mit-fiberglasstiel\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);8,49;9,99;\"9003324340655\"; 9,95;\n";
 
        // InputStream inputStream = new ByteArrayInputStream(s.getBytes());
-
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
 
         //FileInputStream fis = new FileInputStream("changefile.csv");
@@ -171,12 +171,12 @@ public class CsvDownloader {
 
 
 
-    @Scheduled(every = "5s", delayed = "120s")
+    @Scheduled(every = "2s", delayed = "100s") //120s
     @Transactional
     public void process() throws IOException, TranslateException, ImageReadException, ModelException {
 
         Item item = firstItemElement();
-        Price price = firstPriceElement();
+        //Price price = firstPriceElement();
         PredictedItem predictedItem = firstPredictedItem();
         itemDao.insert(item, "Faie");
         //priceDao.insertAll(price, item);
@@ -197,33 +197,58 @@ public class CsvDownloader {
         //downloadCSV();
         CheckSum currentCheckSum = fetchCSV();
         BYTES = checkSumDao.insertCheckSum(currentCheckSum);
+
         //toCSV(toImport);
-
     }
-/*
-    private void downloadCSV() throws IOException {
 
+    @Scheduled(every = "1s", delayed = "100s")
+    @Transactional
+    public void cleaner() throws IOException, NoSuchAlgorithmException {
+        CheckSum currentCheckSum = fetchCSV();
+        //if(checkSumDao.checkIfCheckSumExists(currentCheckSum.getCheckSum()) == true){
+            Timestamp timestamp = checkSumDao.ifTrue();
+            System.out.println(timestamp.toString());
+            itemDao.setToNotInserted(timestamp);
+            /*
+        }else {
+            System.out.println("nothing changed!");
+        }
+
+             */
+    }
+
+
+
+    private void downloadCSV() throws IOException {
+/*
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
         FileOutputStream fileOS = new FileOutputStream("changefile.csv");
         IOUtils.copy(inputStream, fileOS);
 
 
+
+
+
+
         FileOutputStream fileOS = new FileOutputStream("changefile.csv");
         String s = "Artikelbezeichnung;Hersteller;Artikelnummer;Kategoriepfad;Beschreibungsfeld;Bild-Link;Deeplink;Verfuegbarkeit;Bruttopreis;Stattpreis;EAN;Versandkosten;\n" +
                 "\"Jausenbrettl, 6-tlg.\";\"keine Angabe\";\"FA15\";\"Haushalt, Gesundheit>Haushalt>Zu Tisch>Bretter\";\"Ahorn, 12x23 cm\";https://www.faie.at/media/image/10/2b/10/art_pro_fo_ia_15_200x200.jpg;\"https://www.faie.at/haushalt-gesundheit/haushalt/zu-tisch/bretter/5000015/jausenbrettl-6-tlg.\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);11,91;12,95;\"9002532994148\"; 9,95;\n" +
-                "\"Lattenhammer mit Fiberglasstiel\";\"Erba\";\"FA39\";\"Werkzeuge Maschinen>Handwerkzeug>Zangen,Zwingen,Schlagwerkzeug>Schlagwerkzeuge, Feilen>Hämmer\";\"Praktischer Hammer mit starkem Magnet und Topp-Verarbeitung.\";https://www.faie.at/media/image/22/df/16/art_pro_fo_bd_39_v2_200x200.jpg;\"https://www.faie.at/werkzeuge-maschinen/handwerkzeug/zangen-zwingen-schlagwerkzeug/schlagwerkzeuge-feilen/haemmer/5000039/lattenhammer-mit-fiberglasstiel\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);8,49;9,99;\"9003324340655\"; 9,95;\n";
+                "\"Lattenhammer mit Fiberglasstiel\";\"Erba\";\"FA39\";\"Werkzeuge Maschinen>Handwerkzeug>Zangen,Zwingen,Schlagwerkzeug>Schlagwerkzeuge, Feilen>Hämmer\";\"Praktischer Hammer mit starkem Magnet und Topp-Verarbeitung.\";https://www.faie.at/media/image/22/df/16/art_pro_fo_bd_39_v2_200x200.jpg;\"https://www.faie.at/werkzeuge-maschinen/handwerkzeug/zangen-zwingen-schlagwerkzeug/schlagwerkzeuge-feilen/haemmer/5000039/lattenhammer-mit-fiberglasstiel\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);8,49;9,99;\"9003324340655\"; 9,95;\n\"Motorsäge Stihl MS 170 30 cm\";\"Stihl\";\"FA11555\";\"Forst>Kettensägen>Stihl Kettensägen>Stihl Kettensägen Benzin\";\"Kleine Einsteiger-Benzinmotorsäge mit STIHL 2-MIX-Motor. Sehr gut zum Brennholzsägen, zum Bauen mit Holz und gut zum Fällen von Bäumen bis 30 cm Durchmesser (Schwertlänge 30cm). Einfache Bedienung dank Kombihebel, umweltfreundlicher und sparsamer 2-MIX-Motor, automatisches Kettenschmiersystem STIHL Ematic zur optimalen Schmierung der Kette.\";https://www.faie.at/media/image/74/c5/4b/art_pro_fo_ca_11555_200x200.jpg;\"https://www.faie.at/forst/kettensaegen/stihl-kettensaegen/stihl-kettensaegen-benzin/5011555/motorsaege-stihl-ms-170-30-cm\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);209,90;239,00;\"\"; 0;\n" +
+                "\"Motorsäge Stihl MS 251 40 cm\";\"Stihl\";\"FA11557\";\"Forst>Kettensägen>Stihl Kettensägen>Stihl Kettensägen Benzin\";\"Starke und kompakte 2,2 kW / 3,0 PS Motorsäge. Bis zu 20% weniger Kraftstoffverbrauch und bis zu 70% Abgasreduzierung im Vergleich zu leistungsgleichen Zweitaktmotoren ohne 2-Mix-Technologie. Mit STIHL Ematic-System - mit förderreduzierter Ölpumpe. Mit optimalem Führungsverhalten und einfacher Handhabung. Standardausführung mit: seitliche Kettenspannung Langzeit - Luftfiltersystem werkzeuglose Tankverschlüsse Ideal für die Brennholzernte im Wald.\";https://www.faie.at/media/image/66/d8/2d/art_pro_fo_ca_11557_200x200.jpg;\"https://www.faie.at/forst/kettensaegen/stihl-kettensaegen/stihl-kettensaegen-benzin/5011557/motorsaege-stihl-ms-251-40-cm\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);599,00;629,00;\"\"; 0;\n";
 
         InputStream inputStream = new ByteArrayInputStream(s.getBytes());
         IOUtils.copy(inputStream, fileOS);
 
 
+ */
+
     }
 
- */
+
 
     private void deleteFirstElement() {
         items.remove(0);
-        prices.remove(0);
+        //prices.remove(0);
     }
 
     private Item firstItemElement() throws FileNotFoundException {
@@ -234,7 +259,7 @@ public class CsvDownloader {
 
         return item;
     }
-
+/*
     private Price firstPriceElement() throws FileNotFoundException {
         if(prices.isEmpty()) {
             prices = createPriceList();
@@ -242,6 +267,8 @@ public class CsvDownloader {
         Price price = prices.get(0);
         return price;
     }
+
+ */
 
     private PredictedItem firstPredictedItem() throws FileNotFoundException {
         if(predictedItems.isEmpty()){

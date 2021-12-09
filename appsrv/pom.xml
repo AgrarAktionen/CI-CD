@@ -190,6 +190,16 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-multipart</artifactId>
     </dependency>
+    <dependency>
+      <groupId>net.sf.scannotation</groupId>
+      <artifactId>scannotation</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-jaxrs</artifactId>
+      <version>2.3.1.GA</version>
+    </dependency>
   </dependencies>
 
   <build>

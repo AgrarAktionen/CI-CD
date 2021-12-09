@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Agrar Aktionen</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 10%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Änderung
+        </th>
+        <th>
+            Check Summe
+        </th>
+        <th>
+            Zeitstempel
+        </th>
+        <th>
+            CSV Datei
+        </th>
+
+
+    </tr>
+    {#for checkSum in checkSums}
+    <tr>
+        <td><a href="http://localhost:8080/api/checksum/csv/{checkSum.id}">{checkSum.id}</a></td>
+        <td>{checkSum.changed}</td>
+        <td>{checkSum.checkSum}</td>
+        <td>{checkSum.timestamp}</td>
+        <td><img src="{checkSum.csvFile}" alt="alternativer_text" /></a></td>
+    </tr>
+    {/for}
+
+</table>
+</body>
+</html>

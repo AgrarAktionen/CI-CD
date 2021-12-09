@@ -34,12 +34,15 @@ public class SimilarItemDao {
 
                 for (PredictedItem predictedItem : predictedItemList) {
                     if (predictedItem.getProbability() >= PROBABILITY) { //Minimal Probability
-
-                        Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId", Item.class)
-                                .setParameter("predictedItemId", predictedItem.getPredictedItemPk().getItemId())
-                                .getSingleResult();
-                        itemList.add(item);
-                        System.out.println(itemList);
+                        if(predictedItem.getPredictedItemPk().getItemId() == 0 ){
+                            System.out.println("No similar Items found");
+                        }else {
+                            Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId", Item.class)
+                                    .setParameter("predictedItemId", predictedItem.getPredictedItemPk().getItemId())
+                                    .getSingleResult();
+                            itemList.add(item);
+                            System.out.println(itemList);
+                        }
                     }
                 }
                 //Now the image get set to false. IDEA BEHIND:  to be able to get the similarity result of the image just once,
@@ -67,12 +70,15 @@ public class SimilarItemDao {
 
                 for (PredictedItem predictedItem : predictedItemList) {
                     if (predictedItem.getProbability() >= PROBABILITY) { //Minimal Probability
-
-                        Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId", Item.class)
-                                .setParameter("predictedItemId", predictedItem.getPredictedItemPk().getItemId())
-                                .getSingleResult();
-                        itemList.add(item);
-                        System.out.println(itemList);
+                        if(predictedItem.getPredictedItemPk().getItemId() == 0 ){
+                            System.out.println("No similar Items found");
+                        }else {
+                            Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId", Item.class)
+                                    .setParameter("predictedItemId", predictedItem.getPredictedItemPk().getItemId())
+                                    .getSingleResult();
+                            itemList.add(item);
+                            System.out.println(itemList);
+                        }
                     }
                 }
                 //Now the image get set to false. IDEA BEHIND:  to be able to get the similarity result of the image just once,

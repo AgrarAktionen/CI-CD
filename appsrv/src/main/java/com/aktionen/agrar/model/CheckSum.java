@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class CheckSum {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private int id;
     private String checkSum;
     private Timestamp timestamp;

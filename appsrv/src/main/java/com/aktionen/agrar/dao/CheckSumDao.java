@@ -1,6 +1,7 @@
 package com.aktionen.agrar.dao;
 
 import com.aktionen.agrar.model.CheckSum;
+import com.aktionen.agrar.model.Item;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -17,6 +18,38 @@ public class CheckSumDao {
     @Inject
     EntityManager em;
 
+    public boolean checkIfCheckSumExists(String checkSum){
+        boolean checked;
+        List<CheckSum> checkSumList = em.createQuery("select c from CheckSum c where c.checkSum = :check", CheckSum.class)
+                .setParameter("check", checkSum)
+                .getResultList();
+
+        if(checkSumList.isEmpty()){
+            checked = false;
+        }else {
+            checked = true;
+        }
+
+        return checked;
+    }
+
+    public Timestamp ifTrue(){
+        Timestamp timestamp;
+
+        CheckSum checkSum = em.createQuery("select c from CheckSum c where c.changed = :check", CheckSum.class)
+                .setParameter("check", true)
+                .getSingleResult();
+
+        if(checkSum == null){
+            timestamp = null;
+        }else {
+            timestamp = checkSum.getTimestamp();
+        }
+
+        return timestamp;
+    }
+
+
     public byte[] insertCheckSum(CheckSum checkSum){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         checkSum.setTimestamp(timestamp);
@@ -24,6 +57,8 @@ public class CheckSumDao {
         List<CheckSum> checkSumList = em.createQuery("select c from CheckSum c where c.checkSum = :check", CheckSum.class)
                 .setParameter("check", checkSum.getCheckSum())
                 .getResultList();
+
+        List<CheckSum> existingCheckSumList = em.createQuery("select c from CheckSum c", CheckSum.class).getResultList();
 
 
         Set<CheckSum> checkSumSet = new HashSet<>(checkSumList);
@@ -48,12 +83,38 @@ public class CheckSumDao {
                 }
             }
         }
+        //---------------------------------------//
+        for(CheckSum existingOnes: existingCheckSumList){
+            existingOnes.setChanged(false);
+            em.merge(existingOnes);
+            em.flush();
+        }
+        //---------------------------------------//
         checkSum.setChanged(true);
         checkSum.setCsvFile(checkSum.getCsvFile());
         em.persist(checkSum);
         em.flush();
 
         return  checkSum.getCsvFile();
+    }
+
+    public List<CheckSum> getAll() {
+        return em.createQuery("select cs from CheckSum cs ", CheckSum.class).getResultList();
+    }
+
+    public CheckSum get(int id) {
+        return em.find(CheckSum.class, id);
+
+    }
+    public CheckSum getFileById(int id) {
+        return em.createQuery("select cs from CheckSum cs where cs.id = :id", CheckSum.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
+    }
+
+    public void delete(CheckSum checkSum) {
+        em.remove(checkSum);
     }
 
     /*

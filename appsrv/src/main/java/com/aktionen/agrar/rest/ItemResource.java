@@ -31,6 +31,12 @@ public class ItemResource {
         return itemDao.getAll();
     }
 
+    @GET
+    @Path("/inserted")
+    public List<Item> getAllInserted() {
+        return itemDao.getAllInserted();
+    }
+
     @Path("/{id:[0-9]+}")
     @GET
     public Item getItem(@PathParam("id") int id) {
