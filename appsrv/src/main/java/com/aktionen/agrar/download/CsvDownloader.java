@@ -171,7 +171,7 @@ public class CsvDownloader {
 
 
 
-    @Scheduled(every = "4s", delayed = "120s") //120s
+    @Scheduled(every = "5s", delayed = "120s") //120s
     @Transactional
     public void process() throws IOException, TranslateException, ImageReadException, ModelException {
 
@@ -201,14 +201,19 @@ public class CsvDownloader {
         //toCSV(toImport);
     }
 
-    @Scheduled(every = "3s", delayed = "120s")
+    @Scheduled(every = "5s", delayed = "120s")
     @Transactional
     public void cleaner() throws IOException, NoSuchAlgorithmException {
         CheckSum currentCheckSum = fetchCSV();
         //if(checkSumDao.checkIfCheckSumExists(currentCheckSum.getCheckSum()) == true){
+        try{
             Timestamp timestamp = checkSumDao.ifTrue();
             System.out.println(timestamp.toString());
             itemDao.setToNotInserted(timestamp);
+        }catch (Exception e){
+            System.err.println(e.toString());
+        }
+
             /*
         }else {
             System.out.println("nothing changed!");
@@ -218,14 +223,12 @@ public class CsvDownloader {
     }
 
 
-
+        /*
     private void downloadCSV() throws IOException {
-/*
+
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
         FileOutputStream fileOS = new FileOutputStream("changefile.csv");
         IOUtils.copy(inputStream, fileOS);
-
-
 
 
 
@@ -238,13 +241,9 @@ public class CsvDownloader {
 
         InputStream inputStream = new ByteArrayInputStream(s.getBytes());
         IOUtils.copy(inputStream, fileOS);
-
-
- */
-
     }
 
-
+ */
 
     private void deleteFirstElement() {
         items.remove(0);
