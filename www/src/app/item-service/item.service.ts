@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http'
 import {Item} from '../interface/item/item';
 
 const URL = "http://localhost:8080/api/item"
-const URLAPI = "https://student.cloud.htl-leonding.ac.at/20170033/api/item"
+const URLAPI = "https://student.cloud.htl-leonding.ac.at/20170033/api/item/inserted"
 
 @Injectable({
   providedIn: 'root'
