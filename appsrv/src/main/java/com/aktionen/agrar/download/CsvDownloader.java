@@ -172,7 +172,7 @@ public class CsvDownloader {
 
 
 
-    @Scheduled(every = "2s", delayed = "60s") //120s
+    @Scheduled(every = "4s", delayed = "120s") //120s
     @Transactional
     public void process() throws IOException, TranslateException, ImageReadException, ModelException {
 
@@ -204,7 +204,7 @@ public class CsvDownloader {
         BYTES = checkSumDao.insertCheckSum(currentCheckSum);
     }
 
-    @Scheduled(every = "100s", delayed = "60s")
+    @Scheduled(every = "100s", delayed = "120s")
     @Transactional
     public void cleaner() throws IOException, NoSuchAlgorithmException {
         CheckSum currentCheckSum = fetchCSV();
