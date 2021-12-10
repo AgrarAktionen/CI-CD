@@ -172,26 +172,30 @@ public class CsvDownloader {
 
 
 
-    @Scheduled(every = "2s", delayed = "60s") //120s
+    @Scheduled(every = "4s", delayed = "120s") //120s
     @Transactional
     public void process() throws IOException, TranslateException, ImageReadException, ModelException {
 
         Item item = firstItemElement();
         //Price price = firstPriceElement();
         PredictedItem predictedItem = firstPredictedItem();
-        try {
-            itemDao.insert(item, "Faie");
-            //priceDao.insertAll(price, item);
-            predectionDao.insertAll(predictedItem, item);
-            item.setPrimeCategory(categoriesDao.selectPrime(item));
-            item.setSecondCategory(categoriesDao.selectSecond(item));
-            item.setThirdCategory(categoriesDao.selectThird(item));
-            item.setFourthCategory(categoriesDao.selectFourth(item));
-            deleteFirstElement();
-        }catch (Exception e){
-            System.err.println("Failed insert because: "+ e.toString());
-        }
+        if(item.equals(null)){
+            System.out.println("Waiting for new Items to insert");
+        }else {
+            try {
+                itemDao.insert(item, "Faie");
+                //priceDao.insertAll(price, item);
+                predectionDao.insertAll(predictedItem, item);
+                item.setPrimeCategory(categoriesDao.selectPrime(item));
+                item.setSecondCategory(categoriesDao.selectSecond(item));
+                item.setThirdCategory(categoriesDao.selectThird(item));
+                item.setFourthCategory(categoriesDao.selectFourth(item));
+                deleteFirstElement();
+            } catch (Exception e) {
+                System.err.println("Failed insert because: " + e.toString());
+            }
 
+        }
 
     }
 
@@ -204,7 +208,7 @@ public class CsvDownloader {
         BYTES = checkSumDao.insertCheckSum(currentCheckSum);
     }
 
-    @Scheduled(every = "100s", delayed = "60s")
+    @Scheduled(every = "100s", delayed = "120s")
     @Transactional
     public void cleaner() throws IOException, NoSuchAlgorithmException {
         CheckSum currentCheckSum = fetchCSV();
@@ -219,12 +223,14 @@ public class CsvDownloader {
     }
 
 
-        /*
+/*
     private void downloadCSV() throws IOException {
 
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
         FileOutputStream fileOS = new FileOutputStream("changefile.csv");
         IOUtils.copy(inputStream, fileOS);
+
+
 
 
 
@@ -239,7 +245,8 @@ public class CsvDownloader {
         IOUtils.copy(inputStream, fileOS);
     }
 
- */
+*/
+
 
     private void deleteFirstElement() {
         items.remove(0);
@@ -247,10 +254,13 @@ public class CsvDownloader {
     }
 
     private Item firstItemElement() throws FileNotFoundException {
+        Item item = new Item();
+
         if(items.isEmpty()) {
             items = createItemList();
+        }else {
+            item = items.get(0);
         }
-        Item item = items.get(0);
 
         return item;
     }
@@ -266,10 +276,13 @@ public class CsvDownloader {
  */
 
     private PredictedItem firstPredictedItem() throws FileNotFoundException {
+        PredictedItem predictedItem = new PredictedItem();
         if(predictedItems.isEmpty()){
             predictedItems = predictedItemList();
+        }else {
+            predictedItem = predictedItems.get(0);
         }
-        PredictedItem predictedItem = predictedItems.get(0);
+
         return predictedItem;
     }
 }
