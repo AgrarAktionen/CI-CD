@@ -23,6 +23,7 @@ import java.util.Map;
 
 
 @Path("/image")
+@Transactional
 public class ImageResource {
 
     @Inject
@@ -76,18 +77,24 @@ public class ImageResource {
                 InputStream inputStream = inputPart.getBody(InputStream.class,null);
 
                 byte [] bytes = IOUtils.toByteArray(inputStream);
-            //write to Database
-            Image image = new Image();
-            image.setBytes(bytes);
-            //Set the usability of the image to true
-            image.setUsable(true);
-            //This image wasn't used ever before
-            image.setAlreadyUsed(false);
-            imageDao.add(image);
-            //com.aktionen.agrar.classification of the uploaded Image
-            List<Image> imageList=imageDao.getAll();
-            imageDao.insertAll(imageList);
-            System.out.println("Directly inserted");
+
+            try{
+                //write to Database
+                Image image = new Image();
+                image.setBytes(bytes);
+                //Set the usability of the image to true
+                image.setUsable(true);
+                //This image wasn't used ever before
+                image.setAlreadyUsed(false);
+                imageDao.add(image);
+                //com.aktionen.agrar.classification of the uploaded Image
+                List<Image> imageList=imageDao.getAll();
+                imageDao.insertAll(imageList);
+                System.out.println("Directly inserted");
+
+            }catch (Exception e){
+                System.err.println("Could not insert uploaded Picture: " + e.toString());
+            }
 
         }
 

@@ -37,7 +37,8 @@ public class SimilarItemDao {
                         if(predictedItem.getPredictedItemPk().getItemId() == 0 ){
                             System.out.println("No similar Items found");
                         }else {
-                            Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId", Item.class)
+                            Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId and i.inserted = :check", Item.class)
+                                    .setParameter("check", true)
                                     .setParameter("predictedItemId", predictedItem.getPredictedItemPk().getItemId())
                                     .getSingleResult();
                             itemList.add(item);
@@ -73,7 +74,8 @@ public class SimilarItemDao {
                         if(predictedItem.getPredictedItemPk().getItemId() == 0 ){
                             System.out.println("No similar Items found");
                         }else {
-                            Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId", Item.class)
+                            Item item = em.createQuery("select i from Item i where i.itemId = :predictedItemId and i.inserted = :check", Item.class)
+                                    .setParameter("check", true)
                                     .setParameter("predictedItemId", predictedItem.getPredictedItemPk().getItemId())
                                     .getSingleResult();
                             itemList.add(item);

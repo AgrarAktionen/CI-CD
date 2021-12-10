@@ -22,15 +22,17 @@ public class SimilarItemResource {
 
     @GET
     @Path("/getAlreadyUsed")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
     public List<Item> getAlreadyUsedOnce(){
         return similarItemDao.getAlreadyUsed();
     }
 
     @GET
-    @Path("/")
+    @Path("/getAll")
     public List<Item> all() {
         return similarItemDao.getAllUseAbleSimilarItems();
     }
+
+
+    //TODO: create a getAllFromUser() function to get just the single uploaded current picture from the logged in account
+
 }

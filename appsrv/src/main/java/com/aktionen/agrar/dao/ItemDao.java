@@ -120,7 +120,12 @@ public class ItemDao {
             item.setApiLink(apiLink);
 
             item.setInserted(true);
-            em.persist(item);
+            try {
+                em.persist(item);
+            }catch (Exception e){
+                System.err.println("Item could not be inserted because of this error: " + e.toString());
+            }
+
             em.flush();
         }
 

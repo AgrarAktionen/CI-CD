@@ -25,7 +25,16 @@
 <table>
     <tr>
         <th>
+            Id
+        </th>
+        <th>
             Artikelbezeichnung
+        </th>
+        <th>
+            Inserted
+        </th>
+        <th>
+            Zeitstempel
         </th>
         <th>
             Hersteller
@@ -52,13 +61,22 @@
             Versandkosten
         </th>
         <th>
-            Inserted
+            Bruttopreis
+        </th>
+        <th>
+            Stattpreis
+        </th>
+        <th>
+            Prozent
         </th>
 
     </tr>
     {#for item in items}
     <tr>
+        <td>{item.itemId}</td>
         <td>{item.artikelbezeichnung}</td>
+        <td>{item.inserted}</td>
+        <td>{item.timestamp}</td>
         <td>{item.hersteller}</td>
         <td>{item.artikelnummer}</td>
         <td>{item.kategoriepfad}</td>
@@ -67,7 +85,9 @@
         <td>{item.deeplink}</td>
         <td>{item.verfuegbarkeit}</td>
         <td>{item.versandkosten}</td>
-        <td>{item.inserted}</td>
+        <td>{item.bruttopreis}</td>
+        <td>{item.stattpreis}</td>
+        <td>{item.percentage}</td>
     </tr>
     {/for}
 

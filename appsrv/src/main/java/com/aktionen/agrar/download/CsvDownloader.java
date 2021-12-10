@@ -31,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @QuarkusMain
+@Transactional
 public class CsvDownloader {
 
     @Inject
@@ -171,41 +172,42 @@ public class CsvDownloader {
 
 
 
-    @Scheduled(every = "5s", delayed = "120s") //120s
+    @Scheduled(every = "2s", delayed = "60s") //120s
     @Transactional
     public void process() throws IOException, TranslateException, ImageReadException, ModelException {
 
         Item item = firstItemElement();
         //Price price = firstPriceElement();
         PredictedItem predictedItem = firstPredictedItem();
-        itemDao.insert(item, "Faie");
-        //priceDao.insertAll(price, item);
-        predectionDao.insertAll(predictedItem, item);
-        item.setPrimeCategory(categoriesDao.selectPrime(item));
-        item.setSecondCategory(categoriesDao.selectSecond(item));
-        item.setThirdCategory(categoriesDao.selectThird(item));
-        item.setFourthCategory(categoriesDao.selectFourth(item));
-        deleteFirstElement();
+        try {
+            itemDao.insert(item, "Faie");
+            //priceDao.insertAll(price, item);
+            predectionDao.insertAll(predictedItem, item);
+            item.setPrimeCategory(categoriesDao.selectPrime(item));
+            item.setSecondCategory(categoriesDao.selectSecond(item));
+            item.setThirdCategory(categoriesDao.selectThird(item));
+            item.setFourthCategory(categoriesDao.selectFourth(item));
+            deleteFirstElement();
+        }catch (Exception e){
+            System.err.println("Failed insert because: "+ e.toString());
+        }
+
 
     }
 
-    @Scheduled(every = "1500s") //100s are only for test purpose, it should be reloaded once a day in reality
+    @Scheduled(every = "1000s") //100s are only for test purpose, it should be reloaded once a day in reality
     @Transactional
     public void csv() throws IOException, NoSuchAlgorithmException {
         System.out.println("Downloading CSV...");
-        //checkSumDao.insertCheckSum(fetchCSV());
         //downloadCSV();
         CheckSum currentCheckSum = fetchCSV();
         BYTES = checkSumDao.insertCheckSum(currentCheckSum);
-
-        //toCSV(toImport);
     }
 
-    @Scheduled(every = "5s", delayed = "120s")
+    @Scheduled(every = "100s", delayed = "60s")
     @Transactional
     public void cleaner() throws IOException, NoSuchAlgorithmException {
         CheckSum currentCheckSum = fetchCSV();
-        //if(checkSumDao.checkIfCheckSumExists(currentCheckSum.getCheckSum()) == true){
         try{
             Timestamp timestamp = checkSumDao.ifTrue();
             System.out.println(timestamp.toString());
@@ -214,12 +216,6 @@ public class CsvDownloader {
             System.err.println(e.toString());
         }
 
-            /*
-        }else {
-            System.out.println("nothing changed!");
-        }
-
-             */
     }
 
 
