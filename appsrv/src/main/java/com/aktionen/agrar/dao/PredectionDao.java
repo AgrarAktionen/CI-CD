@@ -47,6 +47,7 @@ public class PredectionDao {
         final float[] MEAN = {103.939f, 116.779f, 123.68f};
         final float[] STD = {1f, 1f, 1f};
 
+        try{
         if(item.getItemId() == 0){
             System.err.println("Could not find item for prediction!");
         }else {
@@ -119,6 +120,9 @@ public class PredectionDao {
                 predictedItem.setClassname("empty");
                 predictedItem.setProbability(0.0);
             }
+        }
+        }catch (Exception e){
+            System.err.println("Failed to predict item: " + e);
         }
     }
     public List<PredictedItem> getAll() {
