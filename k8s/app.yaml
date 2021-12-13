@@ -64,7 +64,8 @@ spec:
     spec:
       containers:
         - name: appsrv
-          image: registry.cloud.htl-leonding.ac.at/20170033/appsrv
+          image: registry.cloud.htl-leonding.ac.at/20170033/appsrv:0.1.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -189,7 +190,8 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: registry.cloud.htl-leonding.ac.at/20170033/nginx:latest
+          image: registry.cloud.htl-leonding.ac.at/20170033/nginx:0.1.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           resources:
