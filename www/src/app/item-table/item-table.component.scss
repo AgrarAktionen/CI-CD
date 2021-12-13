@@ -102,6 +102,11 @@ select {
   }
   #kategorie tr:hover {background-color: #ddd;}
 
-  body {
-    counter-reset: unset;
+  #preisFilter {
+    float: right;
+    margin: 20px;
+    font-size: 18px;
+  }
+  #preisBis {
+    float: right;
   }

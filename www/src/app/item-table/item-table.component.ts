@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 export class ItemTableComponent implements OnInit {
 
+  itemsGesamt: Item [] = []
   items: Item [] = []
   itemsAnzeige: Item [] = []
   isHere: Boolean = false;
@@ -23,11 +24,18 @@ export class ItemTableComponent implements OnInit {
   p: number = 1;
   seitenzahl: number = 10;
 
+  tempProzent: string = ''
+  tempPreis: string = ''
+
+  istProzentGroesser: number = 1000000
+  istPreisGroesser: number = 1000000
+
   constructor(private itemService: ItemService, private router: Router) { 
     
   }
 
   ngOnInit(): void {
+    this.itemService.getAll().subscribe(itemsGesamt => this.itemsGesamt = itemsGesamt)
     this.itemService.getAll().subscribe(items => this.items = items)
     this.itemService.getAll().subscribe(itemsAnzeige => {
       this.itemsAnzeige = itemsAnzeige
@@ -39,6 +47,87 @@ export class ItemTableComponent implements OnInit {
       });
     })
     this.itemService.getPrimeKategorie().subscribe(kategorien => this.kategorien = kategorien)
+  }
+
+  changepage() {
+    window.scrollTo(0, 0)
+  }
+
+  preisBis(preis: string, prozent: string) {
+    preis = preis.replace('€', '')
+    prozent = prozent.replace('%', '')
+    this.itemsAnzeige = []
+    if(preis != '') {
+      this.itemsGesamt.forEach(element => {
+        this.tempPreis = element.bruttopreis.toString()
+        this.tempPreis = this.tempPreis.replace(',', '.')
+        this.tempProzent = element.percentage.toString()
+
+        if(prozent == '') {  
+          if(Number(this.tempPreis) < Number(preis)) { 
+            this.itemsAnzeige.push(element)
+          }
+        } else {
+          if(Number(this.tempPreis) < Number(preis) && Number(this.tempProzent) < Number(prozent)) { 
+            this.itemsAnzeige.push(element)
+          }
+        }
+      });
+      this.textKürzen()
+      this.items = this.itemsAnzeige
+    } else {
+      if(prozent == '') {
+        this.itemsAnzeige = this.itemsGesamt
+      } else {
+        this.itemsGesamt.forEach(element => {
+          this.tempProzent = element.percentage.toString()
+          if(Number(this.tempProzent) < Number(prozent)) {
+            this.itemsAnzeige.push(element)
+          }
+        })
+      }
+      this.textKürzen()
+    }
+    this.p = 1
+  }
+
+  prozentBis(prozent: string, preis: string) {
+    prozent = prozent.replace('%', '')
+    preis = preis.replace('€', '')
+    this.itemsAnzeige = []
+    if(prozent != '') {
+      this.itemsGesamt.forEach(element => {
+        this.tempPreis = element.bruttopreis.toString()
+        this.tempPreis = this.tempPreis.replace(',', '.')
+        this.tempProzent = element.percentage.toString()
+
+        if(preis == '') {  
+          if(Number(this.tempProzent) < Number(prozent)) { 
+            this.itemsAnzeige.push(element)
+          }
+        } else {
+          if(Number(this.tempPreis) < Number(preis) && Number(this.tempProzent) < Number(prozent)) { 
+            this.itemsAnzeige.push(element)
+          }
+        }
+      });
+      this.textKürzen()
+      this.items = this.itemsAnzeige
+    } else {
+      if(preis == '') {
+        this.itemsAnzeige = this.itemsGesamt
+      } else {
+        this.itemsGesamt.forEach(element => {
+          this.tempPreis = element.bruttopreis.toString()
+          this.tempPreis = this.tempPreis.replace(',', '.')
+          if(Number(this.tempPreis) < Number(preis)) {
+            this.itemsAnzeige.push(element)
+          }
+        })
+      }
+      this.textKürzen()
+    }
+    this.p = 1
   }
 
   seitenanzahl(anzahl: number) {
@@ -92,6 +181,7 @@ export class ItemTableComponent implements OnInit {
       this.kategorieName = '';
       this.kategorieName += "/" + kategorie;
     } 
+    this.p = 1
   }
 
   kategorieZurueck() {
@@ -124,8 +214,13 @@ export class ItemTableComponent implements OnInit {
         this.items = this.itemsAnzeige;
         this.textKürzen()
       })
-      this.itemService.getThirdKategorie(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(kategorien => this.kategorien = kategorien)
+      this.itemService.getThirdKategorie(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(kategorien => {
+        this.kategorien = kategorien
+        
+      })
     }
+    this.p = 1
+    this.textKürzen()
   }
 
   clicked(item: Item) {
@@ -139,21 +234,14 @@ export class ItemTableComponent implements OnInit {
       } else {    
         this.itemsAnzeige = []
         this.items.forEach(item => {
-          if(item.artikelbezeichnung.toLowerCase().includes(begriff.toLowerCase())) { // || item.beschreibungsfeld.includes(begriff)
+          if(item.artikelbezeichnung.toLowerCase().includes(begriff.toLowerCase())) { 
             this.itemsAnzeige.push(item)
           } else {
             this.itemsAnzeige = this.itemsAnzeige.filter(itemsAnzeige => itemsAnzeige.itemId != item.itemId);
           }
         });
       }
-      /*
-      this.itemsAnzeige.forEach(element => {
-        if(element.beschreibungsfeld != "") {  
-          element.beschreibungsfeld = element.beschreibungsfeld.substring(0, 80);
-          element.beschreibungsfeld += "..."
-        }
-      });
-      */
+      this.p = 1
       this.isHere = false;
     }
    
