@@ -7,9 +7,6 @@
     margin-left: 20%;
     border: 0px;
     padding: 8px;
-    border-top: black;
-    border-top: 2px;
-    border-style: solid;
   }
   
   #items tr:hover {background-color: #ddd;}
@@ -24,11 +21,6 @@
   #items tr {
     color: gray;
   }
-  #left {
-    float: left;
-    width: 20%;
-    position: fixed;
-  }
 select {
   font-size: 15px;
 }
@@ -41,6 +33,7 @@ select {
   }
 
   #start {
+    text-align: center;
     height: 300px;
    
   }
@@ -59,7 +52,6 @@ select {
     font-size: 30px;
     border-radius: 10px;
     margin-top: 170px;
-    margin-left: 40%;
   }
   #beschreibung {
    border: 0px; 
@@ -85,28 +77,4 @@ select {
     text-align: right;
     padding-right: 10px;
     text-decoration: line-through;
-  }
-  #kategorie {
-    position: fixed;
-    margin-top: 15%;
-    border: black;
-    border: 5px;
-    border-style:outset;
-  }
-  #kategorie td {
-    padding-top: 5px;
-  }
-  #kategorie td {
-    color: gray;
-    cursor: pointer;
-  }
-  #kategorie tr:hover {background-color: #ddd;}
-
-  #preisFilter {
-    float: right;
-    margin: 20px;
-    font-size: 18px;
-  }
-  #preisBis {
-    float: right;
   }

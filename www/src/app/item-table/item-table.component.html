@@ -3,98 +3,54 @@
 
     </head>
     <body>
-        <div>
-            <div id="left">
-                <table id="kategorie" style="padding: 20px;">
-                    <h2>Kategorien</h2>
-                    <tbody>
-                        <tr *ngFor="let kategorie of kategorien">
-                            <td (click)="clickKategorie(kategorie)">{{kategorie}}</td>
-                        </tr>
-                        <tr>
-                           <td style="text-align: right; color: black;" (click)="kategorieZurueck()">Zurück</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-            </div>
-
-            <div id="start">
-                <input #begriff type="text" placeholder="Suchbegriff" id="searchFeld" (keyup)="suchen(begriff.value)"/>
-            </div>
-            <br><br>
-            
-            <table id="items">
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <select #preis id="preisFilter" (change)="preisBis(preis.value, prozent.value)">
-                                <option></option>
-                                <option>10.00€</option>
-                                <option>50.00€</option>
-                                <option>100.00€</option>
-                                <option>200.00€</option>
-                                <option>500.00€</option>
-                                <option>1000.00€</option>
-                            </select>
-                            <h2 id="preisBis">Preis bis </h2>
-                            <select #prozent id="preisFilter" (change)="prozentBis(prozent.value, preis.value)">
-                                <option></option>
-                                <option>10%</option>
-                                <option>20%</option>
-                                <option>30%</option>
-                                <option>40%</option>
-                                <option>50%</option>
-                                <option>60%</option>
-                                <option>70%</option>
-                                <option>80%</option>
-                                <option>90%</option>
-                                <option>100%</option>
-                            </select>
-                            <h2 id="preisBis">Prozent bis </h2>
-                        </td>
-                    </tr>
-                    <tr *ngFor="let item of itemsAnzeige | paginate: { itemsPerPage: seitenzahl, currentPage: p }" id="items" (click)="clicked(item)">
-                        <td style="width: 200px;"><img src={{item.bildLink}}></td>
-                        <td style="width: 430px;">
-                            <table style="border-color: white;">
-                                <tbody>
-                                    <tr>
-                                        <th>{{item.artikelbezeichnung}}</th>
-                                    </tr>
-                                    <tr>
-                                        <td id="beschreibung" >{{item.beschreibungsfeld}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td id="startPreis"><b>{{item.stattpreis}}€</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td id="rabatt"> <b>- {{item.percentage.toFixed(0)}}% </b> </td>
-                                        <td id="preis"><b>{{item.bruttopreis}}€</b></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table id="items">
-                <tbody>
-                    <tr style="text-align: center;">
-                        <td> <pagination-controls (pageChange)="p = $event" (pageChange)="changepage()" [scrollLeft]="" ></pagination-controls></td>
-                        <td> 
-                        <select #anzahl (change)="seitenanzahl(anzahl.value)">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                        </select>
+        <div id="start">
+            <input #begriff type="text" placeholder="Suchbegriff" id="searchFeld" (keyup)="suchen(begriff.value)"/>
+        </div>
+        <br><br>
+       
+        <table id="items" >
+            <tbody>
+                <tr *ngFor="let item of itemsAnzeige | paginate: { itemsPerPage: seitenzahl, currentPage: p }" id="items" (click)="clicked(item)">
+                    <td style="width: 200px;"><img src={{item.bildLink}}></td>
+                    <td style="width: 430px;">
+                        <table style="border-color: white;">
+                            <tbody>
+                                <tr>
+                                    <th>{{item.artikelbezeichnung}}</th>
+                                </tr>
+                                <tr>
+                                    <td id="beschreibung" >{{item.beschreibungsfeld}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="startPreis" *ngFor="let price of item.prices"><b>{{price.bruttopreis}}€</b></td>
+                                </tr>
+                                <tr>
+                                    <td id="rabatt" *ngFor="let price of item.prices"><b>- {{price.percentage.toFixed(0)}}%</b>  </td>
+                                    <td id="preis" *ngFor="let price of item.prices"><b>{{price.stattpreis}}€</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </td>
-                    </tr> 
-                </tbody>
-            </table>    
-        </div>  
+                    
+                   
+                </tr>
+            </tbody>
+        </table>
+        <table id="items">
+            <tbody>
+                <tr style="text-align: center;">
+                    <td> <pagination-controls (pageChange)="p = $event"></pagination-controls></td>
+                    <td> 
+                    <select #anzahl (change)="seitenanzahl(anzahl.value)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </td>
+                </tr> 
+            </tbody>
+        </table>       
     </body>
    
 </html>
