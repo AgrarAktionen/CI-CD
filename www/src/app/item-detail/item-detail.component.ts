@@ -31,4 +31,9 @@ export class ItemDetailComponent implements OnInit {
     result = Math.round(result);
     return result;
   }
+
+  goToLink(url: string){
+    window.open(url, "_blank");
+  }
+
 }

@@ -11,8 +11,8 @@ export interface Item {
     verfuegbarkeit : string;
     versandkosten : string;
     prices : Price;
-    stattpreis: number;
-    bruttopreis: number;
+    stattpreis: string;
+    bruttopreis: string;
     apiLink: string
 
     percentage: number;

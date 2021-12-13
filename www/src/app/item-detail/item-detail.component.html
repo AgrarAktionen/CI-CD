@@ -1,45 +1,42 @@
 <html>
-    <head>
+<head>
 
-    </head>
-    <body>
-        <div id="start">
-            <br><br>
-            <br><br>
-            <h1>{{item.artikelbezeichnung}}</h1>
-            <br><br>
-        </div>
-            <thead> 
-                    
-            </thead>
-            <tbody>  
-                <table id ="item">
-                    <tr>
-                        <td><img src={{item.bildLink}}></td>
-                        <td>
-                            <p style="font-size: 22px; color:red; font-weight: bold; line-height: 80%;" *ngFor="let price of item.prices">(Heute -{{calc(price.bruttopreis, price.stattpreis)}}% )</p> 
-                            <p style="font-size: 22px;  line-height: 80%;" *ngFor="let price of item.prices">UVP: {{price.stattpreis}} €</p> 
-                            <p style="font-size: 22px; color: green; font-weight: bold; line-height: 80%;" *ngFor="let price of item.prices"> Aktionspreis: {{price.bruttopreis}} €</p>
-                            <ul style="font-size: 10px; margin-top: -15px;"> (zzgl. Versandkosten {{item.versandkosten}} €)</ul>
-                            <form action={{item.deeplink}}> 
-                                <button class=button type="submit"><span>Zum Shop</span></button> 
-                               </form>
-                        </td>
-                    </tr>
-                </table>
-                <div id="description">
-                    <h1>Artikeldaten</h1>
-                            <ul>
-                                <li>Hersteller: {{item.hersteller}}</li>
-                                <li>Artikelnummer: {{item.artikelnummer}}</li>
-                                <li>Ean: {{item.ean}}</li> 
-                                <li>{{item.verfuegbarkeit}}</li>
-                                
-                            </ul>
-                    <h1>Beschreibung</h1>
-                    <p>{{item.beschreibungsfeld}}</p>
-                    </div>  
-             
-            </tbody>
-    </body>
+</head>
+<body>
+    <div id="start">
+        <br><br>
+        <br><br>
+        <h1>{{item.artikelbezeichnung}}</h1>
+        <br><br>
+    </div>
+    <table id="item">
+        <tr>
+            <td><img src={{item.bildLink}} style="margin-left: 30%;"></td>
+            <td>
+                <p style="font-size: 22px; color:red; font-weight: bold; line-height: 80%;">(Heute -{{calc(item.bruttopreis, item.stattpreis)}}% )</p>
+                <p id= "stattPreis">UVP:
+                    {{item.stattpreis}} €</p>
+                <p style="font-size: 22px; color: green; font-weight: bold; line-height: 80%;"
+                    > Aktionspreis: {{item.bruttopreis}} €</p>
+                <ul style="font-size: 10px; margin-top: -15px;"> (zzgl. Versandkosten {{item.versandkosten}} €)</ul>       
+                    <button (click)="goToLink(item.deeplink)" class=button type="submit"><span>Zum Shop</span></button>        
+            </td>
+        </tr>
+    </table>
+    <table id="description">
+        <tr>
+        <td>
+        <h1>Artikeldaten</h1>
+        <ul>
+            <li>Hersteller: {{item.hersteller}}</li>
+            <li>Artikelnummer: {{item.artikelnummer}}</li>
+            <li>Ean: {{item.ean}}</li>
+            <li>{{item.verfuegbarkeit}}</li>    
+        </ul>
+        <h1>Beschreibung</h1>
+        <p>{{item.beschreibungsfeld}}</p>
+    </td>
+    </tr>
+    </table>
+</body>
 </html>

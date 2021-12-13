@@ -2,34 +2,22 @@
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 60%;
-    margin-left: 20%;
-  }
-  
-  
-  
-  #item tr{background-color: white;}
-  
-  #item th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-  }
-  .logo {
-    display: block;
     margin-left: auto;
-    width: 10%;
-    height: 10%
+    margin-right: auto;
+   
   }
 
-  
-  #title h1
-  {
-      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-      text-align:end;
+  #item td {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+  }
 
-      color: #ffffff;
+  #description {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin-left: 20%;
+    width:60%;
   }
   
   #start h1 {
@@ -48,26 +36,18 @@
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 60%;
-    margin-left: 20%;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 16px;
   }
 
-  #filter {
-    position: static;
-  }
-
   #description button{
-    margin-left: 20%;
+    margin-left: auto;
+    margin-right: auto;
     width: 100px;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 16px;
 
-  }
-
-  #data h1 {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    margin-left: 650px;
-    font-size: 26px;
   }
 
   #description ul {
@@ -113,6 +93,15 @@
   .button:hover span:after {
     opacity: 1;
     right: 0;
+  }
+
+  #stattPreis {
+    border: 0px;
+    color: black;
+    font-size: 22px;
+   // text-align: right;
+    padding-right: 10px;
+    text-decoration: line-through;
   }
   
   
