@@ -21,12 +21,16 @@ public class CategoriesDao {
     EntityManager em;
 
     public List<Item> selectAll(){
-        List<Item> itemList = em.createQuery("SELECT i from Item i", Item.class).getResultList();
+        List<Item> itemList = em.createQuery("SELECT i from Item i where i.inserted = :check", Item.class)
+                .setParameter("check", true)
+                .getResultList();
         return itemList;
     }
     //____________________________Functions for getting the Categories of the wanted section____________________________//
     public Set<String> getPrimeCategories(){
-        List<Item> itemList = em.createQuery("SELECT i from Item i", Item.class).getResultList();
+        List<Item> itemList = em.createQuery("SELECT i from Item i where i.inserted = :check", Item.class)
+                .setParameter("check", true)
+                .getResultList();
         List<String> categoriesList = new LinkedList<>();
         for(Item item: itemList){
             categoriesList.add(item.getPrimeCategory());
@@ -39,8 +43,9 @@ public class CategoriesDao {
 
     public Set<String> getSecondCategories(String primeCategory){
         primeCategory.replace("%20", " ");
-        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat", Item.class)
+        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.inserted = :check", Item.class)
                 .setParameter("primcat", primeCategory)
+                .setParameter("check", true)
                 .getResultList();
         List<String> categoriesList = new LinkedList<>();
         for(Item item: itemList){
@@ -54,9 +59,10 @@ public class CategoriesDao {
     public Set<String> getThirdCategories(String primeCategory, String secondCategory){
         primeCategory.replace("%20", " ");
         secondCategory.replace("%20", " ");
-        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:seccat", Item.class)
+        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:seccat and i.inserted = :check", Item.class)
                 .setParameter("primcat", primeCategory)
                 .setParameter("seccat", secondCategory)
+                .setParameter("check", true)
                 .getResultList();
         List<String> categoriesList = new LinkedList<>();
         for(Item item: itemList){
@@ -71,10 +77,11 @@ public class CategoriesDao {
         primeCategory.replace("%20", " ");
         secondCategory.replace("%20", " ");
         thirdCategory.replace("%20", " ");
-        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:secocat and i.thirdCategory =:thircat", Item.class)
+        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:secocat and i.thirdCategory =:thircat and i.inserted = :check", Item.class)
                 .setParameter("primcat", primeCategory)
                 .setParameter("secocat", secondCategory)
                 .setParameter("thircat", thirdCategory)
+                .setParameter("check", true)
                 .getResultList();
         List<String> categoriesList = new LinkedList<>();
         for(Item item: itemList){
@@ -92,8 +99,9 @@ public class CategoriesDao {
     //____________________________Functions for getting the Items of the wanted category/categories____________________________//
     public List<Item> getPrime(String primeCategory) {
         primeCategory.replace("%20", " ");
-        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat", Item.class)
+        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.inserted = :check", Item.class)
                 .setParameter("primcat", primeCategory)
+                .setParameter("check", true)
                 .getResultList();
 
         return itemList;
@@ -102,9 +110,10 @@ public class CategoriesDao {
     public List<Item> getSecond(String primeCategory, String secondCategory) {
         primeCategory.replace("%20", " ");
         secondCategory.replace("%20", " ");
-        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:seccat", Item.class)
+        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:seccat and i.inserted = :check", Item.class)
                 .setParameter("primcat", primeCategory)
                 .setParameter("seccat", secondCategory)
+                .setParameter("check", true)
                 .getResultList();
 
         return itemList;
@@ -113,10 +122,11 @@ public class CategoriesDao {
         primeCategory.replace("%20", " ");
         secondCategory.replace("%20", " ");
         thirdCategory.replace("%20", " ");
-        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:secocat and i.thirdCategory =:thircat", Item.class)
+        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:secocat and i.thirdCategory =:thircat and i.inserted = :check", Item.class)
                 .setParameter("primcat", primeCategory)
                 .setParameter("secocat", secondCategory)
                 .setParameter("thircat", thirdCategory)
+                .setParameter("check", true)
                 .getResultList();
 
         return itemList;
@@ -126,11 +136,12 @@ public class CategoriesDao {
         secondCategory.replace("%20", " ");
         thirdCategory.replace("%20", " ");
         fourthCategory.replace("%20", " ");
-        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:secocat and i.thirdCategory =:thircat and i.fourthCategory =:fourcat", Item.class)
+        List<Item> itemList = em.createQuery("select i from Item i where i.primeCategory = :primcat and i.secondCategory =:secocat and i.thirdCategory =:thircat and i.fourthCategory =:fourcat and i.inserted = :check", Item.class)
                 .setParameter("primcat", primeCategory)
                 .setParameter("secocat", secondCategory)
                 .setParameter("thircat", thirdCategory)
                 .setParameter("fourcat", fourthCategory)
+                .setParameter("check", true)
                 .getResultList();
 
         return itemList;
