@@ -84,14 +84,29 @@ public class PredectionDao {
                                         .build();
                     } else {
                         criteria =
+                                /*
                                 Criteria.builder()
+                                .setTypes(Image.class, Classifications.class) // defines input and output data type
+                                .optTranslator(ImageClassificationTranslator.builder().optSynsetArtifactName("synset.txt").build())
+                                .optModelUrls("https://resources.djl.ai/benchmark/squeezenet_v1.1.tar.gz") // search models in specified path
+                                .build();
+
+
+                                 */
+
+
+                                Criteria.builder()
+
                                         .setTypes(Image.class, Classifications.class)
                                         .optArtifactId("resnet")
                                         .optProgress(new ProgressBar())
                                         .build();
+
+
                     }
 
                     try (ZooModel<Image, Classifications> model = ModelZoo.loadModel(criteria);
+                        /*ZooModel<Image, Classifications> model = criteria.loadModel();*/
                          Predictor<Image, Classifications> predictor = model.newPredictor()) {
 
                         Classifications result = predictor.predict(image);

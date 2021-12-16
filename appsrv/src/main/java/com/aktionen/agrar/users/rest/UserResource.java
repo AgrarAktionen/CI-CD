@@ -29,6 +29,7 @@ public class UserResource {
     }
 
     @PUT
+    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(User user) {
         userDao.update(user);
@@ -49,21 +50,16 @@ public class UserResource {
         return userDao.getUserByEmailAndPassword(user);
     }
 
-    /*
+
     @Path("/logout")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<User> logout(String user) {
-        User loggedIn = new User();
-        String userloggedIn = user;
+    public List<User> logout(User user) {
+        User userloggedIn = user;
+
         //loggedIn.setLoggedIn();
-        return userDao.logout(loggedIn);
+        return userDao.logout(userloggedIn);
     }
-
-
-
-     */
-
 
     @DELETE
     @Path("/{id}")
