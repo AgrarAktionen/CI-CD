@@ -109,18 +109,23 @@ public class CsvDownloader {
         //        "\"Lattenhammer mit Fiberglasstiel\";\"Erba\";\"FA39\";\"Werkzeuge Maschinen>Handwerkzeug>Zangen,Zwingen,Schlagwerkzeug>Schlagwerkzeuge, Feilen>Hämmer\";\"Praktischer Hammer mit starkem Magnet und Topp-Verarbeitung.\";https://www.faie.at/media/image/22/df/16/art_pro_fo_bd_39_v2_200x200.jpg;\"https://www.faie.at/werkzeuge-maschinen/handwerkzeug/zangen-zwingen-schlagwerkzeug/schlagwerkzeuge-feilen/haemmer/5000039/lattenhammer-mit-fiberglasstiel\";lagernd (derzeit bis zu 10 Werktage Lieferzeit);8,49;9,99;\"9003324340655\"; 9,95;\n";
 
         // InputStream inputStream = new ByteArrayInputStream(s.getBytes());
+        CheckSum sum = new CheckSum();
+        
+        try {
         InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
 
         //FileInputStream fis = new FileInputStream("changefile.csv");
         byte[] bytes = IOUtils.toByteArray(inputStream);
 
         String checkSum = checkSum(bytes);
-
-        CheckSum sum = new CheckSum();
+            
         sum.setCheckSum(checkSum);
         sum.setChanged(true);
         sum.setCsvFile(bytes);
-
+        inputStream.close();
+        } catch (Exception e) {
+            System.out.println("Error while downloading file: " + e);
+        }
         return sum;
 
     }
