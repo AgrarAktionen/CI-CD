@@ -37,9 +37,10 @@
                                 <option>200.00€</option>
                                 <option>500.00€</option>
                                 <option>1000.00€</option>
+                                <option>10000.00€</option>
                             </select>
                             <h2 id="preisBis">Preis bis </h2>
-                            <select #prozent id="preisFilter" (change)="prozentBis(prozent.value, preis.value)">
+                            <select #prozent id="preisFilter" (change)="prozentAb(prozent.value, preis.value)">
                                 <option></option>
                                 <option>10%</option>
                                 <option>20%</option>
@@ -52,7 +53,7 @@
                                 <option>90%</option>
                                 <option>100%</option>
                             </select>
-                            <h2 id="preisBis">Prozent bis </h2>
+                            <h2 id="preisBis">Prozent ab </h2>
                         </td>
                     </tr>
                     <tr *ngFor="let item of itemsAnzeige | paginate: { itemsPerPage: seitenzahl, currentPage: p }" id="items">

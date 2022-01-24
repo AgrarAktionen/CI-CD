@@ -77,11 +77,11 @@ export class ItemTableComponent implements OnInit {
         this.tempProzent = element.percentage.toString()
 
         if(prozent == '') {  
-          if(Number(this.tempPreis) < Number(preis)) { 
+          if(Number(this.tempPreis) <= Number(preis)) { 
             this.itemsAnzeige.push(element)
           }
         } else {
-          if(Number(this.tempPreis) < Number(preis) && Number(this.tempProzent) < Number(prozent)) { 
+          if(Number(this.tempPreis) <= Number(preis) && Number(this.tempProzent) >= Number(prozent)) { 
             this.itemsAnzeige.push(element)
           }
         }
@@ -94,7 +94,7 @@ export class ItemTableComponent implements OnInit {
       } else {
         this.itemsGesamt.forEach(element => {
           this.tempProzent = element.percentage.toString()
-          if(Number(this.tempProzent) < Number(prozent)) {
+          if(Number(this.tempProzent) >= Number(prozent)) {
             this.itemsAnzeige.push(element)
           }
         })
@@ -105,7 +105,7 @@ export class ItemTableComponent implements OnInit {
     this.p = 1
   }
 
-  prozentBis(prozent: string, preis: string) {
+  prozentAb(prozent: string, preis: string) {
     prozent = prozent.replace('%', '')
     preis = preis.replace('€', '')
     this.itemsAnzeige = []
@@ -116,11 +116,11 @@ export class ItemTableComponent implements OnInit {
         this.tempProzent = element.percentage.toString()
 
         if(preis == '') {  
-          if(Number(this.tempProzent) < Number(prozent)) { 
+          if(Number(this.tempProzent) >= Number(prozent)) { 
             this.itemsAnzeige.push(element)
           }
         } else {
-          if(Number(this.tempPreis) < Number(preis) && Number(this.tempProzent) < Number(prozent)) { 
+          if(Number(this.tempPreis) <= Number(preis) && Number(this.tempProzent) >= Number(prozent)) { 
             this.itemsAnzeige.push(element)
           }
         }
@@ -134,7 +134,7 @@ export class ItemTableComponent implements OnInit {
         this.itemsGesamt.forEach(element => {
           this.tempPreis = element.bruttopreis.toString()
           this.tempPreis = this.tempPreis.replace(',', '.')
-          if(Number(this.tempPreis) < Number(preis)) {
+          if(Number(this.tempPreis) <= Number(preis)) {
             this.itemsAnzeige.push(element)
           }
         })

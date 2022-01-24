@@ -112,17 +112,17 @@ public class CsvDownloader {
         CheckSum sum = new CheckSum();
         
         try {
-        InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
+            InputStream inputStream = new URL("https://www.faie.at/backend/export/index/agraraktionen.csv?feedID=68&hash=1bfdc5718d84ebfd191e9ee6617a7764").openStream();
 
-        //FileInputStream fis = new FileInputStream("changefile.csv");
-        byte[] bytes = IOUtils.toByteArray(inputStream);
+            //FileInputStream fis = new FileInputStream("changefile.csv");
+            byte[] bytes = IOUtils.toByteArray(inputStream);
 
-        String checkSum = checkSum(bytes);
-            
-        sum.setCheckSum(checkSum);
-        sum.setChanged(true);
-        sum.setCsvFile(bytes);
-        inputStream.close();
+            String checkSum = checkSum(bytes);
+                
+            sum.setCheckSum(checkSum);
+            sum.setChanged(true);
+            sum.setCsvFile(bytes);
+            inputStream.close();
         } catch (Exception e) {
             System.out.println("Error while downloading file: " + e);
         }

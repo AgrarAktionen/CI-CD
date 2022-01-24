@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ItemTableComponent } from '../item-table/item-table.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { ItemTableComponent } from '../item-table/item-table.component';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, private itemComponent: ItemTableComponent) { }
+  constructor(private router: Router, private itemComponent: ItemTableComponent, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/user']);
   }
   start() {
-    this.itemComponent.pageReset()
+      
+      this.itemComponent.pageReset()
+      this.router.navigate(['/'])
   }
 }
