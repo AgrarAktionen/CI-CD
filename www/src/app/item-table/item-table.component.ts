@@ -32,6 +32,9 @@ export class ItemTableComponent implements OnInit {
   istProzentGroesser: number = 1000000
   istPreisGroesser: number = 1000000
 
+  indexOf: number = 0
+  kategorienPfadAnzeige: string = ''
+
   constructor(private itemService: ItemService, private router: Router) { 
     
   }
@@ -52,14 +55,18 @@ export class ItemTableComponent implements OnInit {
       this.kategorien = kategorien
       this.kategorieReihenfolge()
     })
+    this.kategoriePfad[0] = ''
+    this.kategoriePfad[1] = ''
+    this.kategoriePfad[2] = ''
+    this.kategoriePfad[3] = ''
   }
 
   kategorieReihenfolge() {
-    this.kategorien.forEach(element => {
-      if(element == 'mehr...') {
-        
-      }
-    });
+    this.indexOf = this.kategorien.indexOf("mehr...")
+    if(this.indexOf != -1) {
+      this.kategorien.splice(this.indexOf, 1)
+      this.kategorien.push("mehr...")
+    }
   }
 
   changepage() {
@@ -171,30 +178,30 @@ export class ItemTableComponent implements OnInit {
       this.kategorieName += kategorie;
     } else if(this.kategorieGrad == 2) {
       this.kategorien = []
-      this.kategoriePfad[1] = "/" + kategorie;
+      this.kategoriePfad[1] = kategorie;
       this.itemsAnzeige = []
-      this.itemService.getKategorieItem(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(itemsAnzeige => {
+      this.itemService.getKategorieItem(this.kategoriePfad[0] + "/" + this.kategoriePfad[1]).subscribe(itemsAnzeige => {
         this.itemsAnzeige = itemsAnzeige
         this.items = this.itemsAnzeige;
         this.textKürzen()
       })
-      this.itemService.getThirdKategorie(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(kategorien => this.kategorien = kategorien)
+      this.itemService.getThirdKategorie(this.kategoriePfad[0] + "/" + this.kategoriePfad[1]).subscribe(kategorien => this.kategorien = kategorien)
       this.kategorieGrad++;
       this.kategorieName = '';
-      this.kategorieName += "/" + kategorie;
+      this.kategorieName += kategorie;
     } else if(this.kategorieGrad == 3) {
       this.kategorien = []
-      this.kategoriePfad[2] = "/" + kategorie;
+      this.kategoriePfad[2] = kategorie;
       this.itemsAnzeige = []
-      this.itemService.getKategorieItem(this.kategoriePfad[0] + this.kategoriePfad[1] + this.kategoriePfad[2]).subscribe(itemsAnzeige => {
+      this.itemService.getKategorieItem(this.kategoriePfad[0] + "/" + this.kategoriePfad[1] + "/" + this.kategoriePfad[2]).subscribe(itemsAnzeige => {
         this.itemsAnzeige = itemsAnzeige
         this.items = this.itemsAnzeige;
         this.textKürzen()
       })
-      this.itemService.getFourthKategorie(this.kategoriePfad[0] + this.kategoriePfad[1] + this.kategoriePfad[2]).subscribe(kategorien => this.kategorien = kategorien)
+      this.itemService.getFourthKategorie(this.kategoriePfad[0] + "/" + this.kategoriePfad[1] + "/" + this.kategoriePfad[2]).subscribe(kategorien => this.kategorien = kategorien)
       this.kategorieGrad++;
       this.kategorieName = '';
-      this.kategorieName += "/" + kategorie;
+      this.kategorieName += kategorie;
     } 
     this.p = 1
   }
@@ -208,7 +215,11 @@ export class ItemTableComponent implements OnInit {
         this.items = this.itemsAnzeige;
         this.textKürzen()
       })
-      this.itemService.getPrimeKategorie().subscribe(kategorien => this.kategorien = kategorien)
+      this.itemService.getPrimeKategorie().subscribe(kategorien => {
+        this.kategorien = kategorien
+        this.kategorieReihenfolge()
+      })
+      this.kategoriePfad[0] = ''
       this.kategorieGrad--;
     } else if(this.kategorieGrad == 3) {
       this.kategorien = []
@@ -218,20 +229,22 @@ export class ItemTableComponent implements OnInit {
         this.items = this.itemsAnzeige;
         this.textKürzen()
       })
+      this.kategoriePfad[1] = ''
       this.kategorieGrad--;
       this.itemService.getSecondKategorie(this.kategoriePfad[0]).subscribe(kategorien => this.kategorien = kategorien)
     } else if(this.kategorieGrad == 4) {
       this.kategorien = []
       this.kategorieGrad--;
       this.itemsAnzeige = []
-      this.itemService.getKategorieItem(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(itemsAnzeige => {
+      this.itemService.getKategorieItem(this.kategoriePfad[0] + "/" + this.kategoriePfad[1]).subscribe(itemsAnzeige => {
         this.itemsAnzeige = itemsAnzeige
         this.items = this.itemsAnzeige;
         this.textKürzen()
       })
-      this.itemService.getThirdKategorie(this.kategoriePfad[0] + this.kategoriePfad[1]).subscribe(kategorien => {
+      this.itemService.getThirdKategorie(this.kategoriePfad[0] + "/" + this.kategoriePfad[1]).subscribe(kategorien => {
         this.kategorien = kategorien
       })
+      this.kategoriePfad[2] = ''
     }
     this.p = 1
     this.textKürzen()
@@ -259,7 +272,8 @@ export class ItemTableComponent implements OnInit {
       this.isHere = false;
     }
   } 
+  
   pageReset() {
-    location.reload()
+    location.replace("/")
   }
 }

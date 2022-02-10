@@ -1,9 +1,11 @@
 #title {
     height: 80px;
-    width: 100%;
+    width: 102%;
     position:fixed;
     top: 5px;
     background-color: rgba(0, 0, 0, 0.37);
+    margin-left: -18px;
+    margin-top: -10px;
   }
   #title h1
   {
@@ -16,6 +18,7 @@
   }
   #logo {
     width: 180px;
+    margin-left: 15px;
   }
   #titleTable {
     width: 100%;

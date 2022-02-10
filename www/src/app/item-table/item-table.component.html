@@ -6,9 +6,9 @@
         <div>
             <div id="left">
                 <table id="kategorie" style="padding: 20px;">
-                    <h2>Kategorien</h2>
+                    <h1>Kategorien</h1>
                     <tbody>
-                        <tr *ngFor="let kategorie of kategorien">
+                        <tr *ngFor="let kategorie of kategorien" style="font-size: 20px;"> 
                             <td (click)="clickKategorie(kategorie)">{{kategorie}}</td>
                         </tr>
                         <tr>
@@ -24,6 +24,17 @@
             </div>
             <br><br>
             
+            <table id="kategoriePfad">
+                <tbody>
+                    <tr>
+                        <td *ngIf="kategoriePfad[0] != ''">{{kategoriePfad[0]}} / </td>
+                        <td *ngIf="kategoriePfad[1] != ''">{{kategoriePfad[1]}} / </td>
+                        <td *ngIf="kategoriePfad[2] != ''">{{kategoriePfad[2]}} / </td>
+                        <td *ngIf="kategoriePfad[3] != ''">{{kategoriePfad[3]}} / </td>
+                    </tr>
+                </tbody>
+            </table>
+
             <table id="items">
                 <tbody>
                     <tr>
@@ -99,6 +110,21 @@
                 </tbody>
             </table>    
         </div>  
+        
+        <br><br>
+        
+        <div id="impressum">
+            <h1 style="color: rgba(0, 0, 0, 0.315); text-decoration: underline;">Impressum</h1>
+
+            <table style="margin-left: auto; margin-right: auto; color: black;">
+                    <tr>zukunft.farm eG - Die bäuerliche Innovationsgenossenschaft</tr>
+                    <tr>Löwelstraße 14</tr>
+                    <tr>1010 Wien</tr>
+                    <tr>kontakt@zukunft.farm</tr>
+                    <tr>Firmenbuchnummer: FN 556439 v</tr>
+            </table>
+        </div>
+
     </body>
    
 </html>

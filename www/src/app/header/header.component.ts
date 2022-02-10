@@ -15,11 +15,9 @@ export class HeaderComponent implements OnInit {
   }
 
   click() {
-    this.router.navigate(['/user']);
+    //this.router.navigate(['/user']);
   }
   start() {
-      
       this.itemComponent.pageReset()
-      this.router.navigate(['/'])
   }
 }

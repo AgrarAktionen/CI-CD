@@ -1,4 +1,11 @@
-
+#kategoriePfad {
+  margin-left: 20%;
+  color: rgba(0, 0, 0, 0.555);
+  text-align: left;
+}
+#kategoriePfad tr { 
+  width: auto;
+}
 
 #items {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -42,7 +49,7 @@ select {
 
   #start {
     height: 300px;
-   
+
   }
   #start h1 {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -87,11 +94,11 @@ select {
     text-decoration: line-through;
   }
   #kategorie {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     position: fixed;
-    margin-top: 15%;
+    margin-top: 14%;
     border: black;
-    border: 5px;
-    border-style:outset;
+
   }
   #kategorie td {
     padding-top: 5px;
@@ -112,4 +119,15 @@ select {
   }
   #link {
     color: gray;
+  }
+
+
+  #impressum {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    background-color: grey;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    margin-left: -18px;
+    width: auto;
   }
