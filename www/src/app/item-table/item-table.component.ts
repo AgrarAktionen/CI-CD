@@ -2,6 +2,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { Item } from '../interface/item/item';
 import { ItemService } from '../item-service/item.service';
 import { Router } from '@angular/router';
+import { Page } from '../page/item-table.component';
 
 
 @Component({
@@ -35,11 +36,12 @@ export class ItemTableComponent implements OnInit {
   indexOf: number = 0
   kategorienPfadAnzeige: string = ''
 
-  constructor(private itemService: ItemService, private router: Router) { 
+  constructor(private itemService: ItemService, private router: Router, private page: Page) { 
     
   }
 
   ngOnInit(): void {
+    this.p = this.page.p
     this.itemService.getAll().subscribe(itemsGesamt => this.itemsGesamt = itemsGesamt)
     this.itemService.getAll().subscribe(items => this.items = items)
     this.itemService.getAll().subscribe(itemsAnzeige => {
@@ -69,8 +71,10 @@ export class ItemTableComponent implements OnInit {
     }
   }
 
-  changepage() {
+  changepage(event: Event) {
     window.scrollTo(0, 0)
+
+    this.page.p = Number(event)
   }
 
   preisBis(preis: string, prozent: string) {

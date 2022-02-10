@@ -98,7 +98,7 @@
             <table id="items">
                 <tbody>
                     <tr style="text-align: center;">
-                        <td> <pagination-controls (pageChange)="p = $event" (pageChange)="changepage()" [scrollLeft]="" ></pagination-controls></td>
+                        <td> <pagination-controls (pageChange)="p = $event" (pageChange)="changepage($event)" [scrollLeft]="" nextLabel="Nächste Seite" previousLabel="Vorherige Seite" ></pagination-controls></td>
                         <td> 
                         <select #anzahl (change)="seitenanzahl(anzahl.value)">
                             <option value="10">10</option>
