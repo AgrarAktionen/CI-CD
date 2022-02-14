@@ -278,6 +278,6 @@ export class ItemTableComponent implements OnInit {
   } 
   
   pageReset() {
-    location.replace("/")
+    location.replace("/20170033/")
   }
 }
